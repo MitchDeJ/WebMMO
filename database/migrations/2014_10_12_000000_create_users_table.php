@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('description');
             $table->string('avatar')->default('default.png');
             $table->string('location');
-            $table->string('account_create_at');
+            $table->string('account_created_at');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken(); // 'remember me' function
