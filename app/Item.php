@@ -16,4 +16,26 @@ class Item extends Model
     protected $fillable = [
         'name', 'description', 'icon'
     ];
+
+    public function getName($id) {
+        $item = Item::where('id', $id)->get()->first();
+        $name = $item->name;
+        return $name;
+    }
+
+    public function getDescription($id) {
+        $item = Item::where('id', $id)->get()->first();
+        $desc = $item->description;
+        return $desc;
+    }
+
+    public function getIconPath($id) {
+        $item = Item::where('id', $id)->get()->first();
+        $icon = $item->icon;
+        return "/img/items/".$icon.'.png';
+    }
+
+    public function getItemCount() {
+        return Item::count();
+    }
 }

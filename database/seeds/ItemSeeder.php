@@ -18,6 +18,9 @@ class ItemSeeder extends Seeder
         switch ($itemId) {
             case 1:
                 return array('Example item', 'This is an example item.', 'example');
+            case 2:
+                return array('Another example', 'This is another example item.', 'example');
+
 
             default:
                 return -1;
