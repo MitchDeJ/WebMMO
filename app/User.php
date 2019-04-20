@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public $timestamps = false; //add this when we dont need the timestamps in our database
+
     /**
      * The attributes that are mass assignable.
      *
