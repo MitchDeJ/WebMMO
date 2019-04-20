@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.nl',
             'email_verified_at' => now(),
             'description' => 'kanker binkie',
-            'location' => 'basic fit',
+            'area_id' => 1,
             'account_created_at' => now(),
             'password' => bcrypt("admin"),
             'remember_token' => Str::random(10),
