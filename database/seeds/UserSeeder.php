@@ -23,5 +23,11 @@ class UserSeeder extends Seeder
             'password' => bcrypt("admin"),
             'remember_token' => Str::random(10),
         ]);
+
+        DB::table('user_skills')->insert([
+            'player_id' => '1',
+            'skill_id' => '1',
+            'xp_amount' => '123456',
+        ]);
     }
 }

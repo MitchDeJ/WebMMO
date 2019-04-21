@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('description');
@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
                 ->references('id')
                 ->on('areas')
                 ->onDelete('cascade');
+
 
 //            $table->integer('clan_id')->nullable();
 //            $table->foreign('clan_id')
