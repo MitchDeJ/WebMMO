@@ -5,7 +5,8 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
 
-    protected $toTruncate = ['users', 'items', 'areas']; //what tables do we need to truncate (empty) before seeding?
+    //what tables do we need to truncate (empty) before seeding?
+    protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots'];
 
     /**
      * Seed the application's database.
@@ -22,9 +23,10 @@ class DatabaseSeeder extends Seeder
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;'); //enable it again
-
         $this->call(ItemSeeder::class);
+        $this->call(SkillSeeder::class);
         $this->call(AreaSeeder::class);
+        $this->call(SkillSpotSeeder::class);
         $this->call(UserSeeder::class);
     }
 }

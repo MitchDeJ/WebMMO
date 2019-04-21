@@ -29,6 +29,21 @@
                             </tr>
                         @endfor
                     </table>
+                    <br>
+                        <table border="1">
+                            <tr>
+                                <th>ID</th>
+                                <th>Icon</th>
+                                <th>Name</th>
+                            </tr>
+                            @for($i=1; $i <= $skill->getSkillCount(); $i+=1)
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    <td><img src='{{url($skill->getIconPath($i))}}'/></td>
+                                    <td>{{$skill->getName($i)}}</td>
+                                </tr>
+                            @endfor
+                        </table>
                 </div>
             </div>
         </div>
