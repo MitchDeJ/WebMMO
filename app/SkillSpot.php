@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SkillSpot extends Model
 {
     public $timestamps = false; //add this when we dont need the timestamps in our database
+    public $table = 'skillspots';
 
     /**
      * The attributes that are mass assignable.

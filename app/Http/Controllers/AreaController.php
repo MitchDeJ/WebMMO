@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Item;
+use App\Skill;
+use App\SkillSpot;
 
 class AreaController extends Controller
 {
@@ -14,8 +17,12 @@ class AreaController extends Controller
 
     public function index()
     {
+        $loc = Auth::user()->location;
         return view('location', array(
-            'location' => Auth::user()->location
+            'item' => Item::find(1),
+            'skill' => Skill::find(1),
+            'location' => $loc,
+            'skillspots' => SkillSpot::where('area_id', $loc->id)->get()
         ));
     }
 }
