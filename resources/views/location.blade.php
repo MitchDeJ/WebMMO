@@ -13,7 +13,7 @@
                     <div class="row">
                         <!-- CONTENT START -->
                         <table border="1">
-                            <tr></tr>
+                            <tr>
                             <th>Name</th>
                             <th>Skill</th>
                             <th>XP per action</th>
@@ -34,6 +34,19 @@
                                         <button type="submit" class="btn btn-default">Use</button>
                                         {!! Form::close() !!}
                                     </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <br>
+                        <table border="1">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                            @foreach($npcs as $npc)
+                                <tr>
+                                    <td>{{$npc->id}}</td>
+                                    <td>{{$npc->name}}</td>
                                 </tr>
                             @endforeach
                         </table>

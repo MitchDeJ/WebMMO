@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Npc;
 use Illuminate\Http\Request;
 use Auth;
 use App\Item;
@@ -22,7 +23,8 @@ class AreaController extends Controller
             'item' => Item::find(1),
             'skill' => Skill::find(1),
             'location' => $loc,
-            'skillspots' => SkillSpot::where('area_id', $loc->id)->get()
+            'skillspots' => SkillSpot::where('area_id', $loc->id)->get(),
+            'npcs' => Npc::where('area_id', $loc->id)->get()
         ));
     }
 }
