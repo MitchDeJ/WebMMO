@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Skill;
 
 class UserSeeder extends Seeder
 {
@@ -23,11 +24,14 @@ class UserSeeder extends Seeder
             'password' => bcrypt("admin"),
             'remember_token' => Str::random(10),
         ]);
+        $skills = Skill::all();
+        foreach($skills as $skill) {
+            DB::table('user_skills')->insert([
+                'player_id' => '1',
+                'skill_id' => $skill->id,
+                'xp_amount' => 0,
+            ]);
+        }
 
-        DB::table('user_skills')->insert([
-            'player_id' => '1',
-            'skill_id' => '1',
-            'xp_amount' => '123456',
-        ]);
     }
 }

@@ -17,6 +17,7 @@
                         <th>XP per action</th>
                         <th>Resource</th>
                         <th>Cooldown</th>
+                        <th>Action</th>
                         </tr>
                         @foreach($skillspots as $spot)
                             <tr>
@@ -25,6 +26,12 @@
                                 <td>{{$spot->xp_amount}}</td>
                                 <td><img src='{{url($item->getIconPath($spot->item_id))}}' /></td>
                                 <td>{{$spot->cooldown}}</td>
+                                <td>
+                                    {!! Form::open(['route' => ['skillspot.use'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                                    {!! Form::hidden("id", $spot->id) !!}
+                                            <button type="submit" class="btn btn-default">Use</button>
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                     @endforeach
                     </table>
