@@ -15,7 +15,7 @@ class UserSkill extends Model
      * @var array
      */
     protected $fillable = [
-        'xp_amount', 'skill_id', 'player_id'
+        'xp_amount', 'skill_id', 'user_id'
     ];
 
     public function addXP($amount) {
@@ -24,7 +24,7 @@ class UserSkill extends Model
         $endlevel = $this->levelForXp($this->xp_amount);
 
         if ($endlevel > $startlevel) {
-            $this->levelUp($this->player_id, $this->skill_id);
+            $this->levelUp($this->user_id, $this->skill_id);
         }
     }
 
@@ -37,7 +37,7 @@ class UserSkill extends Model
     }
 
     public function getXpRequired() {
-        $level = getLevel($this->player_id, $this->skill_id);
+        $level = getLevel($this->user_id, $this->skill_id);
         $req = $this->xpForLevel($level + 1) - $this->xp_amount;
         return $req;
     }

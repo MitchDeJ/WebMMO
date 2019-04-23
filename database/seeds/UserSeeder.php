@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         $skills = Skill::all();
         foreach($skills as $skill) {
             DB::table('user_skills')->insert([
-                'player_id' => '1',
+                'user_id' => '1',
                 'skill_id' => $skill->id,
                 'xp_amount' => 0,
             ]);

@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $xps = array();
 
         foreach ($skills as $skill) {
-            $us = UserSkill::where('player_id', $user->id)
+            $us = UserSkill::where('user_id', $user->id)
                 ->where('skill_id', $skill->id)->get()->first();
             $levels[$skill->id] = $us->getLevel();
             $xps[$skill->id] = $us->getXp();

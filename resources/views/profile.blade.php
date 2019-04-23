@@ -79,37 +79,17 @@
                     </div>
 
                     <div class="panel-body">
+                        @foreach($skills as $skill)
                         <div class="col-md-4">
                             <div class="metric">
-                                <span class="icon"><img src="{{ url('user_img/' . Auth::user()->avatar)}}" width="55px" height="55px" class="img-circle" alt="Avatar"></span>
+                                <span class="icon"><img src="{{ url($skill->getIconPath($skill->id))}}" width="55px" height="55px" class="img-circle" alt="Avatar"></span>
                                 <p>
-                                    <span class="number">Lvl 73</span>
-                                    <span class="title">21.455.666 xp</span>
+                                    <span class="number">Lvl {{$levels[$skill->id]}}</span>
+                                    <span class="title">{{$xps[$skill->id]}}xp</span>
                                 </p>
                             </div>
                         </div>
-
-                        <div class="col-md-4">
-                            <div class="metric">
-                                <span class="icon"><i class="fa fa-download"></i></span>
-                                <p>
-                                    <span class="number">1,252</span>
-                                    <span class="title">Downloads</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="metric">
-                                <span class="icon"><i class="fa fa-download"></i></span>
-                                <p>
-                                    <span class="number">1,252</span>
-                                    <span class="title">Downloads</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
+                        @endforeach
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>

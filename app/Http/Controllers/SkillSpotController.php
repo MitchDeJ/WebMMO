@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Cooldown;
 use App\UserSkill;
 use App\SkillSpot;
 use Illuminate\Http\Request;
@@ -25,8 +26,13 @@ class SkillSpotController extends Controller
             return redirect('location');
         }
 
+        //check cooldown //TODO add message
+        if (Cooldown::check(Auth::user()->id, 1) != false) {
+            return redirect('location');
+        }
+
         //get skill row
-        $userSkill = UserSkill::where('player_id', $user->id)
+        $userSkill = UserSkill::where('user_id', $user->id)
             ->where('skill_id', $spot->skill_id)->get()->first();
         //get item to give
         //$item = Item::find($spot->item_id);
@@ -34,7 +40,14 @@ class SkillSpotController extends Controller
         //execute action
         $userSkill->addXp($spot->xp_amount);
         //TODO give $item
-        //TODO add cooldown
+        //add cooldown
+        Cooldown::create(
+            [
+                'user_id' => Auth::user()->id,
+                'type' => 1,
+                'end' => (time() + $spot->cooldown)
+            ]
+        );
         return redirect('location');
     }
 }

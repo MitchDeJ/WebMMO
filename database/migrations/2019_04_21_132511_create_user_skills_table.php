@@ -16,7 +16,7 @@ class CreateUserSkillsTable extends Migration
         Schema::create('user_skills', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('skill_id')->unsigned();
-            $table->integer('player_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->bigInteger('xp_amount');
 
             $table->foreign('skill_id')
@@ -24,7 +24,7 @@ class CreateUserSkillsTable extends Migration
                 ->on('skills')
                 ->onDelete('cascade');
 
-            $table->foreign('player_id')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
