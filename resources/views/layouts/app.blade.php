@@ -65,7 +65,9 @@
                          </ul>
                      </li>
                      <li class="dropdown">
+                         @if(Auth::user() != null)
                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ url('user_img/' . Auth::user()->avatar)}}" class="img-circle" alt="Avatar"> <span>{{Auth::user()->name}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        @endif
                          <ul class="dropdown-menu">
                              <li><a href="{{ url('/profile') }}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                              <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
