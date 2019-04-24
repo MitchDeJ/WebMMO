@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use App\Cooldown;
+use App\SpotRequirement;
 use App\UserSkill;
 use App\SkillSpot;
 use Illuminate\Http\Request;
@@ -31,15 +32,25 @@ class SkillSpotController extends Controller
             return redirect('location');
         }
 
-        //get skill row
+        //check skill requirements
+        $reqs = SpotRequirement::where('spot_id', $spot->id)->get();
+        foreach ($reqs as $req) {
+           $skill = UserSkill::where('user_id', $user->id)->where('skill_id', $req->skill_id)->get()->first();
+            if ($skill->getLevel() < $req->requirement) {
+                return redirect('location'); //does not meet the requirements //TODO add message
+            }
+        }
+
         $userSkill = UserSkill::where('user_id', $user->id)
             ->where('skill_id', $spot->skill_id)->get()->first();
+
         //get item to give
         //$item = Item::find($spot->item_id);
 
         //execute action
         $userSkill->addXp($spot->xp_amount);
         //TODO give $item
+
         //add cooldown
         Cooldown::create(
             [

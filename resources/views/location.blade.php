@@ -17,6 +17,7 @@
                             <th>Name</th>
                             <th>Skill</th>
                             <th>XP per action</th>
+                            <th>Requirements</th>
                             <th>Resource</th>
                             <th>Cooldown</th>
                             <th>Action</th>
@@ -26,6 +27,11 @@
                                     <td>{{$spot->name}}</td>
                                     <td><img src='{{url($skill->getIconPath($spot->skill_id))}}'/></td>
                                     <td>{{$spot->xp_amount}}</td>
+                                    <td>
+                                        @foreach ($reqs[$spot->id] as $req)
+                                                <img src='{{url($skill->getIconPath($req->skill_id))}}'/> {{$req->requirement}}
+                                            @endforeach
+                                    </td>
                                     <td><img src='{{url($item->getIconPath($spot->item_id))}}' /></td>
                                     <td>{{$spot->cooldown}}</td>
                                     <td>

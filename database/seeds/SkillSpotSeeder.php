@@ -21,6 +21,8 @@ class SkillSpotSeeder extends Seeder
                 return array('Generic Forest', 1, 1, 10, 1, 10);
             case 2:
                 return array('Generic Sea', 1, 2, 15, 1, 20);
+            case 3:
+                return array('Ultra Rare Tree', 1, 1, 500, 1, 60);
 
             default:
                 return -1;

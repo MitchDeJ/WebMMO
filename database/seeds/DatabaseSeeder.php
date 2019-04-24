@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NpcSeeder::class);
         $this->call(SkillSpotSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(SpotRequirementSeeder::class);
     }
 }
