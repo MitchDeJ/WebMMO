@@ -7,6 +7,7 @@ use App\Item;
 use App\Cooldown;
 use App\SpotRequirement;
 use App\UserSkill;
+use App\Skill;
 use App\SkillSpot;
 use Illuminate\Http\Request;
 use Auth;
@@ -16,35 +17,36 @@ class SkillSpotController extends Controller
     public function useSpot(Request $request) {
         $id = $request['id'];
         $count = SkillSpot::where('id', $id)->count();
+        $skills = Skill::findOrFail(1);
 
-        if ($count == 0) { //invalid ID, return to location page TODO add a message
-            return redirect('location');
+        if ($count == 0) { //invalid ID, return to location page
+            return redirect('location')->with('fail', 'Invalid skilling spot.');
         }
 
         $spot = SkillSpot::find($id);
         $user = Auth::user();
 
-        if ($spot->area_id != Auth::user()->area_id) { //this skillspot is not in your current location, return. //TODO add message
-            return redirect('location');
+        if ($spot->area_id != Auth::user()->area_id) { //this skillspot is not in your current location, return.
+            return redirect('location')->with('fail', 'Invalid skilling spot.');
         }
 
-        //check cooldown //TODO add message
+        //check cooldown
         if (Cooldown::check(Auth::user()->id, 1) != false) {
-            return redirect('location');
+            return redirect('location')->with('fail', 'This action is not available yet.');
         }
 
         //check skill requirements
         $reqs = SpotRequirement::where('spot_id', $spot->id)->get();
         foreach ($reqs as $req) {
            $skill = UserSkill::where('user_id', $user->id)->where('skill_id', $req->skill_id)->get()->first();
-            if ($skill->getLevel() < $req->requirement) {
-                return redirect('location'); //does not meet the requirements //TODO add message
+            if ($skill->getLevel() < $req->requirement) {; //does not meet the requirements
+                return redirect('location')->with('fail', 'You need a '.$skills->getName($skill->skill_id).' level of '.$req->requirement.' to do that.');
             }
         }
 
         //check tool requirement
         if (!$this->checkTool($user->id, $spot->skill_id)) {
-            return redirect('location'); //does not have the correct tool //TODO add message
+            return redirect('location')->with('fail', 'You do not have the correct tool with you to do that.'); //does not have the correct tool
         }
 
         $userSkill = UserSkill::where('user_id', $user->id)
@@ -53,12 +55,15 @@ class SkillSpotController extends Controller
         //get item to give
         $item = Item::find($spot->item_id);
 
-        //execute action
-        $userSkill->addXp($spot->xp_amount);
+        //get amount to give
+        $amount = rand($spot->amount_min, $spot->amount_max);
+
+        //give exp
+        $userSkill->addXp($amount * $spot->xp_amount);
 
         //give item
         $inv = InventorySlot::getInstance();
-        $inv->addItem($user->id, $item->id, 1); //TODO varying amount (change the 1)
+        $inv->addItem($user->id, $item->id, $amount);
 
         //add cooldown
         Cooldown::create(
@@ -68,7 +73,7 @@ class SkillSpotController extends Controller
                 'end' => (time() + $spot->cooldown)
             ]
         );
-        return redirect('location');
+        return redirect('location')->with('success', 'You have successfully gathered '.$amount.'x '.$item->name.' and gained '.($amount * $spot->xp_amount).'xp.');
     }
 
     function checkTool($userId, $skillId) {

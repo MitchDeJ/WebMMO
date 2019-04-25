@@ -106,6 +106,9 @@
      <!-- END LEFT SIDEBAR -->
      <!-- MAIN -->
      <div class="main">
+         <div class="container-fluid">
+             @include('layouts.appmessage')
+         </div>
          <!-- MAIN CONTENT -->
             @yield('content')
      </div>

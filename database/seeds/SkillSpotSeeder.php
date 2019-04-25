@@ -10,7 +10,9 @@ class SkillSpotSeeder extends Seeder
     public $SKILL_ID = 2;
     public $XP_AMOUNT = 3;
     public $ITEM_ID = 4;
-    public $COOLDOWN = 5;
+    public $AMOUNT_MIN = 5;
+    public $AMOUNT_MAX = 6;
+    public $COOLDOWN = 7;
 
     /*
      * skillspot definitions
@@ -18,11 +20,11 @@ class SkillSpotSeeder extends Seeder
     public function skillSpotDefinition($skillSpotId) {
         switch ($skillSpotId) {
             case 1:
-                return array('Generic Forest', 1, 1, 10, 4, 1);
+                return array('Generic Forest', 1, 1, 2, 4, 1, 10, 2);
             case 2:
-                return array('Generic Sea', 1, 2, 15, 3, 5);
+                return array('Generic Sea', 1, 2, 3, 3, 1, 10, 5);
             case 3:
-                return array('Ultra Rare Tree', 1, 1, 500, 4, 30);
+                return array('Ultra Rare Tree', 1, 1, 25, 4, 1, 5, 30);
 
             default:
                 return -1;
@@ -47,6 +49,8 @@ class SkillSpotSeeder extends Seeder
                 'skill_id' => $this->skillSpotDefinition($i)[$this->SKILL_ID],
                 'xp_amount' => $this->skillSpotDefinition($i)[$this->XP_AMOUNT],
                 'item_id' => $this->skillSpotDefinition($i)[$this->ITEM_ID],
+                'amount_min' => $this->skillSpotDefinition($i)[$this->AMOUNT_MIN],
+                'amount_max' => $this->skillSpotDefinition($i)[$this->AMOUNT_MAX],
                 'cooldown' => $this->skillSpotDefinition($i)[$this->COOLDOWN],
             ]);
         }

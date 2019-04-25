@@ -15,6 +15,6 @@ class SkillSpot extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'area_id', 'skill_id', 'xp_amount', 'item_id', 'cooldown'
+        'name', 'area_id', 'skill_id', 'xp_amount', 'item_id', 'amount_min', 'amount_max', 'cooldown'
     ];
 }

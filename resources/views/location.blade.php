@@ -16,7 +16,7 @@
                             <tr>
                             <th>Name</th>
                             <th>Skill</th>
-                            <th>XP per action</th>
+                            <th>XP per item</th>
                             <th>Requirements</th>
                             <th>Resource</th>
                             <th>Cooldown</th>

@@ -20,6 +20,8 @@ class CreateSkillspotsTable extends Migration
             $table->unsignedInteger('skill_id');
             $table->integer('xp_amount');
             $table->unsignedInteger('item_id');
+            $table->integer('amount_min');
+            $table->integer('amount_max');
             $table->integer('cooldown'); //cooldown in seconds
 
             $table->foreign('area_id')
