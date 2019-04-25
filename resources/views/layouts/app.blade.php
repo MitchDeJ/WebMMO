@@ -90,6 +90,7 @@
                  <ul class="nav">
                      <li><a href="{{ url('/home') }}" @if(Route::currentRouteName() === 'home') class="active"@endif><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                      <li><a href="{{ url('/location') }}" @if(Route::currentRouteName() === 'location') class="active"@endif><i class="lnr lnr-location"></i> <span>Location</span></a></li>
+                     <li><a href="{{ url('/inventory') }}" @if(Route::currentRouteName() === 'inventory') class="active"@endif><i class="fa fa-shopping-bag"></i> <span>Inventory</span></a></li>
                      <li>
                          <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                          <div id="subPages" class="collapse">
