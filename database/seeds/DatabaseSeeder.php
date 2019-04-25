@@ -6,7 +6,8 @@ class DatabaseSeeder extends Seeder
 {
 
     //what tables do we need to truncate (empty) before seeding?
-    protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots', 'user_skills', 'npcs'];
+    protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots',
+        'user_skills', 'npcs', 'spotrequirements', 'inventory_slots'];
 
     /**
      * Seed the application's database.

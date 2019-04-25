@@ -32,6 +32,17 @@ class UserSeeder extends Seeder
                 'xp_amount' => 0,
             ]);
         }
+        for($i=1; $i<=28; $i+=1) {
+            DB::table('inventory_slots')->insert([
+                'user_id' => '1',
+                'slot' => $i,
+                'item_id' => null,
+                'amount' => 0
+            ]);
+        }
+        // give axe and fishing rod
+        \App\InventorySlot::getInstance()->addItem(1, 1, 1);
+        \App\InventorySlot::getInstance()->addItem(1, 2, 1);
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\InventorySlot;
 use App\Item;
 use App\Cooldown;
 use App\SpotRequirement;
@@ -41,15 +42,23 @@ class SkillSpotController extends Controller
             }
         }
 
+        //check tool requirement
+        if (!$this->checkTool($user->id, $spot->skill_id)) {
+            return redirect('location'); //does not have the correct tool //TODO add message
+        }
+
         $userSkill = UserSkill::where('user_id', $user->id)
             ->where('skill_id', $spot->skill_id)->get()->first();
 
         //get item to give
-        //$item = Item::find($spot->item_id);
+        $item = Item::find($spot->item_id);
 
         //execute action
         $userSkill->addXp($spot->xp_amount);
-        //TODO give $item
+
+        //give item
+        $inv = InventorySlot::getInstance();
+        $inv->addItem($user->id, $item->id, 1); //TODO varying amount (change the 1)
 
         //add cooldown
         Cooldown::create(
@@ -60,5 +69,28 @@ class SkillSpotController extends Controller
             ]
         );
         return redirect('location');
+    }
+
+    function checkTool($userId, $skillId) {
+
+        $AXE_IDS = array(1);
+        $ROD_IDS = array(2);
+
+        $inv = InventorySlot::getInstance();
+        $slots = $inv->getInventory($userId);
+
+        $toCheck = array();
+
+        if ($skillId == 1) //woodcutting
+            $toCheck = $AXE_IDS;
+        if ($skillId == 2) //fishing
+            $toCheck = $ROD_IDS;
+
+        foreach($slots as $slot) {
+            if (in_array($slot->item_id, $toCheck)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -9,6 +9,7 @@ class ItemSeeder extends Seeder
     public $NAME = 0;
     public $DESCRIPTION = 1;
     public $ICON = 2;
+    public $STACKABLE = 3;
 
 
     /*
@@ -17,9 +18,13 @@ class ItemSeeder extends Seeder
     public function itemDefinition($itemId) {
         switch ($itemId) {
             case 1:
-                return array('Example item', 'This is an example item.', 'example');
+                return array('Axe', 'Used to cut wood.', 'axe', false);
             case 2:
-                return array('Another example', 'This is another example item.', 'example');
+                return array('Fishing rod', 'Used to fish.', 'fishingrod', false);
+            case 3:
+                return array('Fish', 'Great source of protein.', 'fish', true);
+            case 4:
+                return array('Logs', 'Cut from a tree.', 'log', true);
 
 
             default:
@@ -47,7 +52,8 @@ class ItemSeeder extends Seeder
                 'id' => $i,
                 'name' => $this->itemDefinition($i)[$this->NAME],
                 'description' => $this->itemDefinition($i)[$this->DESCRIPTION],
-                'icon' => $this->itemDefinition($i)[$this->ICON]
+                'icon' => $this->itemDefinition($i)[$this->ICON],
+                'stackable' => $this->itemDefinition($i)[$this->STACKABLE]
             ]);
         }
     }

@@ -14,7 +14,7 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'icon'
+        'name', 'description', 'icon', 'stackable'
     ];
 
     public function getName($id) {
@@ -29,7 +29,18 @@ class Item extends Model
         return $desc;
     }
 
+    public static function isStackable($id) {
+        $item = Item::where('id', $id)->get()->first();
+        $result = $item->stackable;
+        return $result;
+    }
+
     public function getIconPath($id) {
+
+        //return empty slot if item is null
+        if ($id == null)
+            return '/img/items/empty.png';
+
         $item = Item::where('id', $id)->get()->first();
         $icon = $item->icon;
         return "/img/items/".$icon.'.png';

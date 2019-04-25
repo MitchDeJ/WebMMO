@@ -23,6 +23,7 @@
                                 <th>Icon</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Stackable (0/1)</th>
                             </tr>
                             @for($i=1; $i <= $item->getItemCount(); $i+=1)
                                 <tr>
@@ -30,6 +31,7 @@
                                     <td><img src='{{url($item->getIconPath($i))}}'/></td>
                                     <td>{{$item->getName($i)}}</td>
                                     <td>{{$item->getDescription($i)}}</td>
+                                    <td>{{$item->isStackable($i)}}</td>
                                 </tr>
                             @endfor
                         </table>

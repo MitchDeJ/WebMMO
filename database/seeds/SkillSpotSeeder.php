@@ -18,11 +18,11 @@ class SkillSpotSeeder extends Seeder
     public function skillSpotDefinition($skillSpotId) {
         switch ($skillSpotId) {
             case 1:
-                return array('Generic Forest', 1, 1, 10, 1, 10);
+                return array('Generic Forest', 1, 1, 10, 4, 1);
             case 2:
-                return array('Generic Sea', 1, 2, 15, 1, 20);
+                return array('Generic Sea', 1, 2, 15, 3, 5);
             case 3:
-                return array('Ultra Rare Tree', 1, 1, 500, 1, 60);
+                return array('Ultra Rare Tree', 1, 1, 500, 4, 30);
 
             default:
                 return -1;
