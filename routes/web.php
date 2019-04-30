@@ -21,5 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/location', 'AreaController@index')->name('location');
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
+Route::get('/useitem/{slot}', 'ItemController@useItem')->name('useitem');
+Route::get('/unequip/{slot}', 'ItemController@unequipItem')->name('unequip');
+
 
 Route::post("/useskillspot",["uses" => "SkillSpotController@useSpot", "as"=>"skillspot.use"]);
+

@@ -61,6 +61,16 @@ class InventorySlot extends Model
         return null;
     }
 
+    function getItemOfSlot($userId, $slot) {
+        $result = InventorySlot::where('user_id', $userId)
+            ->where('slot', $slot)->get()->first();
+        $item = Item::where('id', $result->item_id)->get();
+        if (count($item) > 0)
+            return $item->first();
+        else
+            return null;
+    }
+
     public function addItem($userId, $itemId, $amount) {
 
         $freeSlot = $this->getFreeSlot($userId);
@@ -108,6 +118,12 @@ class InventorySlot extends Model
             }
             return $amount;
         }
+    }
+
+    public function removeItemInSlot() {
+        $this->item_id = null;
+        $this->amount = 0;
+        $this->save();
     }
 
     public function removeItem($userId, $itemId, $amount) {

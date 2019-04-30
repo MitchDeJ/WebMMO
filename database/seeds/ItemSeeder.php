@@ -25,6 +25,18 @@ class ItemSeeder extends Seeder
                 return array('Fish', 'Great source of protein.', 'fish', true);
             case 4:
                 return array('Logs', 'Cut from a tree.', 'log', true);
+            case 5:
+                return array('Helm', 'Protects your head.', 'helm', false);
+            case 6:
+                return array('Platebody', 'Protects your body.', 'platebody', false);
+            case 7:
+                return array('Platelegs', 'Protects your legs.', 'platelegs', false);
+            case 8:
+                return array('Sword', 'Good for cutting stuff.', 'sword', false);
+            case 9:
+                return array('Shield', 'Used for protecting yourself.', 'shield', false);
+            case 10:
+                return array('Amulet', 'A magical amulet.', 'amulet', false);
 
 
             default:

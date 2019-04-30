@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Skill;
+use App\Constants;
+use App\InventorySlot;
 
 class UserSeeder extends Seeder
 {
@@ -40,9 +42,17 @@ class UserSeeder extends Seeder
                 'amount' => 0
             ]);
         }
+
+        for($i=0; $i < Constants::$EQUIPS_TOTAL; $i+=1) {
+            DB::table('user_equips')->insert([
+                'user_id' => '1',
+                'equip_slot' => $i,
+                'item_id' => null,
+            ]);
+        }
         // give axe and fishing rod
-        \App\InventorySlot::getInstance()->addItem(1, 1, 1);
-        \App\InventorySlot::getInstance()->addItem(1, 2, 1);
+        InventorySlot::getInstance()->addItem(1, 1, 1);
+        InventorySlot::getInstance()->addItem(1, 2, 1);
 
     }
 }
