@@ -17,6 +17,7 @@
         <!-- ICONS -->
         <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/favicon.png') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
  <body>
  <!-- WRAPPER -->
@@ -104,6 +105,11 @@
          </div>
      </div>
      <!-- END LEFT SIDEBAR -->
+     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
      <!-- MAIN -->
      <div class="main">
          <div class="container-fluid">
@@ -114,8 +120,6 @@
      </div>
  </div>
  <!-- Javascript -->
- <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
  <script src="{{ asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
  <script src="{{ asset('assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
  <script src="{{ asset('assets/vendor/chartist/js/chartist.min.js') }}"></script>

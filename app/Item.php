@@ -50,7 +50,7 @@ class Item extends Model
         return "/img/items/" . $icon . '.png';
     }
 
-    public function getItemCount()
+    public static function getItemCount()
     {
         return Item::count();
     }

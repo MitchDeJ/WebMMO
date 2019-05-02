@@ -22,8 +22,10 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/location', 'AreaController@index')->name('location');
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
 Route::get('/useitem/{slot}', 'ItemController@useItem')->name('useitem');
+Route::get('/destroyitem/{slot}', 'ItemController@destroyItem')->name('destroyitem');
 Route::get('/unequip/{slot}', 'ItemController@unequipItem')->name('unequip');
 
-
+Route::post('/swapslot', "ItemController@swapSlot");
 Route::post("/useskillspot",["uses" => "SkillSpotController@useSpot", "as"=>"skillspot.use"]);
+Route::post('/getiteminfo', 'ItemController@getInfo');
 

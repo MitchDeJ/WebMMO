@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SkillSpotSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(SpotRequirementSeeder::class);
+        $this->call(ItemStatSeeder::class);
     }
 }
