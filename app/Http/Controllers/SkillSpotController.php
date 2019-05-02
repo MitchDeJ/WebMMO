@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants;
 use App\InventorySlot;
 use App\Item;
 use App\Cooldown;
@@ -86,9 +87,9 @@ class SkillSpotController extends Controller
 
         $toCheck = array();
 
-        if ($skillId == 1) //woodcutting
+        if ($skillId == Constants::$WOODCUTTING)
             $toCheck = $AXE_IDS;
-        if ($skillId == 2) //fishing
+        if ($skillId == Constants::$FISHING)
             $toCheck = $ROD_IDS;
 
         foreach($slots as $slot) {

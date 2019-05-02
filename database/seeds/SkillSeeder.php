@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Constants;
 
 class SkillSeeder extends Seeder
 {
@@ -13,10 +14,16 @@ class SkillSeeder extends Seeder
      */
     public function skillDefinition($skillId) {
         switch ($skillId) {
-            case 1:
+            case (Constants::$WOODCUTTING):
                 return array('Woodcutting', 'woodcutting');
-            case 2:
+            case (Constants::$FISHING):
                 return array('Fishing', 'fishing');
+            case (Constants::$MELEE):
+                return array('Melee', 'melee');
+            case (Constants::$RANGED):
+                return array('Ranged', 'ranged');
+            case (Constants::$MAGIC):
+                return array('Magic', 'magic');
 
             default:
                 return -1;

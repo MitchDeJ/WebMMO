@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Constants;
 
 class SkillSpotSeeder extends Seeder
 {
@@ -20,11 +21,11 @@ class SkillSpotSeeder extends Seeder
     public function skillSpotDefinition($skillSpotId) {
         switch ($skillSpotId) {
             case 1:
-                return array('Generic Forest', 1, 1, 2, 4, 1, 10, 2);
+                return array('Generic Forest', 1, Constants::$WOODCUTTING, 2, 4, 1, 10, 2);
             case 2:
-                return array('Generic Sea', 1, 2, 3, 3, 1, 10, 5);
+                return array('Generic Sea', 1, Constants::$FISHING, 3, 3, 1, 10, 5);
             case 3:
-                return array('Ultra Rare Tree', 1, 1, 25, 4, 1, 5, 30);
+                return array('Ultra Rare Tree', 1, Constants::$WOODCUTTING, 25, 4, 1, 5, 30);
 
             default:
                 return -1;

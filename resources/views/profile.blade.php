@@ -90,7 +90,7 @@
                                 <div class="col-md-4">
                                     <div class="metric">
                                         <span class="icon"><img src="{{ url($skill->getIconPath($skill->id))}}"
-                                                                width="55px" height="55px" class="img-circle"
+                                                                width="55px" height="55px"
                                                                 alt="Avatar"></span>
                                         <p>
                                             <span class="number">Lvl {{$levels[$skill->id]}}</span>

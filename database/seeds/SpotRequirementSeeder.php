@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Constants;
 
 class SpotRequirementSeeder extends Seeder
 {
@@ -15,11 +16,11 @@ class SpotRequirementSeeder extends Seeder
     public function spotReqDefinition($spotReqId) {
         switch ($spotReqId) {
             case 1:
-                return array(1, 1, 1);
+                return array(1, Constants::$WOODCUTTING, 1);
             case 2:
-                return array(2, 2, 1);
+                return array(2, Constants::$FISHING, 1);
             case 3:
-                return array(3, 1, 60);
+                return array(3, Constants::$WOODCUTTING, 60);
 
 
             default:
