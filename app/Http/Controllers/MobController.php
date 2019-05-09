@@ -70,6 +70,7 @@ class MobController extends Controller
             'mob_id' => $mobId,
             'kills' => 0,
             'user_hp' => $hp,
+            'damage_stack' => 0.0,
             'start' => time()
         ]);
 

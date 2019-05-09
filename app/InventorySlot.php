@@ -18,21 +18,24 @@ class InventorySlot extends Model
         'user_id', 'slot', 'item_id', 'amount'
     ];
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         return InventorySlot::findOrFail(1);
     }
 
-    public function getInventory($userId) {
+    public function getInventory($userId)
+    {
         $slots = array();
-        for ($i=1; $i<=$this->INV_SIZE; $i+=1) {
+        for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
             $slots[$i] = InventorySlot::where('user_id', $userId)
                 ->where('slot', $i)->get()->first();
         }
         return $slots;
     }
 
-    function getFreeSlot($userId) {
-        for ($i=1; $i<=$this->INV_SIZE; $i+=1) {
+    function getFreeSlot($userId)
+    {
+        for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
             $slot = InventorySlot::where('user_id', $userId)
                 ->where('slot', $i)->get()->first();
             if ($slot->item_id == null)
@@ -41,8 +44,9 @@ class InventorySlot extends Model
         return null;
     }
 
-    public function hasItem($userId, $itemId) {
-        for ($i=1; $i<=$this->INV_SIZE; $i+=1) {
+    public function hasItem($userId, $itemId)
+    {
+        for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
             $slot = InventorySlot::where('user_id', $userId)
                 ->where('slot', $i)->get()->first();
             if ($slot->item_id == $itemId)
@@ -51,8 +55,9 @@ class InventorySlot extends Model
         return false;
     }
 
-    function getSlotOfItem($userId, $itemId) {
-        for ($i=1; $i<=$this->INV_SIZE; $i+=1) {
+    function getSlotOfItem($userId, $itemId)
+    {
+        for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
             $slot = InventorySlot::where('user_id', $userId)
                 ->where('slot', $i)->get()->first();
             if ($slot->item_id == $itemId)
@@ -61,7 +66,8 @@ class InventorySlot extends Model
         return null;
     }
 
-    function getItemOfSlot($userId, $slot) {
+    function getItemOfSlot($userId, $slot)
+    {
         $result = InventorySlot::where('user_id', $userId)
             ->where('slot', $slot)->get()->first();
         $item = Item::where('id', $result->item_id)->get();
@@ -71,7 +77,8 @@ class InventorySlot extends Model
             return null;
     }
 
-    public function addItem($userId, $itemId, $amount) {
+    public function addItem($userId, $itemId, $amount)
+    {
 
         $freeSlot = $this->getFreeSlot($userId);
 
@@ -81,7 +88,7 @@ class InventorySlot extends Model
 
         //stackable items
         if (Item::isStackable($itemId)) {
-            if($this->hasItem($userId, $itemId)) {
+            if ($this->hasItem($userId, $itemId)) {
                 $slot = $this->getSlotOfItem($userId, $itemId);
                 $slot->increment('amount', $amount);
             } else {
@@ -99,7 +106,8 @@ class InventorySlot extends Model
         $slot->save();
     }
 
-    public function getItemCount($userId, $itemId) {
+    public function getItemCount($userId, $itemId)
+    {
         if (Item::isStackable($itemId)) {
             for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
                 $slot = InventorySlot::where('user_id', $userId)
@@ -114,19 +122,21 @@ class InventorySlot extends Model
                 $slot = InventorySlot::where('user_id', $userId)
                     ->where('slot', $i)->get()->first();
                 if ($slot->item_id == $itemId)
-                    $amount +=1;
+                    $amount += 1;
             }
             return $amount;
         }
     }
 
-    public function removeItemInSlot() {
+    public function removeItemInSlot()
+    {
         $this->item_id = null;
         $this->amount = 0;
         $this->save();
     }
 
-    public function removeItem($userId, $itemId, $amount) {
+    public function removeItem($userId, $itemId, $amount)
+    {
         $count = $this->getItemCount($userId, $itemId);
 
         if ($count == 0)
@@ -151,11 +161,31 @@ class InventorySlot extends Model
                 if ($slot->item_id == $itemId) {
                     $slot->item_id = null;
                     $slot->amount = 0;
-                    $amount -=1;
+                    $amount -= 1;
                 }
 
             }
         }
         $slot->save();
     }
+
+    public function getNextFoodItem($userId)
+    {
+        for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
+            $slot = InventorySlot::where('user_id', $userId)
+                ->where('slot', $i)->get()->first();
+            if ($slot->item_id != null) {
+                if (Item::find($slot->item_id)->isFood($slot->item_id))
+                    return $slot;
+            }
+        }
+        return null;
+    }
+
+    public function clear() {
+        $this->item_id = null;
+        $this->amount = 0;
+        $this->save();
+    }
+
 }

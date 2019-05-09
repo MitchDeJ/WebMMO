@@ -37,6 +37,8 @@ class ItemSeeder extends Seeder
                 return array('Shield', 'Used for protecting yourself.', 'shield', false);
             case 10:
                 return array('Amulet', 'A magical amulet.', 'amulet', false);
+            case 11:
+                return array('Apple', 'An apple a day keeps the doctor away.', 'apple', false);
 
 
             default:

@@ -19,6 +19,7 @@ class CreateMobFightsTable extends Migration
             $table->integer('mob_id')->unsigned();
             $table->integer('kills');
             $table->integer('user_hp');
+            $table->float('damage_stack');
             $table->integer('start');
 
             $table->foreign('user_id')

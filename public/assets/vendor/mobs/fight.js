@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    var i;
+
     $.ajaxSetup({
         beforeSend: function (xhr, type) {
             if (!type.crossDomain) {
@@ -24,7 +26,7 @@ $(document).ready(function () {
                 $(".hp-text").append("HP: "+response['hp']+"/"+response['maxhp']);
                 //update hp-text
                 $(".xp-text").empty();
-                $(".xp-text").append("XP Gained: " +response['xp']);
+                $(".xp-text").append("XP gained: " +response['xp']);
                 //update hp bar
                 $('.hp-bar').attr('max', response['maxhp']);
                 $('.hp-bar').attr('value', response['hp']);
@@ -39,8 +41,11 @@ $(document).ready(function () {
         });
     }
 
-    var i = setInterval(function () {
-        updateInfo();
-    }, ((+delay + +2) * 1000));
+    var wait = setInterval(function() {
+         i = setInterval(function () {
+            updateInfo();
+        }, ((+delay) * 1000));
+        clearInterval(wait);
+    }, 1000);
 
 });

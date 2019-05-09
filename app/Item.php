@@ -83,6 +83,22 @@ class Item extends Model
         }
     }
 
+    public function getHealAmount($id) {
+        switch($id) {
+            case 11: //apple
+                return 5;
+            default:
+                return -1;
+        }
+    }
+
+    public function isFood($id) {
+        if ($this->getHealAmount($id) >= 0)
+            return true;
+
+        return false;
+    }
+
     public function getSelfEquipSlot() {
         return $this->getEquipSlot($this->id);
     }

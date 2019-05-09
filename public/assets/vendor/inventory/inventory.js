@@ -82,7 +82,6 @@ $(document).ready(function() {
                 //show item options
                 $( ".option").remove();
                 for(var i = 0; i < response['options'].length; i++) {
-
                     $( ".options" ).append( "<p class='option'><form class='option' action='"+response['options'][i][1]+"'><input type='submit' value='"+response['options'][i][0]+"' /></form></p>" );
                 }
                 //show item icon, name, desc
@@ -90,6 +89,7 @@ $(document).ready(function() {
                 $( ".item-infos" ).append( "<img class='item-info' src='"+response['infos'][0]+"'/>" );
                 $( ".item-infos" ).append( "<p class='item-info'><b>"+response['infos'][1]+response['amount']+"</b></p>" );
                 $( ".item-infos" ).append( "<p class='item-info'>"+response['infos'][2]+"</p>" );
+
                 //show item stats
                 if (response['stats'].length != 0) {
                     $( ".item-infos" ).append( "<i class='item-info'>Melee: "+response['stats'][0]+" </i>" );
@@ -99,6 +99,12 @@ $(document).ready(function() {
                     $( ".item-infos" ).append( "<i class='item-info'>Magic: "+response['stats'][4]+" </i>" );
                     $( ".item-infos" ).append( "<i class='item-info'>Magic defence: "+response['stats'][5]+"<br></i>" );
                 }
+
+                //show heal amount for food
+                if (response['heal'] != -1) {
+                    $( ".item-infos" ).append( "<i class='item-info'>Heals "+response['heal']+" HP </i>" );
+                }
+
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));

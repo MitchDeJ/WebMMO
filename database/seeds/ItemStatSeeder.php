@@ -22,17 +22,17 @@ class ItemStatSeeder extends Seeder
     public function itemStatsDefinition($itemId) {
         switch ($itemId) {
             case 5: //helm
-                return array($itemId, 0, 2, 0, 1, 0, -2);
+                return array($itemId, 0, 4, 0, 1, 0, -2);
             case 6: //platebody
-                return array($itemId, 0, 5, 0, 3, 0, -5);
+                return array($itemId, 0, 15, 0, 3, 0, -5);
             case 7: //platelegs
-                return array($itemId, 0, 3, 0, 2, 0, -3);
+                return array($itemId, 0, 7, 0, 2, 0, -3);
             case 8: //sword
                 return array($itemId, 10, 0, 0, 0, 0, 0);
             case 9: //shield
-                return array($itemId, 0, 5, 0, 3, 0, -3);
+                return array($itemId, 0, 6, 0, 5, 0, -3);
             case 10: //amulet
-                return array($itemId, 0, 0, 0, 0, 5, 5);
+                return array($itemId, 5, 5, 5, 5, 5, 5);
 
             default:
                 return -1;

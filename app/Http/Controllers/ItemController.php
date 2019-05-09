@@ -29,7 +29,7 @@ class ItemController extends Controller
             return redirect('inventory');
         }
 
-        return redirect('inventory')->with('neutral', 'you clicked slot '.$slot.'. Item: '.$item->name);
+        return redirect('inventory')->with('neutral', 'you used an item in slot '.$slot.'. Item: '.$item->name);
     }
 
     public function destroyItem($slot) {
@@ -94,6 +94,9 @@ class ItemController extends Controller
             array_push($options, $use);
         }
 
+        //if item is food, add heal amount
+        $heal = $item->getHealAmount($item->id);
+
         //add 'destroy option to every item
         $destroy = array('Destroy', url('destroyitem/'.$slot));
         array_push($options, $destroy);
@@ -107,7 +110,8 @@ class ItemController extends Controller
             $amount = ' ('.InventorySlot::where('user_id', $user->id)
                 ->where('slot', $slot)->get()->first()->amount.')';
 
-        return response()->json(['options'=> $options, 'infos' => $infos, 'stats' => $stats, 'amount' => $amount]);
+        return response()->json(['options'=> $options, 'infos' => $infos,
+            'stats' => $stats, 'amount' => $amount, 'heal'=>$heal]);
     }
 
 
