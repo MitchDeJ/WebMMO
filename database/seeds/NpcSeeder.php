@@ -9,7 +9,7 @@ class NpcSeeder extends Seeder
     public $AREA = 1;
 
     /*
-     * Item definitions
+     * NPC definitions
      */
     public function npcDefinition($npcId) {
         switch ($npcId) {

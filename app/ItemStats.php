@@ -17,8 +17,10 @@ class ItemStats extends Model
         $equips = UserEquip::where('user_id', $user)->get();
         $total = 0;
         foreach($equips as $e) {
-            $s = ItemStats::where('item_id', $e->item_id)->get()->first();
-            $total += $s->pluck($stat)->first();
+            if ($e->item_id != null) {
+                $s = ItemStats::where('item_id', $e->item_id)->get()->first();
+                $total += $s->$stat;
+            }
         }
         return $total;
     }

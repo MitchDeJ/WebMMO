@@ -7,7 +7,8 @@ class DatabaseSeeder extends Seeder
 
     //what tables do we need to truncate (empty) before seeding?
     protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots',
-        'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips', 'item_stats'];
+        'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips',
+        'item_stats', 'mobs', 'mob_spawns', 'mob_fights'];
 
     /**
      * Seed the application's database.
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;'); //enable it again
+
         $this->call(ItemSeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(AreaSeeder::class);
@@ -32,5 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(SpotRequirementSeeder::class);
         $this->call(ItemStatSeeder::class);
+        $this->call(MobSeeder::class);
+        $this->call(MobSpawnSeeder::class);
     }
 }

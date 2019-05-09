@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mob;
+use App\MobSpawn;
 use App\Npc;
 use Illuminate\Http\Request;
 use Auth;
@@ -19,9 +21,22 @@ class AreaController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+
+        if (MobController::inMobFight($user->id))
+            return redirect('mobfight');
+
         $loc = Auth::user()->location;
         $spots = SkillSpot::where('area_id', $loc->id)->get();
         $reqs = array();
+        $spawns = MobSpawn::where('area_id', $loc->id)->get();
+        $mobs = array();
+
+        foreach($spawns as $spawn) {
+            array_push($mobs, Mob::find($spawn->mob_id));
+        }
+
+
         foreach($spots as $spot) {
             $reqs[$spot->id] = SpotRequirement::where('spot_id', $spot->id)->get();
         }
@@ -32,7 +47,8 @@ class AreaController extends Controller
             'location' => $loc,
             'skillspots' => $spots,
             'npcs' => Npc::where('area_id', $loc->id)->get(),
-            'reqs' => $reqs
+            'reqs' => $reqs,
+            'mobs' => $mobs
         ));
     }
 }

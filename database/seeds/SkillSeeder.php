@@ -24,6 +24,10 @@ class SkillSeeder extends Seeder
                 return array('Ranged', 'ranged');
             case (Constants::$MAGIC):
                 return array('Magic', 'magic');
+            case (Constants::$DEFENCE):
+                return array('Defence', 'defence');
+            case (Constants::$HP):
+                return array('Hitpoints', 'hp');
 
             default:
                 return -1;

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="main-content">
         <div class="container-fluid">
@@ -44,17 +43,31 @@
                             @endforeach
                         </table>
                         <br>
+                        Mobs
                         <table border="1">
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
+                                <th>Mel</th>
+                                <th>Ran</th>
+                                <th>Mag</th>
+                                <th>Def</th>
+                                <th>HP</th>
+                                <th>Action</th>
                             </tr>
-                            @foreach($npcs as $npc)
+                            @foreach($mobs as $mob)
                                 <tr>
-                                    <td>{{$npc->id}}</td>
-                                    <td>{{$npc->name}}</td>
+                                    <td>{{$mob->name}}</td>
+                                    <td>{{$mob->melee}}</td>
+                                    <td>{{$mob->ranged}}</td>
+                                    <td>{{$mob->magic}}</td>
+                                    <td>{{$mob->defence}}</td>
+                                    <td>{{$mob->hitpoints}}</td>
+                                    {!! Form::open(['route' => ['attack.mob'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                                    {!! Form::hidden("id", $mob->id) !!}
+                                    <td><button type="submit" class="btn btn-default">Attack</button></td>
+                                    {!! Form::close() !!}
                                 </tr>
-                            @endforeach
+                                @endforeach
                         </table>
                         <!-- CONTENT END -->
                     </div>
