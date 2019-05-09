@@ -203,7 +203,7 @@ class Combat extends Model
         $accuracy = 0;
 
         if ($mob_att > $user_def) {
-            $accuracy = 1 - (user_def+2) / (2*($mob_att+1));
+            $accuracy = 1 - ($user_def+2) / (2*($mob_att+1));
         } else {
             $accuracy = $mob_att / (2*($user_def+1));
         }
