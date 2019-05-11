@@ -16,4 +16,9 @@ class Mob extends Model
     protected $fillable = [
         'name', 'melee', 'ranged', 'magic', 'defence', 'hitpoints', 'attack_speed'
     ];
+
+    public function getLootTable() {
+        $table= LootTable::where('mob_id', $this->id)->get()->first();
+        return $table;
+    }
 }

@@ -1756,6 +1756,21 @@ ul.activity-timeline > li {
 .project-table .progress-bar {
   font-size: 10px; }
 
+.progressBar {
+  width: 10%;
+  height: 22px;
+  background-color: black;
+}
+
+.progressBar div {
+  height: 100%;
+  text-align: right;
+  line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+  width: 0;
+  background-color: red;
+  box-sizing: border-box;
+}
+
 .project-table > tbody > tr > td {
   padding: 12px 8px; }
   .project-table > tbody > tr > td .avatar {

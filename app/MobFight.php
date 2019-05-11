@@ -14,7 +14,7 @@ class MobFight extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'mob_id', 'kills', 'user_hp', 'damage_stack', 'start'
+        'user_id', 'mob_id', 'kills', 'user_hp', 'damage_stack', 'start', 'last_update', 'running'
     ];
 
 
@@ -29,6 +29,24 @@ class MobFight extends Model
         if ($this->user_hp > $level) {
             $this->user_hp = $level;
             $this->save();
+        }
+    }
+
+    public function addLoot() {
+        $mob = Mob::find($this->mob_id);
+        $drop = $mob->getLootTable()->getDrop();
+        $match = Loot::where('user_id', $this->user_id)
+            ->where('item_id', $drop['item_id'])->get();
+        if (count($match) > 0) {
+            $match = $match->first();
+            $match->increment('amount', $drop['amount']);
+        } else {
+            Loot::create([
+                'user_id' => $this->user_id,
+                'mob_fight_id' => $this->id,
+                'item_id' => $drop['item_id'],
+                'amount' => $drop['amount']
+            ]);
         }
     }
 }

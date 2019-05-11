@@ -24,4 +24,6 @@ class Constants extends Model
 
     public static $XP_PER_DAMAGE = 5;
 
+    public static $JOB_PROCESS_DELAY = 2000;
+
 }

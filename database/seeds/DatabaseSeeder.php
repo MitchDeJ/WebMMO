@@ -8,7 +8,7 @@ class DatabaseSeeder extends Seeder
     //what tables do we need to truncate (empty) before seeding?
     protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots',
         'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips',
-        'item_stats', 'mobs', 'mob_spawns', 'mob_fights'];
+        'item_stats', 'mobs', 'mob_spawns', 'mob_fights', 'loot_tables', 'loot_table_drops'];
 
     /**
      * Seed the application's database.
@@ -36,5 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemStatSeeder::class);
         $this->call(MobSeeder::class);
         $this->call(MobSpawnSeeder::class);
+        $this->call(LootTableSeeder::class);
+        $this->call(LootTableDropSeeder::class);
     }
 }

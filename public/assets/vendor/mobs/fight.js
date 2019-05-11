@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var i;
+    var stop;
 
     $.ajaxSetup({
         beforeSend: function (xhr, type) {
@@ -18,21 +19,41 @@ $(document).ready(function () {
                 console.log(response);
                 //check if we still have to update
                 if (response['end'] == 1) {
+                    stop = true;
                     clearInterval(i);
+                    kills = response['kills'];
+                    $(".kills-text").empty();
+                    $(".kills-text").append("Kills: " + kills);
+                    $(".hp-text").empty();
+                    $(".hp-text").append("HP: "+response['hp']+"/"+response['maxhp']);
+                    $(".xp-text").empty();
+                    $(".xp-text").append("XP gained: " + (+kills * +xpPerKill));
+                    //update hp bar
+                    setHP(response['hp'], response['maxhp'], $('#hpBar'));
+                    //update loot
+                    $(".loot").empty();
+                    response['loot'].forEach(function(loot) {
+                        $(".loot").append('<img src="'+loot['icon']+'"/> x'+loot['amount']+' ')
+                    });
                     return;
                 }
                 //update hp-text
                 $(".hp-text").empty();
                 $(".hp-text").append("HP: "+response['hp']+"/"+response['maxhp']);
-                //update hp-text
-                $(".xp-text").empty();
-                $(".xp-text").append("XP gained: " +response['xp']);
-                //update hp bar
-                $('.hp-bar').attr('max', response['maxhp']);
-                $('.hp-bar').attr('value', response['hp']);
                 //update kills
                 $(".kills-text").empty();
-                $(".kills-text").append("Kills: " +response['kills']);
+                kills++;
+                $(".kills-text").append("Kills: " + kills);
+                //update xp-text
+                $(".xp-text").empty();
+                $(".xp-text").append("XP gained: " + (+kills * +xpPerKill));
+                //update hp bar
+                setHP(response['hp'], response['maxhp'], $('#hpBar'));
+                //update loot
+                $(".loot").empty();
+                response['loot'].forEach(function(loot) {
+                    $(".loot").append('<img src="'+loot['icon']+'"/> x'+loot['amount']+' ')
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -41,11 +62,50 @@ $(document).ready(function () {
         });
     }
 
-    var wait = setInterval(function() {
-         i = setInterval(function () {
-            updateInfo();
-        }, ((+delay) * 1000));
+    //set hp bar default
+    setHP(hp, maxhp, $('#hpBar'));
+    $('#progressBar').find('div').html('Loading')
+
+    //calc last update
+    var latency = ((Date.now() / 1000) - lastUpdate);
+    console.log(lastUpdate);
+    console.log(latency);
+    console.log(+delay-latency);
+    var wait = setTimeout(function() {
+        $('#progressBar').find('div').html('');
+        progress(+delay-latency, +delay, $('#progressBar'));
         clearInterval(wait);
-    }, 1000);
+    }, 1);
+
+    function progress(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        if (progressBarWidth > $element.width())
+            progressBarWidth = $element.width();
+        $element.find('div').animate({ width: progressBarWidth }, 500);
+        setTimeout(function() {
+
+            if (stop == true) {
+                clearTimeout(this);
+                return;
+            }
+
+            if(timeleft > 1) {
+                progress(timeleft - (1+(1.1/timetotal)), timetotal, $element);
+            } else {
+                onProgress();
+                progress(+delay, +delay, $element);
+            }
+
+        }, 1000);
+    }
+
+    function onProgress() {
+        updateInfo();
+    }
+
+    function setHP(timeleft, timetotal, $element) {
+        var progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, 500);
+    }
 
 });

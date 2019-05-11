@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Constants;
+use App\Item;
 use App\Jobs\ApplyMobKill;
 use App\Mob;
 use App\MobSpawn;
 use App\UserSkill;
 use App\MobFight;
+use App\Loot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,12 +34,19 @@ class MobController extends Controller
         $maxhp = $hpskill->getLevel();
         $kills = $fight->kills;
         $mob = Mob::find($fight->mob_id);
+        $lastupdate = $fight->last_update;
+        $loot = Loot::where('user_id', $user->id)
+            ->where('mob_fight_id', $fight->id)->get();
+        $item = Item::find(1);
 
         return view('mobfight', array(
             'hp' => $hp,
             'maxhp' => $maxhp,
             'kills' => $kills,
-            'mob' => $mob
+            'mob' => $mob,
+            'lastupdate' => $lastupdate,
+            'loot' => $loot,
+            'item' => $item
         ));
     }
 
@@ -71,13 +80,15 @@ class MobController extends Controller
             'kills' => 0,
             'user_hp' => $hp,
             'damage_stack' => 0.0,
-            'start' => time()
+            'start' => time()+2,
+            'last_update' => time()+2,
+            'running' => true
         ]);
 
         //queue job
         $timeToKill = Combat::getTimeToKill($userId, $mobId);
         ApplyMobKill::dispatch($userId, $mobId)
-            ->delay(now()->addSeconds($timeToKill));
+            ->delay(now()->addSeconds($timeToKill)->subMillis(Constants::$JOB_PROCESS_DELAY));
     }
 
     public static function inMobFight($userId) {
@@ -88,26 +99,46 @@ class MobController extends Controller
         return false;
     }
 
+    public static function mobFightRunning($userId) {
+        $fight = MobFight::where('user_id', $userId)->get();
+        if (count($fight) == 0)
+            return true;
+
+        $fight = $fight->first();
+
+        return $fight->running;
+    }
+
     public function updateFight() {
         $user = Auth::user();
-        $fight = MobFight::where('user_id', $user->id)->get();
-        if (!MobController::inMobFight($user->id)) {
-            $end = 1;
-            return response()->json(['end'=>$end]);
-        } else {
-            $fight = $fight->first();
-            $end = 0;
-        }
+        $fight = MobFight::where('user_id', $user->id)->get()->first();
 
         $hpskill = UserSkill::where('user_id', $user->id)
             ->where('skill_id', Constants::$HP)->get()->first();
 
         $hp = $fight->user_hp;
         $maxhp = $hpskill->getLevel();
-        $kills = $fight->kills;
-        $mob = Mob::find($fight->mob_id);
-        $xp = $mob->hitpoints * Constants::$XP_PER_DAMAGE * $kills;
+        //$mob = Mob::find($fight->mob_id);
 
-        return response()->json(['hp'=> $hp, 'maxhp' => $maxhp, 'kills' => $kills, 'xp' => $xp, 'end' => $end]);
+        $loot = Loot::where('user_id', $user->id)
+            ->where('mob_fight_id', $fight->id)->get();
+        $loots = array();
+        $item = Item::find(1);
+        foreach ($loot as $l) {
+            $toAdd = array();
+            $toAdd['item_id'] = $l->item_id;
+            $toAdd['amount'] = $l->amount;
+            $toAdd['icon'] = url($item->getIconPath($l->item_id));
+            array_push($loots, $toAdd);
+        }
+
+        if (!MobController::mobFightRunning($user->id)) {
+            $end = 1;
+            return response()->json(['hp'=> $hp, 'maxhp' => $maxhp, 'end'=>$end, 'kills' => $fight->kills, 'loot' => $loots]);
+        } else {
+            $end = 0;
+        }
+
+        return response()->json(['hp'=> $hp, 'maxhp' => $maxhp, 'end' => $end, 'loot' => $loots]);
     }
 }

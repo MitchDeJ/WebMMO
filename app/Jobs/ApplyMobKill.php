@@ -11,6 +11,7 @@ use App\Constants;
 use App\User;
 use App\UserSkill;
 use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -52,13 +53,16 @@ class ApplyMobKill implements ShouldQueue
         $damage = floor($n);
         $fraction = $n - $damage;
         $fight->damage_stack = $fraction;
+        $fight->last_update = time();
         $fight->save();
         $nextdamage = floor(Combat::getDamageTakenPerKill($this->userId, $this->mobId) + $fight->damage_stack);
 
        // remove player health in fight instance
         $fight->decrement('user_hp', $damage);
 
+
         // add loot
+        $fight->addLoot();
 
         //give experience TODO get attack style instead of melee xp only
         $skill = UserSkill::where('user_id', $this->userId)
@@ -82,11 +86,13 @@ class ApplyMobKill implements ShouldQueue
         if ($fight->user_hp >=  $nextdamage && $fight->user_hp > 0) {
             $timeToKill = Combat::getTimeToKill($this->userId, $this->mobId);
             ApplyMobKill::dispatch($this->userId, $this->mobId)
-                ->delay(now()->addSeconds($timeToKill));
+                ->delay(now()->addSeconds($timeToKill)->subMillis(Constants::$JOB_PROCESS_DELAY));
         } else { //not enough hp or food
             //stop the fight.
             //TODO zelf de fight 'completen' en verwijderen met een knop ipv auto delete
-            $fight->delete();
+            $fight->running = false;
+            $fight->user_hp = 0;
+            $fight->save();
         }
     }
 }

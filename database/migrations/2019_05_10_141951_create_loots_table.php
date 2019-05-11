@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMobFightsTable extends Migration
+class CreateLootsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,24 @@ class CreateMobFightsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mob_fights', function (Blueprint $table) {
+        Schema::create('loots', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('mob_id')->unsigned();
-            $table->integer('kills');
-            $table->integer('user_hp');
-            $table->float('damage_stack');
-            $table->integer('start');
-            $table->integer('last_update');
-            $table->boolean('running');
+            $table->integer('mob_fight_id')->unsigned();
+            $table->integer('item_id')->unsigned();
+            $table->integer('amount');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-
-            $table->foreign('mob_id')
+            $table->foreign('mob_fight_id')
                 ->references('id')
-                ->on('mobs')
+                ->on('mob_fights')
+                ->onDelete('cascade');
+            $table->foreign('item_id')
+                ->references('id')
+                ->on('items')
                 ->onDelete('cascade');
         });
     }
@@ -43,6 +42,6 @@ class CreateMobFightsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mob_fights');
+        Schema::dropIfExists('loots');
     }
 }

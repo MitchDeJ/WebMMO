@@ -12,10 +12,13 @@ class MobSpawnSeeder extends Seeder
     public function run()
     {
         //giant rat in area 1
-        DB::table('mob_spawns')->insert([
-            'mob_id' => 1,
-            'area_id' => 1,
-        ]);
+        $this->spawn(1, 1);
+    }
 
+    public function spawn($mobId, $areaId) {
+        DB::table('mob_spawns')->insert([
+            'mob_id' => $mobId,
+            'area_id' => $areaId,
+        ]);
     }
 }
