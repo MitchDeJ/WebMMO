@@ -2,7 +2,7 @@
 @section('content')
     <script>
         var redirect = '{{ url('')}}';
-        var delay= '{{ \App\Combat::getTimeToKill(Auth::user()->id, $mob->id)}}';
+        var delay= '{{ \App\Combat::getTimeToKill(Auth::user()->id, $mob->id) + $mob->respawn}}';
         var hp='{{$hp}}';
         var maxhp='{{$maxhp}}';
         var kills='{{$kills}}';
@@ -21,6 +21,7 @@
                         <!-- CONTENT START -->
                         <b>Fighting: {{$mob->name}}</b><br>
                         Time per kill: {{\App\Combat::getTimeToKill(Auth::user()->id, $mob->id)}}s<br>
+                        Respawn time: {{$mob->respawn}}s
                         <div class="kills-text">Kills: {{$kills}}</div>
                         <div id="progressBar" class="progressBar">
                             <div class="bar"></div>

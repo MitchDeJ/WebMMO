@@ -73,7 +73,7 @@ class MobController extends Controller
 
     function createMobFight($userId, $mobId) {
         $hp = UserSkill::where('user_id', $userId)->where('skill_id', Constants::$HP)->get()->first()->getLevel();
-
+        $mob = Mob::find($mobId);
         DB::table('mob_fights')->insert([
             'user_id' => $userId,
             'mob_id' => $mobId,
@@ -88,7 +88,7 @@ class MobController extends Controller
         //queue job
         $timeToKill = Combat::getTimeToKill($userId, $mobId);
         ApplyMobKill::dispatch($userId, $mobId)
-            ->delay(now()->addSeconds($timeToKill)->subMillis(Constants::$JOB_PROCESS_DELAY));
+            ->delay(now()->addSeconds($timeToKill)->addSeconds($mob->respawn)->subMillis(Constants::$JOB_PROCESS_DELAY));
     }
 
     public static function inMobFight($userId) {

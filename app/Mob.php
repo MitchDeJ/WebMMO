@@ -14,7 +14,7 @@ class Mob extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'melee', 'ranged', 'magic', 'defence', 'hitpoints', 'attack_speed'
+        'name', 'melee', 'ranged', 'magic', 'defence', 'hitpoints', 'attack_speed', 'respawn'
     ];
 
     public function getLootTable() {
