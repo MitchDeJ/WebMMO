@@ -70,7 +70,7 @@ class SkillSpotController extends Controller
         Cooldown::create(
             [
                 'user_id' => Auth::user()->id,
-                'type' => 1,
+                'type' => Constants::$COOLDOWN_SKILLING,
                 'end' => (time() + $spot->cooldown)
             ]
         );

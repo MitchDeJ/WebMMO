@@ -21,7 +21,7 @@ class MobFight extends Model
     public function heal($amount)
     {
         $user = User::find($this->user_id);
-        $this->increment('user_hp', $amount);
+        $this->user_hp += $amount;
 
         //prevent overhealing
         $hp = UserSkill::where('user_id', $user->id)
@@ -29,8 +29,8 @@ class MobFight extends Model
         $level = $hp->getLevel();
         if ($this->user_hp > $level) {
             $this->user_hp = $level;
-            $this->save();
         }
+        $this->save();
     }
 
     public function addLoot()

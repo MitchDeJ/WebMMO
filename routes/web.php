@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::get('/map', 'MapController@index')->name('map');
 Route::get('/location', 'AreaController@index')->name('location');
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
 Route::get('/mobfight', 'MobController@fightPageIndex')->name('mobfight');
@@ -35,4 +36,5 @@ Route::post("/removefight",["uses" => "MobController@removeFight", "as"=>"remove
 Route::post("/cancelfight",["uses" => "MobController@cancelFight", "as"=>"cancel.fight"]);
 Route::post("/claimloot",["uses" => "MobController@claimLoot", "as"=>"claim.loot"]);
 Route::post("/updatefight", "MobController@updateFight");
+Route::post('/travel', ["uses" => "MapController@travel", "as"=>"travel"]);
 

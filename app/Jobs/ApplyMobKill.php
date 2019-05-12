@@ -55,6 +55,8 @@ class ApplyMobKill implements ShouldQueue
         $fight = MobFight::where('user_id', $this->userId)
             ->where('mob_id', $this->mobId)->get()->first();
 
+        $inv = InventorySlot::getInstance();
+
         //calculate the damage done using the damage stack
         $stack = $fight->damage_stack;
         $n = Combat::getDamageTakenPerKill($this->userId, $this->mobId) + $stack;
@@ -68,6 +70,25 @@ class ApplyMobKill implements ShouldQueue
        // remove player health in fight instance
         $fight->decrement('user_hp', $damage);
 
+        //check if we managed to get the first kill
+        if($fight->kills == 0) {
+            while($fight->user_hp <= 0
+                && $inv->getNextFoodItem($user->id) != null) {
+                $slot = $inv->getNextFoodItem($user->id); // get the item slot
+                $item = Item::find($slot->item_id); // get the food item
+                $fight->heal($item->getHealAmount($item->id)); // heal the player
+                $slot->clear();
+            }
+
+            //we didnt manage to kill a single mob.
+            if ($fight->user_hp <= 0) {
+                $fight->running = false;
+                $fight->user_hp = 0;
+                $fight->save();
+                return;
+            }
+        }
+
 
         // add loot
         $fight->addLoot();
@@ -80,7 +101,6 @@ class ApplyMobKill implements ShouldQueue
         //increment kills
         $fight->increment('kills', 1);
 
-        $inv = InventorySlot::getInstance();
         //consume food if necessary
         while($fight->user_hp <=  $nextdamage
             && $inv->getNextFoodItem($user->id) != null) {
