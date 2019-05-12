@@ -4,6 +4,7 @@
 
 //define the map
 var map = L.map('map', {
+    attributionControl:false,
     crs: L.CRS.Simple,
     minZoom: 2
 });
