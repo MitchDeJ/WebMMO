@@ -30,5 +30,9 @@ Route::post('/swapslot', "ItemController@swapSlot");
 Route::post("/useskillspot",["uses" => "SkillSpotController@useSpot", "as"=>"skillspot.use"]);
 Route::post('/getiteminfo', 'ItemController@getInfo');
 Route::post("/attackmob",["uses" => "MobController@startMobFight", "as"=>"attack.mob"]);
+Route::post("/claimloot",["uses" => "MobController@claimLoot", "as"=>"claim.loot"]);
+Route::post("/removefight",["uses" => "MobController@removeFight", "as"=>"remove.fight"]);
+Route::post("/cancelfight",["uses" => "MobController@cancelFight", "as"=>"cancel.fight"]);
+Route::post("/claimloot",["uses" => "MobController@claimLoot", "as"=>"claim.loot"]);
 Route::post("/updatefight", "MobController@updateFight");
 

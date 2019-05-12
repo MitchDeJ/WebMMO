@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Combat;
+use App\Http\Controllers\MobController;
 use App\InventorySlot;
 use App\Item;
 use App\MobFight;
@@ -44,6 +45,13 @@ class ApplyMobKill implements ShouldQueue
     {
         $user = User::find($this->userId);
         $mob = Mob::find($this->mobId);
+
+        if (!MobController::inMobFight($user->id))
+            return;
+
+        if (!MobController::mobFightRunning($user->id))
+            return;
+
         $fight = MobFight::where('user_id', $this->userId)
             ->where('mob_id', $this->mobId)->get()->first();
 

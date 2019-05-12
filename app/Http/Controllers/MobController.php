@@ -38,6 +38,7 @@ class MobController extends Controller
         $loot = Loot::where('user_id', $user->id)
             ->where('mob_fight_id', $fight->id)->get();
         $item = Item::find(1);
+        $running = $fight->running;
 
         return view('mobfight', array(
             'hp' => $hp,
@@ -46,7 +47,8 @@ class MobController extends Controller
             'mob' => $mob,
             'lastupdate' => $lastupdate,
             'loot' => $loot,
-            'item' => $item
+            'item' => $item,
+            'running' => $running
         ));
     }
 
@@ -102,11 +104,43 @@ class MobController extends Controller
     public static function mobFightRunning($userId) {
         $fight = MobFight::where('user_id', $userId)->get();
         if (count($fight) == 0)
-            return true;
+            return false;
 
         $fight = $fight->first();
 
         return $fight->running;
+    }
+
+    public function claimLoot(Request $request) {
+        $fight = MobFight::where('user_id', Auth::user()->id)->get();
+        if (count($fight) == 0)
+            return redirect('location');
+
+        $fight = $fight->first();
+
+        $fight->claimLoot();
+        return redirect('location');
+    }
+
+    public function cancelFight() {
+        $fight = MobFight::where('user_id', Auth::user()->id)->get();
+        if (count($fight) == 0)
+            return redirect('location');
+
+        $fight = $fight->first();
+        $fight->running = false;
+        $fight->save();
+        return redirect('location');
+    }
+
+    public function removeFight() {
+        $fight = MobFight::where('user_id', Auth::user()->id)->get();
+        if (count($fight) == 0)
+            return redirect('location');
+
+        $fight = $fight->first();
+        $fight->delete();
+        return redirect('location');
     }
 
     public function updateFight() {

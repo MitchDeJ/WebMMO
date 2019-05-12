@@ -2,12 +2,12 @@
 @section('content')
     <script>
         var redirect = '{{ url('')}}';
-        var delay= '{{ \App\Combat::getTimeToKill(Auth::user()->id, $mob->id) + $mob->respawn}}';
-        var hp='{{$hp}}';
-        var maxhp='{{$maxhp}}';
-        var kills='{{$kills}}';
-        var xpPerKill='{{$mob->hitpoints * \App\Constants::$XP_PER_DAMAGE}}';
-        var lastUpdate ='{{$lastupdate}}';
+        var delay = '{{ \App\Combat::getTimeToKill(Auth::user()->id, $mob->id) + $mob->respawn}}';
+        var hp = '{{$hp}}';
+        var maxhp = '{{$maxhp}}';
+        var kills = '{{$kills}}';
+        var xpPerKill = '{{$mob->hitpoints * \App\Constants::$XP_PER_DAMAGE}}';
+        var lastUpdate = '{{$lastupdate}}';
     </script>
     <script src="{{ asset('assets/vendor/mobs/fight.js') }}"></script>
     <div class="main-content">
@@ -31,14 +31,37 @@
                         <div id="hpBar" class="progressBar">
                             <div class="bar" style="background-color:green"></div>
                         </div>
-                        <div class="xp-text">XP gained: {{$mob->hitpoints * \App\Constants::$XP_PER_DAMAGE * $kills}}</div>
+                        <div class="xp-text">XP
+                            gained: {{$mob->hitpoints * \App\Constants::$XP_PER_DAMAGE * $kills}}</div>
                         <b>Loot</b>
                         <div class="loot">
-                        @foreach($loot as $l)
-                            <img src="{{url($item->getIconPath($l->item_id))}}" /> x{{$l->amount}}
+                            @foreach($loot as $l)
+                                <img src="{{url($item->getIconPath($l->item_id))}}"/> x{{$l->amount}}
                             @endforeach
                         </div>
-                        <!-- CONTENT END -->
+                        @if(count($loot) > 0)
+                            {!! Form::open(['route' => ['claim.loot'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                            <td>
+                                <button type="submit" class="btn btn-default">Claim loot</button>
+                            </td>
+                            {!! Form::close() !!}
+                        @endif
+                        <br>
+                        <b>Cancel/Leave</b>
+                        @if($running)
+                            {!! Form::open(['route' => ['cancel.fight'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                            <td>
+                                <button type="submit" class="btn btn-danger">Cancel</button>
+                            </td>
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['route' => ['remove.fight'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                            <td>
+                                <button type="submit" class="btn btn-danger">Leave</button>
+                            </td>
+                        {!! Form::close() !!}
+                    @endif
+                    <!-- CONTENT END -->
                     </div>
                 </div>
             </div>
