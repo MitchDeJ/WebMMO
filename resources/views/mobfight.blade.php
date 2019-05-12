@@ -39,13 +39,11 @@
                                 <img src="{{url($item->getIconPath($l->item_id))}}"/> x{{$l->amount}}
                             @endforeach
                         </div>
-                        @if(count($loot) > 0)
                             {!! Form::open(['route' => ['claim.loot'], 'method' => 'post', 'class' => 'form-inline']) !!}
                             <td>
                                 <button type="submit" class="btn btn-default">Claim loot</button>
                             </td>
                             {!! Form::close() !!}
-                        @endif
                         <br>
                         <b>Cancel/Leave</b>
                         @if($running)
