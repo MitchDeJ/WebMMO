@@ -26,6 +26,6 @@ class Constants extends Model
 
     public static $JOB_PROCESS_DELAY = 2000;
 
-    public static $COOLDOWN_SKILLING;
+    public static $COOLDOWN_SKILLING = 1;
 
 }

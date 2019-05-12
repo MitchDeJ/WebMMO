@@ -32,7 +32,7 @@ class SkillSpotController extends Controller
         }
 
         //check cooldown
-        if (Cooldown::check(Auth::user()->id, 1) != false) {
+        if (Cooldown::check(Auth::user()->id, Constants::$COOLDOWN_SKILLING) != false) {
             return redirect('location')->with('fail', 'This action is not available yet.');
         }
 
