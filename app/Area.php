@@ -17,4 +17,14 @@ class Area extends Model
         'name',
         'description'
     ];
+
+    public function hasNpc($npcId) {
+        $amt = Npc::where('area_id', $this->id)
+            ->where('id', $npcId)->get();
+
+        if (count($amt) > 0)
+            return true;
+
+        return false;
+    }
 }

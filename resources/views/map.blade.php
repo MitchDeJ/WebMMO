@@ -4,7 +4,7 @@
     <script>
         var points = '{!! json_encode($points, JSON_HEX_TAG) !!}';
         var current = '{{ $current }}';
-        var redirect = '{!! url('') !!}'
+        var redirect = '{!! url('') !!}';
         var token = '{!! csrf_field() !!}';
     </script>
     <div class="main-content">

@@ -37,4 +37,6 @@ Route::post("/cancelfight",["uses" => "MobController@cancelFight", "as"=>"cancel
 Route::post("/claimloot",["uses" => "MobController@claimLoot", "as"=>"claim.loot"]);
 Route::post("/updatefight", "MobController@updateFight");
 Route::post('/travel', ["uses" => "MapController@travel", "as"=>"travel"]);
+Route::post('/npcinteract', ["uses" => "NpcController@interact", "as"=>"npc.interact"]);
+Route::post("/enddialogue", "NpcController@endDialogue");
 

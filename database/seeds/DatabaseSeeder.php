@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
     protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots',
         'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips',
         'item_stats', 'mobs', 'mob_spawns', 'mob_fights', 'loot_tables', 'loot_table_drops',
-        'map_points'];
+        'map_points', 'dialogues', 'dialogue_messages'];
 
     /**
      * Seed the application's database.
@@ -40,5 +40,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LootTableSeeder::class);
         $this->call(LootTableDropSeeder::class);
         $this->call(MapPointSeeder::class);
+        $this->call(DialogueSeeder::class);
     }
 }

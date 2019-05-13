@@ -43,6 +43,23 @@
                             @endforeach
                         </table>
                         <br>
+                        NPCs
+                        <table border="1">
+                            <tr>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach($npcs as $npc)
+                                <tr>
+                                    <td>{{$npc->name}}</td>
+                                    {!! Form::open(['route' => ['npc.interact'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                                    {!! Form::hidden("id", $npc->id) !!}
+                                    <td><button type="submit" class="btn btn-default">Talk</button></td>
+                                    {!! Form::close() !!}
+                                </tr>
+                            @endforeach
+                        </table>
+                        <br>
                         Mobs
                         <table border="1">
                             <tr>
