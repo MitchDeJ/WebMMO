@@ -37,6 +37,7 @@ class NpcController extends Controller
                 $toAdd['text'] = $msg->text;
                 array_push($dialogue, $toAdd);
             }
+            $user->setDialogue($dId);
             return view('dialogue')->with(array(
                 'dialogue' => $dialogue,
                 'user' => $user,
@@ -47,12 +48,15 @@ class NpcController extends Controller
     }
 
     public function endDialogue(Request $request) {
-        $dId = 1; //TODO remove hardcoded value, save in database which conversation was started.
         $user = Auth::user();
+        $inv = InventorySlot::getInstance();
+        switch($user->getDialogue()) {
 
-        switch($dId) {
-            //execute code after dialogue end.
+            case 1://default dialogue gives an apple.
+                $inv->addItem($user->id, 11, 1);
+                break;
         }
+
 
         return response('OK', 200)
             ->header('Content-Type', 'text/plain');

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\UserDialogue;
+use App\Dialogue;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -41,5 +43,27 @@ class User extends Authenticatable
 
     public function location() {
         return $this->hasOne('App\Area', 'id', 'area_id');
+    }
+
+    public function setDialogue($dId) {
+        $dialogue = Dialogue::find($dId);
+
+        $current = UserDialogue::where('user_id', $this->id)->get();
+        if (count($current) == 0) {
+            //create a new row.
+            UserDialogue::create(array(
+                'user_id' => $this->id,
+                'dialogue_id' => $dialogue->id
+            ));
+        } else {
+            //update existing row
+            $current = $current->first();
+            $current->dialogue_id = $dialogue->id;
+            $current->save();
+        }
+    }
+
+    public function getDialogue() {
+        return UserDialogue::where('user_id', $this->id)->get()->first();
     }
 }
