@@ -56,7 +56,7 @@ class NpcController extends Controller
 
         if ($d == -1)
             return response('OK', 200)
-                ->header('Content-Type', 'text/plain');;
+                ->header('Content-Type', 'text/plain');
 
         switch($d) {
 

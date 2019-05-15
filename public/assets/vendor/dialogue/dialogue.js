@@ -42,11 +42,10 @@ $(document).ready(function () {
         xhr.open("POST", redirect + '/enddialogue', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
-            '_token' : $('meta[name="csrf-token"]').attr('content')
+            '_token': $('meta[name="csrf-token"]').attr('content')
         }));
-        var wait = setInterval(function() {
+        xhr.onload = function () {
             window.location.replace(redirect + '/location');
-            clearInterval(wait);
-        }, 250);
+        };
     }
 });
