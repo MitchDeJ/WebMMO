@@ -64,6 +64,6 @@ class User extends Authenticatable
     }
 
     public function getDialogue() {
-        return UserDialogue::where('user_id', $this->id)->get()->first();
+        return UserDialogue::where('user_id', $this->id)->get()->first()->id;
     }
 }

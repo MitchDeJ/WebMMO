@@ -44,6 +44,9 @@ $(document).ready(function () {
         xhr.send(JSON.stringify({
             '_token' : $('meta[name="csrf-token"]').attr('content')
         }));
-        window.location.replace(redirect + '/location');
+        var wait = setInterval(function() {
+            window.location.replace(redirect + '/location');
+            clearInterval(wait);
+        }, 250);
     }
 });
