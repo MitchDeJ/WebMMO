@@ -715,14 +715,10 @@ fieldset[disabled] .btn {
   margin-bottom: 30px;
   border: 1px solid #DCE6EB; }
   .metric .icon {
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
     float: left;
     width: 50px;
     height: 50px;
     line-height: 50px;
-    background-color: #0081c2;
     text-align: center; }
     .metric .icon i {
       font-size: 18px;

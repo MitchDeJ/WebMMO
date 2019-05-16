@@ -61,7 +61,16 @@ class SkillActionController extends Controller
         if ($amount > $max)
             $amount = $max;
 
-        //TODO check if tool is in inv, check if you have required items
+        $freeSlots = $inv->getFreeSlots($user->id);
+
+        if ($action->req_item != null)
+            $freeSlots +=  $inv->getItemCount($user->id, $action->req_item);
+
+        if ($action->req_item_2 != null)
+            $freeSlots +=  $inv->getItemCount($user->id, $action->req_item_2);
+
+        if ($amount > $freeSlots)
+            $amount = $freeSlots;
 
         //check  tool
         if ($action->tool_item != null & (!$inv->hasItem($user->id, $action->tool_item)))
@@ -108,8 +117,8 @@ class SkillActionController extends Controller
 
         UserSkillAction::create(array(
             'user_id' => $user->id,
-            'start' => time() + 1,
-            'end' => time() + 1 + $time,
+            'start' => time(),
+            'end' => time() + $time,
             'skill_action_id' => $action->id,
             'amount' => $amount,
             'success_amount' => $successAmount,
