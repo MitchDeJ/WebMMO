@@ -22,7 +22,7 @@ class ItemSeeder extends Seeder
             case 2:
                 return array('Fishing rod', 'Used to fish.', 'fishingrod', false);
             case 3:
-                return array('Fish', 'Great source of protein.', 'fish', true);
+                return array('Raw fish', 'I should cook this.', 'fish', true);
             case 4:
                 return array('Logs', 'Cut from a tree.', 'log', true);
             case 5:
@@ -39,6 +39,8 @@ class ItemSeeder extends Seeder
                 return array('Amulet', 'A magical amulet.', 'amulet', false);
             case 11:
                 return array('Apple', 'An apple a day keeps the doctor away.', 'apple', false);
+            case 12:
+                return array('Fish', 'Great source of protein.', 'cooked_fish', false);
 
 
             default:

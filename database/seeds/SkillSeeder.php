@@ -28,6 +28,8 @@ class SkillSeeder extends Seeder
                 return array('Defence', 'defence');
             case (Constants::$HP):
                 return array('Hitpoints', 'hp');
+            case (Constants::$COOKING):
+                return array('Cooking', 'cooking');
 
             default:
                 return -1;

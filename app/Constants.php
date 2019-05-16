@@ -21,6 +21,7 @@ class Constants extends Model
     public static $DEFENCE = 5;
     public static $WOODCUTTING = 6;
     public static $FISHING = 7;
+    public static $COOKING = 8;
 
     public static $XP_PER_DAMAGE = 5;
 

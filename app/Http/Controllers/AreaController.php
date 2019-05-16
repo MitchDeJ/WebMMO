@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\AreaObject;
+use App\AreaObjectSpawn;
 use App\Mob;
 use App\MobSpawn;
 use App\Npc;
@@ -26,14 +28,24 @@ class AreaController extends Controller
         if (MobController::inMobFight($user->id))
             return redirect('mobfight');
 
+        if (SkillActionController::inSkillAction($user->id))
+            return redirect('skillaction');
+
         $loc = Auth::user()->location;
         $spots = SkillSpot::where('area_id', $loc->id)->get();
         $reqs = array();
-        $spawns = MobSpawn::where('area_id', $loc->id)->get();
+        $mobspawns = MobSpawn::where('area_id', $loc->id)->get();
         $mobs = array();
 
-        foreach($spawns as $spawn) {
+        foreach($mobspawns as $spawn) {
             array_push($mobs, Mob::find($spawn->mob_id));
+        }
+
+        $objectspawns = AreaObjectSpawn::where('area_id', $loc->id)->get();
+        $objects = array();
+
+        foreach($objectspawns as $spawn) {
+            array_push($objects, AreaObject::find($spawn->object_id));
         }
 
 
@@ -48,7 +60,8 @@ class AreaController extends Controller
             'skillspots' => $spots,
             'npcs' => Npc::where('area_id', $loc->id)->get(),
             'reqs' => $reqs,
-            'mobs' => $mobs
+            'mobs' => $mobs,
+            'objects' => $objects
         ));
     }
 }

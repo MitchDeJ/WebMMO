@@ -27,16 +27,28 @@ Route::get('/useitem/{slot}', 'ItemController@useItem')->name('useitem');
 Route::get('/destroyitem/{slot}', 'ItemController@destroyItem')->name('destroyitem');
 Route::get('/unequip/{slot}', 'ItemController@unequipItem')->name('unequip');
 
+//inventory
 Route::post('/swapslot', "ItemController@swapSlot");
-Route::post("/useskillspot",["uses" => "SkillSpotController@useSpot", "as"=>"skillspot.use"]);
 Route::post('/getiteminfo', 'ItemController@getInfo');
+//skilling
+Route::post("/useskillspot",["uses" => "SkillSpotController@useSpot", "as"=>"skillspot.use"]);
+//mobs/fighting
 Route::post("/attackmob",["uses" => "MobController@startMobFight", "as"=>"attack.mob"]);
 Route::post("/claimloot",["uses" => "MobController@claimLoot", "as"=>"claim.loot"]);
 Route::post("/removefight",["uses" => "MobController@removeFight", "as"=>"remove.fight"]);
 Route::post("/cancelfight",["uses" => "MobController@cancelFight", "as"=>"cancel.fight"]);
 Route::post("/claimloot",["uses" => "MobController@claimLoot", "as"=>"claim.loot"]);
 Route::post("/updatefight", "MobController@updateFight");
+//map
 Route::post('/travel', ["uses" => "MapController@travel", "as"=>"travel"]);
+//npc
 Route::post('/npcinteract', ["uses" => "NpcController@interact", "as"=>"npc.interact"]);
+//dialogue
 Route::post("/enddialogue", "NpcController@endDialogue");
+//objects
+Route::post('/objectinteract', ["uses" => "ObjectController@interact", "as"=>"object.interact"]);
+//skillactions
+Route::get('/skillaction', 'SkillActionController@index')->name('skillaction');
+Route::post('/action', ["uses" => "SkillActionController@startAction", "as"=>"start.action"]);
+Route::post('/completeaction', ["uses" => "SkillActionController@completeAction", "as"=>"completeaction"]);
 

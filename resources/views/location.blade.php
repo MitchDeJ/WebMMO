@@ -60,6 +60,23 @@
                             @endforeach
                         </table>
                         <br>
+                        Objects
+                        <table border="1">
+                            <tr>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach($objects as $o)
+                                <tr>
+                                    <td>{{$o->name}}</td>
+                                    {!! Form::open(['route' => ['object.interact'], 'method' => 'post', 'class' => 'form-inline']) !!}
+                                    {!! Form::hidden("id", $o->id) !!}
+                                    <td><button type="submit" class="btn btn-default">Use</button></td>
+                                    {!! Form::close() !!}
+                                </tr>
+                            @endforeach
+                        </table>
+                        <br>
                         Mobs
                         <table border="1">
                             <tr>

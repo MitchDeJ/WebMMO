@@ -87,6 +87,8 @@ class Item extends Model
         switch($id) {
             case 11: //apple
                 return 5;
+            case 12: //cooked fish
+                return 7;
             default:
                 return -1;
         }
