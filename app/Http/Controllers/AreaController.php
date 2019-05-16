@@ -43,9 +43,12 @@ class AreaController extends Controller
 
         $objectspawns = AreaObjectSpawn::where('area_id', $loc->id)->get();
         $objects = array();
+        $objectskills = array();
 
         foreach($objectspawns as $spawn) {
-            array_push($objects, AreaObject::find($spawn->object_id));
+            $obj = AreaObject::find($spawn->object_id);
+            array_push($objects, $obj);
+            $objectskills[$obj->id] = ObjectController::getSkillAction($user->id, $obj->id)->skill_id;
         }
 
 
@@ -61,7 +64,8 @@ class AreaController extends Controller
             'npcs' => Npc::where('area_id', $loc->id)->get(),
             'reqs' => $reqs,
             'mobs' => $mobs,
-            'objects' => $objects
+            'objects' => $objects,
+            'objectskills' => $objectskills
         ));
     }
 }
