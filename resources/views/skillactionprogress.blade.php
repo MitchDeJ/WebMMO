@@ -13,7 +13,7 @@
             <!-- OVERVIEW -->
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{$skill->getName($action->skill_id)}}</h3>
+                    <h3 class="panel-title"><img src="{{url($skill->getIconPath($action->skill_id))}}"/> {{$skill->getName($action->skill_id)}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">

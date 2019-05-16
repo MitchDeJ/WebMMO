@@ -89,7 +89,7 @@ class ObjectController extends Controller
                     'product_item_amount' => 1
                 ));
 
-                $actions = array($logsIntoUnstrungBow, $stringBows);
+                $actions = array($stringBows, $logsIntoUnstrungBow);
 
                 foreach ($actions as $a) {
                     if ($inv->hasItem($userId, $a->tool_item) && $inv->hasItem($userId, $a->req_item))

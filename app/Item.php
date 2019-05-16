@@ -70,6 +70,7 @@ class Item extends Model
                 return Constants::$EQUIP_LEGS;
             //weapons
             case 8: // standard sword
+            case 16: //standard bow
                 return Constants::$EQUIP_WEAPON;
             //shields
             case 9: //standard shield

@@ -33,6 +33,8 @@ class ItemStatSeeder extends Seeder
                 return array($itemId, 0, 6, 0, 5, 0, -3);
             case 10: //amulet
                 return array($itemId, 5, 5, 5, 5, 5, 5);
+            case 16: //bow
+                return array($itemId, 0, 0, 12, 0, 0, 0);
 
             default:
                 return -1;
