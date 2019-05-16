@@ -41,6 +41,14 @@ class ItemSeeder extends Seeder
                 return array('Apple', 'An apple a day keeps the doctor away.', 'apple', false);
             case 12:
                 return array('Fish', 'Great source of protein.', 'cooked_fish', false);
+            case 13:
+                return array('Knife', 'Stay sharp.', 'knife', false);
+            case 14:
+                return array('Unstrung bow', 'I should string this.', 'unstrung_bow', false);
+            case 15:
+                return array('Bowstring', 'I need a bow to attach this to.', 'bowstring', false);
+            case 16:
+                return array('Bow', 'A nice bow made out of wood.', 'bow', false);
 
 
             default:

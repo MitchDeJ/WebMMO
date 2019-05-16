@@ -30,6 +30,8 @@ class SkillSeeder extends Seeder
                 return array('Hitpoints', 'hp');
             case (Constants::$COOKING):
                 return array('Cooking', 'cooking');
+            case (Constants::$CRAFTING):
+                return array('Crafting', 'crafting');
 
             default:
                 return -1;

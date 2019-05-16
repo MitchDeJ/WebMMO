@@ -50,9 +50,12 @@ class UserSeeder extends Seeder
                 'item_id' => null,
             ]);
         }
-        // give axe and fishing rod
-        InventorySlot::getInstance()->addItem(1, 1, 1);
-        InventorySlot::getInstance()->addItem(1, 2, 1);
+        // give tools
+        $inv = InventorySlot::getInstance();
+        $inv->addItem(1, 1, 1);
+        $inv->addItem(1, 2, 1);
+        $inv->addItem(1, 13, 1);
+
 
     }
 }

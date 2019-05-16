@@ -7,6 +7,7 @@ class AreaObjectSeeder extends Seeder
     public function run()
     {
         $this->addObject(1, 'Cooking range');
+        $this->addObject(2, 'Fletching table');
     }
 
     public function addObject($objectId, $name) {

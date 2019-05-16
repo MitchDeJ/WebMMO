@@ -167,6 +167,7 @@ class InventorySlot extends Model
             } else {
                 $slot->item_id = null;
                 $slot->amount = 0;
+                $slot->save();
             }
         } else { //non stackables
             for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
@@ -179,12 +180,13 @@ class InventorySlot extends Model
                 if ($slot->item_id == $itemId) {
                     $slot->item_id = null;
                     $slot->amount = 0;
+                    $slot->save();
                     $amount -= 1;
                 }
 
             }
         }
-        $slot->save();
+        return false;
     }
 
     public function getNextFoodItem($userId)

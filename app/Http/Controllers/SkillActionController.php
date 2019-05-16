@@ -53,7 +53,7 @@ class SkillActionController extends Controller
         $amount = $request['amount'];
         //TODO check if object is in user area
 
-        $action = ObjectController::getSkillAction($id);
+        $action = ObjectController::getSkillAction($user->id, $id);
 
         $inv = InventorySlot::getInstance();
 
@@ -100,7 +100,7 @@ class SkillActionController extends Controller
             $inv->removeItem($user->id, $action->req_item, $amount * $action->req_item_amount);
         }
         if ($action->req_item_2 != null) {
-            $inv->removeItem($user->id, $action->req_item, $amount * $action->req_item_amount);
+            $inv->removeItem($user->id, $action->req_item_2, $amount * $action->req_item_2_amount);
         }
 
         $time = $action->delay * $amount;
