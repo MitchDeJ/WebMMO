@@ -4,11 +4,17 @@
 $(document).ready(function () {
     var item = {};
     var price = {};
+    var owned = {};
     var slot = $(".shop_slot");
     var total = $('input[name=pricetotal]');
     var amount = $('input[name=amount]');
     var hidden = $('input[name=shopitemid]');
+    var sell_slot = $(".shop_sell_slot");
+    var sellTotal = $('input[name=sellpricetotal]');
+    var sellAmount = $('input[name=sellamount]');
+    var sellHidden = $('input[name=shopsellitemid]');
     var currentPrice = 0;
+    var currentSellPrice = 0;
 
     slot.tlp(
         {
@@ -21,6 +27,18 @@ $(document).ready(function () {
                 return "Buy '" + item[$(this)] + "'";
             }
         });
+
+    sell_slot.tlp({
+        track: true,
+        show: false,
+        hide: false,
+        content: function () {
+            item[$(this)] = $(this).attr('title');
+            price[$(this)] = $(this).find('p').text();
+            owned[$(this)] = $(this).find('i').text();
+            return "Sell '" + item[$(this)] + "'";
+        }
+    });
 
     slot.click(function(){
         var menu = $("#buy_menu");
@@ -40,9 +58,23 @@ $(document).ready(function () {
         total.attr('value', (a * +currentPrice) + 'gp');
     }
 
-    function clearPost() {
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
+    //selling
+    sell_slot.click(function(){
+        var menu = $("#sell_menu");
+        var details = $("#sell_details");
+        details.html('Selling: <b>' +  item[$(this)] + ' (You have '+owned[$(this)]+')</b>');
+        menu.removeAttr('hidden');
+        currentSellPrice = price[$(this)];
+        sellAmount.attr('max', owned[$(this)]).attr('value', owned[$(this)]);
+        updateSellPrice(sellAmount.val());
+        sellHidden.attr('value', ($(this).attr('id')));
+    });
+
+    sellAmount.on('change keyup', function() {
+        updateSellPrice(sellAmount.val());
+    });
+
+    function updateSellPrice(a) {
+        sellTotal.attr('value', (a * +currentSellPrice) + 'gp');
     }
 });

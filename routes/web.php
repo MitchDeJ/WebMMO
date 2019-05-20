@@ -53,5 +53,6 @@ Route::post('/action', ["uses" => "SkillActionController@startAction", "as"=>"st
 Route::post('/completeaction', ["uses" => "SkillActionController@completeAction", "as"=>"completeaction"]);
 //shops
 Route::post('/buyshopitem', ["uses" => "ShopController@buyItem", "as"=>"shop.buy"]);
+Route::post('/sellshopitem', ["uses" => "ShopController@sellItem", "as"=>"shop.sell"]);
 Route::get('/shop/{shopId}', 'ShopController@shopIndex');
 
