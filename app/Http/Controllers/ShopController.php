@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Item;
 use App\Shop;
+use App\Func;
 
 class ShopController extends Controller
 {
@@ -55,6 +56,10 @@ class ShopController extends Controller
        $inv = InventorySlot::getInstance();
        $gp = $inv->getItemCount($user->id, 17);
        $shop = Shop::find($request['shopid']);
+       $amount = $request['amount'];
+
+       if (!Func::validAmount($amount))
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid amount.');
 
        if (!$shop)
            return redirect('shop/'.$shop->id)->with('fail', 'Invalid shop.');
@@ -67,7 +72,7 @@ class ShopController extends Controller
        if (!$shopitem)
            return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
 
-       $price = $shopitem->sell_price * $request['amount'];
+       $price = $shopitem->sell_price * $amount;
 
        if (!$shopitem->isInShop($shop->id))
            return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
@@ -86,6 +91,10 @@ class ShopController extends Controller
        $item = Item::find($itemId);
        $shop = Shop::find($request['shopid']);
        $user = Auth::user();
+       $amount = $request['sellamount'];
+
+       if (!Func::validAmount($amount))
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid amount.');
 
        if (!$shop)
            return redirect('shop/'.$shop->id)->with('fail', 'Invalid shop.');
@@ -99,7 +108,7 @@ class ShopController extends Controller
        if (!$shop->wantsItem($item->id))
            return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
 
-       $sellAmount = $request['sellamount'];
+       $sellAmount = $amount;
        $inv = InventorySlot::getInstance();
        $count = $inv->getItemCount($user->id, $itemId);
        $price = ShopItem::where('item_id', $item->id)

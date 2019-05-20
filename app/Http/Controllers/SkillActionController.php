@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SkillAction;
@@ -51,6 +52,10 @@ class SkillActionController extends Controller
         $user = Auth::user();
         $id = $request['id'];
         $amount = $request['amount'];
+
+        if (!Func::validAmount($amount))
+            return redirect('location')->with('fail', 'Invalid amount.');
+
         //TODO check if object is in user area
 
         $action = ObjectController::getSkillAction($user->id, $id);
