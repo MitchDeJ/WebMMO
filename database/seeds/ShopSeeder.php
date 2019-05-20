@@ -15,7 +15,9 @@ class ShopSeeder extends Seeder
         $this->shop(1, "Bob's Test Shop", array(
             array(5, 10, 750, 150),
             array(6, 10, 1000, 250),
-            array(7, 10, 1000, 250)
+            array(7, 10, 1000, 250),
+            array(8, 10, 2000, 500),
+            array(12, 0, 200, 100)
         ));
     }
 

@@ -9,7 +9,8 @@ class DatabaseSeeder extends Seeder
     protected $toTruncate = ['users', 'items', 'areas', 'skills', 'skillspots',
         'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips',
         'item_stats', 'mobs', 'mob_spawns', 'mob_fights', 'loot_tables', 'loot_table_drops',
-        'map_points', 'dialogues', 'dialogue_messages', 'area_objects', 'area_object_spawns'];
+        'map_points', 'dialogues', 'dialogue_messages', 'area_objects', 'area_object_spawns',
+        'shops', 'shop_items'];
 
     /**
      * Seed the application's database.

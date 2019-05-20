@@ -16,4 +16,15 @@ class ShopItem extends Model
     protected $fillable = [
         'shop_id', 'item_id', 'stock', 'sell_price', 'buy_price'
     ];
+
+    public function isInShop($shopId) {
+        $shop = Shop::find($shopId);
+        if (!$shop)
+            return false;
+
+        if ($shopId == $this->shop_id)
+            return true;
+
+        return false;
+    }
 }

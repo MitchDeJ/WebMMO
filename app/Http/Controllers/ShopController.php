@@ -13,16 +13,18 @@ class ShopController extends Controller
 {
 
     public function shopIndex($shopId) {
-        //TODO Checks location
         $shop = Shop::find($shopId);
 
         if (!$shop)
             return redirect('location')->with('fail', 'Invalid shop.');
 
+        $user = Auth::user();
+
+        if (!$shop->isInArea($user->area_id))
+            return redirect('location')->with('fail', 'Invalid shop.');
 
         $shopItems = $shop->getItems();
         $items = Item::find(1);
-        $user = Auth::user();
         $inv = InventorySlot::getInstance();
         $gp = $inv->getItemCount($user->id, 17);
         //required for inventory
@@ -52,9 +54,23 @@ class ShopController extends Controller
        $user = Auth::user();
        $inv = InventorySlot::getInstance();
        $gp = $inv->getItemCount($user->id, 17);
-       $shop = Shop::find($request['shopid']); //TODO check if this shop is in current location
-       $shopitem = ShopItem::find($request['shopitemid']); //TODO check if this item is in the current shop.
+       $shop = Shop::find($request['shopid']);
+
+       if (!$shop)
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid shop.');
+
+       if (!$shop->isInArea($user->area_id))
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid shop.');
+
+       $shopitem = ShopItem::find($request['shopitemid']);
+
+       if (!$shopitem)
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
+
        $price = $shopitem->sell_price * $request['amount'];
+
+       if (!$shopitem->isInShop($shop->id))
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
 
        if ($price > $gp) {
            return redirect('shop/'.$shop->id)->with('fail', 'You do not have enough gold to buy that many.');
@@ -68,16 +84,22 @@ class ShopController extends Controller
    public function sellItem(Request $request) {
        $itemId = $request['shopsellitemid'];
        $item = Item::find($itemId);
-       $shop = Shop::find($request['shopid']); //TODO check if this shop is in current location
+       $shop = Shop::find($request['shopid']);
+       $user = Auth::user();
 
        if (!$shop)
-           return redirect('location')->with('fail', 'Invalid shop.');
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid shop.');
+
+       if (!$shop->isInArea($user->area_id))
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid shop.');
 
        if (!$item)
            return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
 
+       if (!$shop->wantsItem($item->id))
+           return redirect('shop/'.$shop->id)->with('fail', 'Invalid item.');
+
        $sellAmount = $request['sellamount'];
-       $user = Auth::user();
        $inv = InventorySlot::getInstance();
        $count = $inv->getItemCount($user->id, $itemId);
        $price = ShopItem::where('item_id', $item->id)
