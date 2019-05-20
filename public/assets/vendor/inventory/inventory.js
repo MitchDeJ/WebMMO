@@ -67,7 +67,7 @@ $(document).ready(function() {
         }
     });
 	$(".item").click(function (event) {
-	    lastDest = event.target.closest('div').id;
+	    lastDest = event.target.closest('.inv_slot').id;
         getOptionsInfo();
     });
 
