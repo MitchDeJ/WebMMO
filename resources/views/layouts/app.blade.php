@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
  <head>
-        <title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
+        <title>WebMMO</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -111,6 +111,7 @@
      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
      <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+     <script>$.widget.bridge("tlp", $.ui.tooltip);</script>
      <!-- MAIN -->
      <div class="main">
          <div class="container-fluid">

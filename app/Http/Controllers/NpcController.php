@@ -7,7 +7,9 @@ use App\Dialogue;
 use App\DialogueMessage;
 use App\InventorySlot;
 use App\Npc;
+use App\Shop;
 use App\User;
+use App\Item;
 use App\UserDialogue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,7 @@ class NpcController extends Controller
         $user = Auth::user();
         $area = Area::find($user->area_id);
         $npcId = $request['id'];
+        $item = Item::find(1);
 
         if (!$area->hasNpc($npcId)) {
             return redirect('location');
@@ -47,6 +50,13 @@ class NpcController extends Controller
                 'dId' => $dId
             ));
         }
+
+        //opening shops
+        if ($this->getShop($npcId) != -1) {
+            $shopId = $this->getShop($npcId);
+            $shop = Shop::find($shopId);
+            return redirect('shop/'.$shopId);
+        }
     }
 
     public function endDialogue(Request $request) {
@@ -71,13 +81,34 @@ class NpcController extends Controller
             ->header('Content-Type', 'text/plain');
     }
 
+    public static function getOption($npcId) {
+        if (NpcController::getDialogue($npcId) != -1)
+            return "Talk";
 
-    public function getDialogue($npcId) {
+        if (NpcController::getShop($npcId) != -1)
+            return "Trade";
+
+        return "Option";
+    }
+
+
+    public static function getDialogue($npcId) {
         switch($npcId) {
-            case 1://bob
-                return 1;//example dialogue
             case 2://arran
                 return 1;//example dialogue
+
+            default:
+                return -1;
+        }
+    }
+
+    public static function getShop($npcId) {
+        switch($npcId) {
+            case 1://bob
+                return 1;//example shop
+
+            default:
+                return -1;
         }
     }
 }

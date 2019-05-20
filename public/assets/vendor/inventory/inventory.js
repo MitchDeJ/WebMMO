@@ -3,6 +3,8 @@ var dest;
 var lastDest;
 $(document).ready(function() {
 
+    $( ".item" ).tlp({track:true, show: false, hide: false});
+
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
             if (!type.crossDomain) {
@@ -13,7 +15,7 @@ $(document).ready(function() {
 	
     $(".item").draggable({
         start: function(event, ui) {
-            origin = event.target.closest('div').id;
+            origin = event.target.closest('.inv_slot').id;
 			$(this).addClass('dragging');
             console.log(origin);
         },
@@ -28,7 +30,7 @@ $(document).ready(function() {
         helper: "clone",
         cursor: "pointer",
         stack: false,
-        zIndex: 27,
+        zIndex: 27
     });
     $(".inv_slot").droppable({
         accept: ".item",
@@ -41,9 +43,9 @@ $(document).ready(function() {
                 ui.draggable.detach().appendTo($(this)); // if none, insert the item into athe free slot ///
             } else {
                 console.log("swapping");
-				var move = $(this).children().detach();
+                var move = $(this).children().detach();
 				$(ui.draggable).parent().append(move);
-                ui.draggable.detach().appendTo($(this));		
+                ui.draggable.detach().appendTo($(this));
             }
             dest = this.id;
             lastDest = this.id;
@@ -55,7 +57,6 @@ $(document).ready(function() {
                     'new': dest
                 }, // a JSON object to send back
                 success: function(response) { // What to do if we succeed
-                    console.log(response);
                     getOptionsInfo();
                 },
                 error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail

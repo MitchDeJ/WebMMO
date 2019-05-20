@@ -43,5 +43,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DialogueSeeder::class);
         $this->call(AreaObjectSeeder::class);
         $this->call(AreaObjectSpawnSeeder::class);
+        $this->call(ShopSeeder::class);
     }
 }

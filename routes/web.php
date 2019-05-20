@@ -51,4 +51,7 @@ Route::post('/objectinteract', ["uses" => "ObjectController@interact", "as"=>"ob
 Route::get('/skillaction', 'SkillActionController@index')->name('skillaction');
 Route::post('/action', ["uses" => "SkillActionController@startAction", "as"=>"start.action"]);
 Route::post('/completeaction', ["uses" => "SkillActionController@completeAction", "as"=>"completeaction"]);
+//shops
+Route::post('/buyshopitem', ["uses" => "ShopController@buyItem", "as"=>"shop.buy"]);
+Route::get('/shop/{shopId}', 'ShopController@shopIndex');
 

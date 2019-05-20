@@ -35,7 +35,7 @@
                                     <td>&nbsp;{{$npc->name}}</td>
                                     {!! Form::open(['route' => ['npc.interact'], 'method' => 'post', 'class' => 'form-inline']) !!}
                                     {!! Form::hidden("id", $npc->id) !!}
-                                    <td><button type="submit" class="btn-link">Talk</button></td>
+                                    <td><button type="submit" class="btn-link"> {{\App\Http\Controllers\NpcController::getOption($npc->id)}}</button></td>
                                     {!! Form::close() !!}
                                 </tr>
                             @endforeach

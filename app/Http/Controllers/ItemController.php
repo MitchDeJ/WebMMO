@@ -148,6 +148,6 @@ class ItemController extends Controller
 
         $ogslot->save();
         $newslot->save();
-        return response()->json(['success'=>'Updated inventory slots.']);
+        return response()->json([]);
     }
 }

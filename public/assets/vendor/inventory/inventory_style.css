@@ -12,6 +12,18 @@
 	float: left;
 }
 
+.shop_slot {
+	z-index: 22;
+	position: relative;
+	width: 70px;
+	height: 60px;
+	border: 1px solid black;
+	float: left;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+
 .inv_slot .slot_pos {
 	z-index: 24;
 	position: absolute;

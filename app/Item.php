@@ -19,7 +19,10 @@ class Item extends Model
 
     public function getName($id)
     {
-        $item = Item::where('id', $id)->get()->first();
+        $item = Item::where('id', $id)->get();
+        if (count($item) == 0)
+            return null;
+        $item = $item->first();
         $name = $item->name;
         return $name;
     }
@@ -33,7 +36,10 @@ class Item extends Model
 
     public static function isStackable($id)
     {
-        $item = Item::where('id', $id)->get()->first();
+        $item = Item::where('id', $id)->get();
+        if (count($item) == 0)
+            return null;
+        $item = $item->first();
         $result = $item->stackable;
         return $result;
     }
