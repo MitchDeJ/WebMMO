@@ -54,13 +54,12 @@
                             {!! Form::hidden("shopitemid", $shopitems->first()->id) !!}
                             {!! Form::hidden("shopid", $shop->id) !!}
                             {!! Form::input('number', 'amount', 1, ['class' => 'form-control',
-                             'min' => 1, 'step' => 1]) !!}
+                             'min' => 1, 'step' => 1, 'style' => 'width:15%']) !!}
                             {!! Form::input('text', 'pricetotal', '1gp', ['class' => 'form-control',
-                             'min' => 1, 'step' => 1, 'disabled']) !!}
+                             'min' => 1, 'step' => 1, 'disabled', 'style' => 'width:25%']) !!}
                             <button type="submit" class="btn btn-default">Buy</button>
                             {!! Form::close() !!}
                         </div>
-
                         <div class="col-md-12">
                             <h3>Sell</h3>
                             <table border="1">
@@ -95,9 +94,9 @@
                                 {!! Form::hidden("shopsellitemid", $canSell[0][0]->first()->item_id) !!}
                                 {!! Form::hidden("shopid", $shop->id) !!}
                                 {!! Form::input('number', 'sellamount', 1, ['class' => 'form-control',
-                                 'min' => 1, 'step' => 1]) !!}
+                                 'min' => 1, 'step' => 1, 'style' => 'width:15%']) !!}
                                 {!! Form::input('text', 'sellpricetotal', '1gp', ['class' => 'form-control',
-                                 'min' => 1,  'step' => 1, 'disabled']) !!}
+                                 'min' => 1,  'step' => 1, 'disabled', 'style' => 'width:25%']) !!}
                                 <button type="submit" class="btn btn-default">Sell</button>
                                 {!! Form::close() !!}
                             @else
