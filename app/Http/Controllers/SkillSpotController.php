@@ -21,33 +21,48 @@ class SkillSpotController extends Controller
         $skills = Skill::findOrFail(1);
 
         if ($count == 0) { //invalid ID, return to location page
-            return redirect('location')->with('fail', 'Invalid skilling spot.');
+            return response()->json([
+                'status' => false,
+                'statustext' => 'Invalid skilling spot.'
+            ]);
         }
 
         $spot = SkillSpot::find($id);
         $user = Auth::user();
 
         if ($spot->area_id != Auth::user()->area_id) { //this skillspot is not in your current location, return.
-            return redirect('location')->with('fail', 'Invalid skilling spot.');
+            return response()->json([
+                'status' => false,
+                'statustext' => 'Invalid skilling spot.'
+            ]);
         }
 
         //check cooldown
         if (Cooldown::check(Auth::user()->id, Constants::$COOLDOWN_SKILLING) != false) {
-            return redirect('location')->with('fail', 'This action is not available yet.');
+            return response()->json([
+                'status' => false,
+                'statustext' => 'That action is not available yet.'
+            ]);
         }
 
         //check skill requirements
         $reqs = SpotRequirement::where('spot_id', $spot->id)->get();
         foreach ($reqs as $req) {
            $skill = UserSkill::where('user_id', $user->id)->where('skill_id', $req->skill_id)->get()->first();
-            if ($skill->getLevel() < $req->requirement) {; //does not meet the requirements
-                return redirect('location')->with('fail', 'You need a '.$skills->getName($skill->skill_id).' level of '.$req->requirement.' to do that.');
+            if ($skill->getLevel() < $req->requirement) { //does not meet the requirements
+                return response()->json([
+                    'status' => false,
+                    'statustext' => 'You need a '.$skills->getName($skill->skill_id).' level of '.$req->requirement.' to do that.'
+                ]);
             }
         }
 
         //check tool requirement
         if (!$this->checkTool($user->id, $spot->skill_id)) {
-            return redirect('location')->with('fail', 'You do not have the correct tool with you to do that.'); //does not have the correct tool
+            return response()->json([
+                'status' => false,
+                'statustext' => 'You do not have the correct tool with you to do that.'
+            ]);
         }
 
         $userSkill = UserSkill::where('user_id', $user->id)
@@ -74,7 +89,15 @@ class SkillSpotController extends Controller
                 'end' => (time() + $spot->cooldown)
             ]
         );
-        return redirect('location')->with('success', 'You have successfully gathered '.$amount.'x '.$item->name.' and gained '.($amount * $spot->xp_amount).'xp.');
+
+        $skill = Skill::find($spot->skill_id);
+
+        return response()->json([
+            'status' => true,
+            'statustext' => 'You have successfully gathered <b>'.$amount.'x '.$item->name.'</b> and gained <b>'
+                .($amount * $spot->xp_amount).' '.$skill->name.' xp.</b>',
+            'cooldown' => $spot->cooldown
+        ]);
     }
 
     function checkTool($userId, $skillId) {

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+    <script>var redirect = '{{ url('')}}'</script>
+    <script src="{{ asset('assets/vendor/location/location.js') }}"></script>
     <div class="main-content">
         <div class="container-fluid">
             <!-- OVERVIEW -->
@@ -11,6 +13,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <!-- CONTENT START -->
+                        <div id="skillstatus">&nbsp;</div>
                         <b>Skilling spots</b>
                         <table>
                             @foreach($skillspots as $spot)
@@ -18,10 +21,12 @@
                                     <td><img src='{{url($skill->getIconPath($spot->skill_id))}}'/></td>
                                     <td>{{$spot->name}}</td>
                                     <td>
-                                        {!! Form::open(['route' => ['skillspot.use'], 'method' => 'post', 'class' => 'form-inline']) !!}
-                                        {!! Form::hidden("id", $spot->id) !!}
-                                        <button type="submit" class="btn-link">Use</button>
-                                        {!! Form::close() !!}
+                                        <p hidden>{{$spot->id}}</p>
+                                        <button class="btn-link usespot">Use</button>
+                                    </td>
+                                    <td style="display: block; position: relative;">
+                                        <img class="animitem" style="position: absolute; opacity: 0"
+                                             src={{url($item->getIconPath($spot->item_id))}}>
                                     </td>
                                 </tr>
                             @endforeach
