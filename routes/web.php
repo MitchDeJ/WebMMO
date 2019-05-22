@@ -18,7 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::get('/map', 'MapController@index')->name('map');
 Route::get('/location', 'AreaController@index')->name('location');
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
@@ -27,6 +26,9 @@ Route::get('/useitem/{slot}', 'ItemController@useItem')->name('useitem');
 Route::get('/destroyitem/{slot}', 'ItemController@destroyItem')->name('destroyitem');
 Route::get('/unequip/{slot}', 'ItemController@unequipItem')->name('unequip');
 
+//profile
+Route::get('/profile', 'ProfileController@index');
+Route::get('/profile/{name}', 'ProfileController@indexByName');
 //inventory
 Route::post('/swapslot', "ItemController@swapSlot");
 Route::post('/getiteminfo', 'ItemController@getInfo');

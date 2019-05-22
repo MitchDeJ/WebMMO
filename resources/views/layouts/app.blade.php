@@ -73,7 +73,12 @@
                              <li><a href="{{ url('/profile') }}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                              <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
                              <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-                             <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();" class="nav-link" data-toggle="modal"
+                                    data-target="#exampleModal"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                 {{ csrf_field() }}
+                             </form>
                          </ul>
                      </li>
                      <!-- <li>
