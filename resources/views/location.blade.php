@@ -12,7 +12,7 @@
                     <div class="row">
                         <!-- CONTENT START -->
                         <b>Skilling spots</b>
-                       <table>
+                        <table>
                             @foreach($skillspots as $spot)
                                 <tr>
                                     <td><img src='{{url($skill->getIconPath($spot->skill_id))}}'/></td>
@@ -36,7 +36,9 @@
                                     <td>&nbsp;{{$npc->name}}</td>
                                     {!! Form::open(['route' => ['npc.interact'], 'method' => 'post', 'class' => 'form-inline']) !!}
                                     {!! Form::hidden("id", $npc->id) !!}
-                                    <td><button type="submit" class="btn-link"> {{$op}}</button></td>
+                                    <td>
+                                        <button type="submit" class="btn-link"> {{$op}}</button>
+                                    </td>
                                     {!! Form::close() !!}
                                 </tr>
                             @endforeach
@@ -50,7 +52,9 @@
                                     <td>&nbsp;{{$o->name}}</td>
                                     {!! Form::open(['route' => ['object.interact'], 'method' => 'post', 'class' => 'form-inline']) !!}
                                     {!! Form::hidden("id", $o->id) !!}
-                                    <td><button type="submit" class="btn-link">Use</button></td>
+                                    <td>
+                                        <button type="submit" class="btn-link">Use</button>
+                                    </td>
                                     {!! Form::close() !!}
                                 </tr>
                             @endforeach
@@ -64,19 +68,27 @@
                                     <td>{{$mob->name}}</td>
                                     {!! Form::open(['route' => ['attack.mob'], 'method' => 'post', 'class' => 'form-inline']) !!}
                                     {!! Form::hidden("id", $mob->id) !!}
-                                    <td><button type="submit" class="btn-link">Attack</button></td>
+                                    <td>
+                                        <button type="submit" class="btn-link">Attack</button>
+                                    </td>
                                     {!! Form::close() !!}
                                 </tr>
-                                @endforeach
+                            @endforeach
                         </table>
                         <br>
-                        <b>Players</b>
+                        <b>Players ({{count($players)}})</b>
                         <table>
                             @foreach($players as $p)
                                 <tr>
-                                    <td>- <a href="{{url('profile/'.$p->name)}}">{{$p->name}}</a></td>
+                                    <td><img src='{{url('/img/icons/view.png')}}'/></td>
+                                    <td>{{$p->name}}</td>
+                                    <form action="{{url('/profile/'.$p->name)}}">
+                                        <td>
+                                            <button class="btn-link">View profile</button>
+                                        </td>
+                                    </form>
                                 </tr>
-                                @endforeach
+                            @endforeach
                         </table>
                         <!-- CONTENT END -->
                     </div>
