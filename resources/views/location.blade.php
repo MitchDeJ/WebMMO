@@ -69,6 +69,15 @@
                                 </tr>
                                 @endforeach
                         </table>
+                        <br>
+                        <b>Players</b>
+                        <table>
+                            @foreach($players as $p)
+                                <tr>
+                                    <td>- <a href="{{url('profile/'.$p->name)}}">{{$p->name}}</a></td>
+                                </tr>
+                                @endforeach
+                        </table>
                         <!-- CONTENT END -->
                     </div>
                 </div>

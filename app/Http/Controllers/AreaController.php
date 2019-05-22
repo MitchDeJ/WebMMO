@@ -10,6 +10,7 @@ use App\Npc;
 use Illuminate\Http\Request;
 use Auth;
 use App\Item;
+use App\User;
 use App\Skill;
 use App\SkillSpot;
 use App\SpotRequirement;
@@ -56,6 +57,9 @@ class AreaController extends Controller
             $reqs[$spot->id] = SpotRequirement::where('spot_id', $spot->id)->get();
         }
 
+        $players = User::where('area_id', $loc->id)
+            ->where('id', '!=', $user->id)->get();
+
         return view('location', array(
             'item' => Item::find(1),
             'skill' => Skill::find(1),
@@ -65,7 +69,8 @@ class AreaController extends Controller
             'reqs' => $reqs,
             'mobs' => $mobs,
             'objects' => $objects,
-            'objectskills' => $objectskills
+            'objectskills' => $objectskills,
+            'players' => $players
         ));
     }
 }

@@ -117,8 +117,8 @@ class ShopController extends Controller
        if ($count < $sellAmount) {
            return redirect('shop/' . $shop->id)->with('fail', 'You do not have items to sell that many.');
        } else {
-           $inv->addItem($user->id, 17, $reward);
            $inv->removeItem($user->id, $item->id, $sellAmount);
+           $inv->addItem($user->id, 17, $reward);
            return redirect('shop/'.$shop->id);
        }
    }
