@@ -93,9 +93,10 @@ class ApplyMobKill implements ShouldQueue
         // add loot
         $fight->addLoot();
 
-        //give experience TODO get attack style instead of melee xp only
+        //give experience
+        $styleSkill = Combat::getSkillForStyle(Combat::getUserAttackStyle($user->id));
         $skill = UserSkill::where('user_id', $this->userId)
-            ->where('skill_id', Constants::$MELEE)->get()->first();
+            ->where('skill_id', $styleSkill)->get()->first();
         $skill->addXp(Constants::$XP_PER_DAMAGE * $mob->hitpoints);
 
         //increment kills

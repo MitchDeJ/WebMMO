@@ -22,6 +22,7 @@ class CreateMobsTable extends Migration
             $table->integer('defence');
             $table->integer('hitpoints');
             $table->integer('attack_speed');
+            $table->integer('attack_style');
             $table->integer('respawn');
         });
     }

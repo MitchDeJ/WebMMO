@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
 use App\Skill;
 use App\UserSkill;
 use Auth;
@@ -20,6 +21,8 @@ class ProfileController extends Controller
         $skills = Skill::all();
         $levels = array();
         $xps = array();
+        $news = News::where('user_id', $user->id)->get()->reverse()
+        ->take(5);
 
         foreach ($skills as $skill) {
             $us = UserSkill::where('user_id', $user->id)
@@ -31,7 +34,8 @@ class ProfileController extends Controller
         return view('profile', array(
             'skills' => $skills,
             'levels' => $levels,
-            'xps' => $xps
+            'xps' => $xps,
+            'news' => $news
         ));
     }
 }

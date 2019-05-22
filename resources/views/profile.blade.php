@@ -48,11 +48,16 @@
                         </div>
                         <div class="panel-body">
                             <ul class="list-unstyled activity-list">
-                                <li>
-                                    <img src="{{url('user_img/' . Auth::user()->avatar)}}" alt="Avatar" class="img-circle pull-left avatar">
-                                    <p><a href="#">{{Auth::user()->name}}</a> has achieved 80% of his completed tasks <span
-                                                class="timestamp">20 minutes ago</span></p>
-                                </li>
+                                @foreach($news as $n)
+                                    <li>
+                                        <img src="{{url('user_img/' . App\User::find($n->user_id)->avatar)}}" alt="Avatar"
+                                             class="img-circle pull-left avatar">
+                                        <p><a href="#">{{App\User::find($n->user_id)->name}}</a> {{$n->message}}
+                                            <span class="timestamp">
+                                                {{App\Func::time_elapsed_string($n->timestamp)}}
+                                            </span></p>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

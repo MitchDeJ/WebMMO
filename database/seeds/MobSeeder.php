@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Constants;
 
 class MobSeeder extends Seeder
 {
@@ -12,7 +13,8 @@ class MobSeeder extends Seeder
     public $DEFENCE = 4;
     public $HP = 5;
     public $ATTACK_SPEED = 6;
-    public $RESPAWN = 7;
+    public $ATTACK_STYLE = 7;
+    public $RESPAWN = 8;
 
     /*
      * Mob definitions
@@ -20,7 +22,7 @@ class MobSeeder extends Seeder
     public function mobDefinition($npcId) {
         switch ($npcId) {
             case 1:
-                return array('Giant Rat', 1, 1, 1, 1, 5, 2, 5);
+                return array('Giant Rat', 1, 1, 1, 1, 5, 2, Constants::$ATTACK_STYLE_MELEE, 5);
 
 
             default:
@@ -53,6 +55,7 @@ class MobSeeder extends Seeder
                 'defence' => $this->mobDefinition($i)[$this->DEFENCE],
                 'hitpoints' => $this->mobDefinition($i)[$this->HP],
                 'attack_speed' => $this->mobDefinition($i)[$this->ATTACK_SPEED],
+                'attack_style' => $this->mobDefinition($i)[$this->ATTACK_STYLE],
                 'respawn' => $this->mobDefinition($i)[$this->RESPAWN]
             ]);
         }

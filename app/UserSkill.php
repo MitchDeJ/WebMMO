@@ -24,7 +24,7 @@ class UserSkill extends Model
         $endlevel = $this->levelForXp($this->xp_amount);
 
         if ($endlevel > $startlevel) {
-            $this->levelUp($this->user_id, $this->skill_id);
+            $this->levelUp($this->user_id, $this->skill_id, $endlevel);
         }
     }
 
@@ -65,7 +65,13 @@ class UserSkill extends Model
     }
 
 
-    function levelUp($playerId, $skillId) {
-        // do something
+    function levelUp($playerId, $skillId, $level) {
+        $skill = Skill::find($skillId);
+
+        News::create([
+            'user_id' => $playerId,
+            'message' => 'has achieved level '.$level.' '.$skill->getName($skillId).'.',
+            'timestamp' => time()
+        ]);
     }
 }

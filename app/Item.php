@@ -90,6 +90,18 @@ class Item extends Model
         }
     }
 
+    public function getAttackStyle($id) {
+        switch($id) {
+            case 8://standard sword
+                return Constants::$ATTACK_STYLE_MELEE;
+            case 16: // standard bow
+                return Constants::$ATTACK_STYLE_RANGED;
+
+            default:
+                return Constants::$ATTACK_STYLE_MELEE;
+        }
+    }
+
     public function getHealAmount($id) {
         switch($id) {
             case 11: //apple

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mob extends Model
+class News extends Model
 {
     public $timestamps = false; //add this when we dont need the timestamps in our database
 
@@ -14,11 +14,6 @@ class Mob extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'melee', 'ranged', 'magic', 'defence', 'hitpoints', 'attack_speed', 'attack_style', 'respawn'
+        'user_id', 'message', 'timestamp'
     ];
-
-    public function getLootTable() {
-        $table= LootTable::where('mob_id', $this->id)->get()->first();
-        return $table;
-    }
 }

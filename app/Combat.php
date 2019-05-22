@@ -14,6 +14,62 @@ class Combat extends Model
      * User functions
      */
 
+    public static function getUserAttackRoll($userId) {
+        $style = self::getUserAttackStyle($userId);
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return self::getUserMeleeAttackRoll($userId);
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return self::getUserRangedAttackRoll($userId);
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return self::getUserMagicAttackRoll($userId);
+
+            default:
+                return self::getUserMeleeAttackRoll($userId);
+        }
+    }
+
+    public static function getUserDefenceRoll($userId, $style) {
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return self::getUserMeleeDefenceRoll($userId);
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return self::getUserRangedDefenceRoll($userId);
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return self::getUserMagicDefenceRoll($userId);
+
+            default:
+                return self::getUserMeleeDefencekRoll($userId);
+        }
+    }
+
+    public static function getUserMax($userId) {
+        $style = self::getUserAttackStyle($userId);
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return self::getUserMeleeMax($userId);
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return self::getUserRangedMax($userId);
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return self::getUserMagicMax($userId);
+
+            default:
+                return self::getUserMeleeMax($userId);
+        }
+    }
+
+    public static function getUserAttackStyle($userId) {
+        $weapon = UserEquip::where('equip_slot', Constants::$EQUIP_WEAPON)
+            ->where('user_id', $userId)->get()->first();
+        if ($weapon) {
+            $item = Item::find(1);
+            $style = $item->getAttackStyle($weapon->item_id);
+        } else {
+            $style = Constants::$ATTACK_STYLE_MELEE; //default is melee
+        }
+        return $style;
+    }
+
     public static function getUserMeleeAttackRoll($userId) {
     $skill = UserSkill::where('user_id', $userId)
         ->where('skill_id', Constants::$MELEE)->get()->first();
@@ -99,6 +155,56 @@ class Combat extends Model
      * Mob Functions
      */
 
+    public static function getMobAttackStyle($mobId) {
+        $mob = Mob::where('id', $mobId)->get()->first();
+        $style = $mob->attack_style;
+        return $style;
+    }
+
+    public static function getMobAttackRoll($mobId) {
+        $style = self::getMobAttackStyle($mobId);
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return self::getMobMeleeAttackRoll($mobId);
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return self::getMobRangedAttackRoll($mobId);
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return self::getMobMagicAttackRoll($mobId);
+
+            default:
+                return self::getMobMeleeAttackRoll($mobId);
+        }
+    }
+
+    public static function getMobDefenceRoll($mobId, $style) {
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return self::getMobMeleeDefenceRoll($mobId);
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return self::getMobRangedDefenceRoll($mobId);
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return self::getMobMagicDefenceRoll($mobId);
+
+            default:
+                return self::getMobMeleeDefenceRoll($mobId);
+        }
+    }
+
+    public static function getMobMax($mobId) {
+        $style = self::getMobAttackStyle($mobId);
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return self::getMobMeleeMax($mobId);
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return self::getMobRangedMax($mobId);
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return self::getMobMagicMax($mobId);
+
+            default:
+                return self::getMobMeleeMax($mobId);
+        }
+    }
+
     public static function getMobMeleeAttackRoll($mobId) {
         $mob = Mob::where('id', $mobId)->get()->first();
         $level = $mob->melee;
@@ -181,11 +287,11 @@ class Combat extends Model
         return $mob->attack_speed;
     }
     /*
-     * Accuracy calculations TODO always uses melee accuracy
+     * Accuracy calculations
      */
     public static function getUserAccuracy($userId, $mobId) {
-        $user_att = Combat::getUserMeleeAttackRoll($userId);
-        $mob_def = Combat::getMobMeleeDefenceRoll($mobId);
+        $user_att = Combat::getUserAttackRoll($userId);
+        $mob_def = Combat::getMobDefenceRoll($mobId, self::getUserAttackStyle($userId));
         $accuracy = 0;
 
         if ($user_att > $mob_def) {
@@ -198,8 +304,8 @@ class Combat extends Model
     }
 
     public static function getMobAccuracy($userId, $mobId) {
-        $mob_att = Combat::getMobMeleeAttackRoll($userId);
-        $user_def = Combat::getUserMeleeDefenceRoll($mobId);
+        $mob_att = Combat::getMobAttackRoll($mobId);
+        $user_def = Combat::getUserDefenceRoll($userId, self::getMobAttackStyle($mobId));
         $accuracy = 0;
 
         if ($mob_att > $user_def) {
@@ -212,16 +318,16 @@ class Combat extends Model
     }
 
     /*
-     * mob fight calculations TODO always gets melee accuracy/max hit
+     * mob fight calculations
      *
      */
 
     public static function getUserAverageDamage($userId, $mobId) {
-        return Combat::getUserAccuracy($userId, $mobId) * (Combat::getUserMeleeMax($userId) / 2);
+        return Combat::getUserAccuracy($userId, $mobId) * (Combat::getUserMax($userId) / 2);
     }
 
     public static function getMobAverageDamage($mobId, $userId) {
-        return Combat::getMobAccuracy($mobId, $userId) * (Combat::getMobMeleeMax($mobId) / 2);
+        return Combat::getMobAccuracy($mobId, $userId) * (Combat::getMobMax($mobId) / 2);
     }
 
     public static function getHitsToKill($userId, $mobId) {
@@ -239,4 +345,19 @@ class Combat extends Model
         return (Combat::getTimeToKill($userId, $mobId) / Combat::getMobAttackSpeed($mobId)) * Combat::getMobAverageDamage($mobId, $userId);
     }
 
+
+    /*for granting xp*/
+    public static function getSkillForStyle($style) {
+        switch($style) {
+            case (Constants::$ATTACK_STYLE_MELEE):
+                return Constants::$MELEE;
+            case (Constants::$ATTACK_STYLE_RANGED):
+                return Constants::$RANGED;
+            case (Constants::$ATTACK_STYLE_MAGIC):
+                return Constants::$MAGIC;
+
+            default:
+                return Constants::$MELEE;
+        }
+    }
 }
