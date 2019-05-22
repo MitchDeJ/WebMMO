@@ -11,28 +11,25 @@
 
                         <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     </div>
-                    <p class="panel-subtitle"><a href="#">Edit my profile</a></p>
+                    @if($user->id == Auth::user()->id)
+                    <p class="panel-subtitle"><a href="#">Edit profile</a></p>
+                        @endif
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-2">
-                            <img src="{{ url('user_img/' . Auth::user()->avatar)}}" width="150px" height="150px"
-                                 class="img-circle" alt="Avatar">
+                            <img src="{{ url('user_img/' . $user->avatar)}}" width="150px" height="150px" alt="Avatar">
                         </div>
                         <div class="col-md-4">
-                            <h4>{{Auth::user()->name}}</h4>
-                            <p>{{Auth::user()->description}}</p>
+                            <h4>{{$user->name}}</h4>
+                            <p>{{$user->description}}</p>
                         </div>
                         <div class="col-md-3">
-                            <h4>{{Auth::user()->name}}</h4>
+                            <h4>{{$user->name}}</h4>
                         </div>
                         <div class="col-md-3">
-                            <h4>{{Auth::user()->name}}</h4>
+                            <h4>{{$user->name}}</h4>
                         </div>
-
-                        {{--                    @foreach($skills as $skill)--}}
-                        {{--                        <br>{{$skill->name}} level: {{$levels[$skill->id]}} xp: {{$xps[$skill->id]}}--}}
-                        {{--                    @endforeach--}}
                     </div>
                 </div>
             </div>
@@ -50,9 +47,9 @@
                             <ul class="list-unstyled activity-list">
                                 @foreach($news as $n)
                                     <li>
-                                        <img src="{{url('user_img/' . App\User::find($n->user_id)->avatar)}}" alt="Avatar"
-                                             class="img-circle pull-left avatar">
-                                        <p><a href="#">{{App\User::find($n->user_id)->name}}</a> {{$n->message}}
+                                        <img src="{{url('user_img/' . $user->avatar)}}" alt="Avatar"
+                                             class="pull-left avatar" width="40px" height="40px">
+                                        <p><a href="{{url('profile/'.$user->name)}}">{{$user->name}}</a> {{$n->message}}
                                             <span class="timestamp">
                                                 {{App\Func::time_elapsed_string($n->timestamp)}}
                                             </span></p>

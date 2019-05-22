@@ -33,6 +33,7 @@ class ProfileController extends Controller
         }
 
         return view('profile', array(
+            'user' => $user,
             'skills' => $skills,
             'levels' => $levels,
             'xps' => $xps,
@@ -60,6 +61,7 @@ class ProfileController extends Controller
         }
 
         return view('profile', array(
+            'user' => $user,
             'skills' => $skills,
             'levels' => $levels,
             'xps' => $xps,

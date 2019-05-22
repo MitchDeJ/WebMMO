@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Skill;
+use App\Constants;
+use App\UserSkill;
+use App\InventorySlot;
+use App\UserEquip;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,10 +68,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'email_verified_at' => now(),
+            'description' => 'user description',
+            'area_id' => 1,
+            'account_created_at' => now(),
+            'remember_token' => 'remembertoken', //TODO
         ]);
+
+        $skills = Skill::all();
+        foreach($skills as $skill) {
+            UserSkill::create([
+                'user_id' => $user->id,
+                'skill_id' => $skill->id,
+                'xp_amount' => 0,
+            ]);
+        }
+        for($i=1; $i<=28; $i+=1) {
+            InventorySlot::create([
+                'user_id' => $user->id,
+                'slot' => $i,
+                'item_id' => null,
+                'amount' => 0
+            ]);
+        }
+
+        for($i=0; $i < Constants::$EQUIPS_TOTAL; $i+=1) {
+            UserEquip::create([
+                'user_id' => $user->id,
+                'equip_slot' => $i,
+                'item_id' => null,
+            ]);
+        }
+
+        return $user;
     }
 }
