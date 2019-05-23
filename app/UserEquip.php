@@ -28,8 +28,10 @@ class UserEquip extends Model
 
         $invslot->removeItemInSlot();
 
-        if ($old != null)
-            $invslot->addItem($user->id, $old, 1);
+        if ($old != null) {
+            $invslot->item_id = $old;
+            $invslot->save();
+        }
 
 
         $this->save();
