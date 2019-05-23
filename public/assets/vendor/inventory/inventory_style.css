@@ -4,6 +4,15 @@
 }
 
 .inv_slot {
+	 z-index: 22;
+	 position: relative;
+	 width: 40px;
+	 height: 40px;
+	 border: 1px solid black;
+	 float: left;
+ }
+
+.equip_slot {
 	z-index: 22;
 	position: relative;
 	width: 40px;
@@ -44,7 +53,23 @@
 	top: 2px;
 }
 
+.equip_slot .slot_pos {
+	z-index: 24;
+	position: absolute;
+	margin-left: 50%;
+	left: -4px;
+	top: 2px;
+}
+
 .item {
+	position: relative;
+	z-index: 25;
+	margin: 4px;
+	width: 32px;
+	height: 32px;
+}
+
+.equip_item {
 	position: relative;
 	z-index: 25;
 	margin: 4px;

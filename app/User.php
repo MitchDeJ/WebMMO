@@ -13,6 +13,37 @@ class User extends Authenticatable
     use Notifiable;
 
     public $timestamps = false; //add this when we dont need the timestamps in our database
+    private $processingEquip = false; //prevent unequip duping
+
+    public function addFlag($flag) {
+        if ($this->hasFlag($flag))
+            return;
+
+        UserFlag::create([
+            'user_id' => $this->id,
+            'flag' => $flag
+        ]);
+    }
+
+    public function removeFlag($flag) {
+        $flag = UserFlag::where('user_id', $this->id)
+            ->where('flag', $flag)->get()->first();
+
+        if (!$flag)
+            return;
+
+        $flag->delete();
+    }
+
+    public function hasFlag($flag) {
+        $flag = UserFlag::where('user_id', $this->id)
+            ->where('flag', $flag)->get()->first();
+
+        if (!$flag)
+            return false;
+
+        return true;
+    }
 
     /**
      * The attributes that are mass assignable.

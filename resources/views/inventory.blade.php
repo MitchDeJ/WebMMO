@@ -26,26 +26,28 @@
                         <div class="col-md-12">
                             <table border="1">
                                 <tr>
-                                    <td><a href="{{url("unequip/0")}}"><img
-                                                    src='{{url($items->getIconPath($equips[0]))}}'/></a>
-                                    </td>
-                                    <td><a href="{{url("unequip/1")}}"><img
-                                                    src='{{url($items->getIconPath($equips[1]))}}'/></a>
-                                    </td>
-                                    <td><a href="{{url("unequip/2")}}"><img
-                                                    src='{{url($items->getIconPath($equips[2]))}}'/></a>
-                                    </td>
+                                    @for($i=0;$i<3;$i++)
+                                        <td>
+                                        <div class="equip_slot" id='e{{$i}}'>
+                                            <div class="equip_item" @if($equips[$i] != null)
+                                            title="{{$items->getName($equips[$i])}}"@endif>
+                                                <img src='{{url($items->getIconPath($equips[$i]))}}'/>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        @endfor
                                 </tr>
                                 <tr>
-                                    <td><a href="{{url("unequip/3")}}"><img
-                                                    src='{{url($items->getIconPath($equips[3]))}}'/></a>
-                                    </td>
-                                    <td><a href="{{url("unequip/4")}}"><img
-                                                    src='{{url($items->getIconPath($equips[4]))}}'/></a>
-                                    </td>
-                                    <td><a href="{{url("unequip/5")}}"><img
-                                                    src='{{url($items->getIconPath($equips[5]))}}'/></a>
-                                    </td>
+                                    @for($i=3;$i<6;$i++)
+                                        <td>
+                                        <div class="equip_slot" id='e{{$i}}'>
+                                            <div class="equip_item" @if($equips[$i] != null)
+                                            title="{{$items->getName($equips[$i])}}"@endif>
+                                                <img src='{{url($items->getIconPath($equips[$i]))}}'/>
+                                            </div>
+                                        </div>
+                                        </td>
+                                    @endfor
                                 </tr>
                             </table>
                         </div>

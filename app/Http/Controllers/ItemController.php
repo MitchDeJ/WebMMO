@@ -11,59 +11,6 @@ use Auth;
 
 class ItemController extends Controller
 {
-    public function useItem($slot) {
-        $user = Auth::user();
-        $inv = InventorySlot::getInstance();
-        $item = $inv->getItemOfSlot($user->id, $slot);
-
-        if ($item == null)
-            return redirect('inventory')->with('neutral', 'you clicked slot '.$slot.'.');
-
-        $equipslot = $item->getEquipSlot($item->id);
-
-        //equip item
-        if ($equipslot != -1) {
-            $ue = UserEquip::where('user_id', $user->id)
-                ->where('equip_slot', $equipslot)->get()->first();
-            $ue->equip($user, $slot);
-            return redirect('inventory');
-        }
-
-        return redirect('inventory')->with('neutral', 'you used an item in slot '.$slot.'. Item: '.$item->name);
-    }
-
-    public function destroyItem($slot) {
-        $user = Auth::user();
-        $invslot = InventorySlot::where('user_id', $user->id)
-            ->where('slot', $slot)->get()->first();
-        $invslot->item_id = null;
-        $invslot->amount = 0;
-        $invslot->save();
-
-        return redirect('inventory')->with('neutral', 'you destroyed an item @ slot '.$slot.'.');
-    }
-
-    public function unequipItem($slot) {
-        $user = Auth::user();
-        $inv = InventorySlot::getInstance();
-        $freeslot = $inv->getFreeSlot($user->id);
-        $equipslot = UserEquip::where('user_id', $user->id)
-            ->where('equip_slot', $slot)->get()->first();
-
-        // no free slots
-        if ($freeslot == null)
-            return redirect('inventory')->with('fail', 'You do not have enough free slots in your inventory to do that.');
-
-        if ($equipslot->item_id == null)
-            return redirect('inventory');
-
-        $item = Item::findOrFail($equipslot->item_id);
-
-        $inv->addItem($user->id, $equipslot->item_id, 1);
-        $equipslot->item_id = null;
-        $equipslot->save();
-        return redirect('inventory');
-    }
 
     public function getInfo(Request $request) {
         $slot = $request['slot'];

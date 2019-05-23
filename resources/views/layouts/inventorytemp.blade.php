@@ -7,13 +7,7 @@
                 <td>
                     <div class="inv_slot" id='{{$i}}'>
                         @if($slots[$i]->item_id != null)
-                            <div class="item" @if($slots[$i]->item_id != null)
-                            title="{{$items->getName($slots[$i]->item_id)}}
-                            @if ($items->isStackable($slots[$i]->item_id))
-                                    ({{$slots[$i]->amount}})
-                                                    @endif
-                                    "
-                                    @endif>
+                            <div class="item" @if($slots[$i]->item_id != null)title="{{$items->getName($slots[$i]->item_id)}}@if ($items->isStackable($slots[$i]->item_id)) ({{$slots[$i]->amount}})@endif"@endif>
                                 <img src='{{url($items->getIconPath($slots[$i]->item_id))}}'/>
                             </div>
                         @endif
@@ -24,13 +18,7 @@
                 <td>
                     <div class="inv_slot" id='{{$i + 1}}'>
                         @if($slots[$i + 1]->item_id != null)
-                            <div class="item" @if($slots[$i + 1]->item_id != null)
-                            title="{{$items->getName($slots[$i + 1]->item_id)}}
-                            @if ($items->isStackable($slots[$i + 1]->item_id))
-                                    ({{$slots[$i + 1]->amount}})
-                                                    @endif
-                                    "
-                                    @endif>
+                            <div class="item" @if($slots[$i + 1]->item_id != null)title="{{$items->getName($slots[$i + 1]->item_id)}}@if ($items->isStackable($slots[$i + 1]->item_id)) ({{$slots[$i + 1]->amount}})@endif"@endif>
                                 <img src='{{url($items->getIconPath($slots[$i + 1]->item_id))}}'/>
                             </div>
                         @endif
@@ -42,13 +30,7 @@
                 <td>
                     <div class="inv_slot" id='{{$i + 2}}'>
                         @if($slots[$i + 2]->item_id != null)
-                            <div class="item" @if($slots[$i + 2]->item_id != null)
-                            title="{{$items->getName($slots[$i + 2]->item_id)}}
-                            @if ($items->isStackable($slots[$i + 2]->item_id))
-                                    ({{$slots[$i + 2]->amount}})
-                                                    @endif
-                                    "
-                                    @endif>
+                            <div class="item" @if($slots[$i + 2]->item_id != null)title="{{$items->getName($slots[$i + 2]->item_id)}}@if ($items->isStackable($slots[$i + 2]->item_id)) ({{$slots[$i + 2]->amount}})@endif"@endif>
                                 <img src='{{url($items->getIconPath($slots[$i + 2]->item_id))}}'/>
                             </div>
                         @endif
@@ -60,14 +42,7 @@
                 <td>
                     <div class="inv_slot" id='{{$i + 3}}'>
                         @if($slots[$i + 3]->item_id != null)
-                            <div class="item" @if($slots[$i + 3]->item_id != null)
-                            title="{{$items->getName($slots[$i + 3]->item_id)}}
-                            @if ($items->isStackable($slots[$i + 3]->item_id))
-                                    ({{$slots[$i + 3]->amount}})
-                                                    @endif
-                                    "
-                                    @endif
-                            >
+                            <div class="item" @if($slots[$i + 3]->item_id != null)title="{{$items->getName($slots[$i + 3]->item_id)}}@if ($items->isStackable($slots[$i + 3]->item_id)) ({{$slots[$i + 3]->amount}})@endif"@endif>
                                 <img src='{{url($items->getIconPath($slots[$i + 3]->item_id))}}'/>
                             </div>
                         @endif
