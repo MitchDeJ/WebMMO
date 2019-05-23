@@ -7,8 +7,10 @@ use App\AreaObjectSpawn;
 use App\Mob;
 use App\MobSpawn;
 use App\Npc;
+use App\Constants;
 use Illuminate\Http\Request;
 use Auth;
+use App\Cooldown;
 use App\Item;
 use App\User;
 use App\Skill;
@@ -57,6 +59,10 @@ class AreaController extends Controller
             $reqs[$spot->id] = SpotRequirement::where('spot_id', $spot->id)->get();
         }
 
+        $cd = Cooldown::check($user->id, Constants::$COOLDOWN_SKILLING);
+        if ($cd == false)
+            $cd = 0;
+
         $players = User::where('area_id', $loc->id)
             ->where('id', '!=', $user->id)->get();
 
@@ -70,7 +76,8 @@ class AreaController extends Controller
             'mobs' => $mobs,
             'objects' => $objects,
             'objectskills' => $objectskills,
-            'players' => $players
+            'players' => $players,
+            'cd' => $cd
         ));
     }
 }

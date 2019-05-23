@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <script>var redirect = '{{ url('')}}'</script>
+    <script>
+        var redirect = '{{ url('')}}'
+        var cd = '{{$cd}}';
+    </script>
     <script src="{{ asset('assets/vendor/location/location.js') }}"></script>
     <div class="main-content">
         <div class="container-fluid">

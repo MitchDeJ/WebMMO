@@ -9,9 +9,16 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
+
     var clickedId;
     var clickedButton;
     var useButtons = $('.usespot');
+
+    if (cd > 0) { //if theres already a cooldown, disable the buttons
+        disableButtons();
+        setTimer(cd);
+    }
+
     useButtons.click(function () {
         clickedId = $(this).parent().find('p').text();
         sendRequest();
