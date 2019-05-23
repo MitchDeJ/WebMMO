@@ -52,6 +52,7 @@ class SkillActionController extends Controller
         $user = Auth::user();
         $id = $request['id'];
         $amount = $request['amount'];
+        $item = Item::find(1);
 
         if (!Func::validAmount($amount))
             return redirect('location')->with('fail', 'Invalid amount.');
@@ -68,10 +69,10 @@ class SkillActionController extends Controller
 
         $freeSlots = $inv->getFreeSlots($user->id);
 
-        if ($action->req_item != null)
+        if ($action->req_item != null && !$item->isStackable($action->req_item))
             $freeSlots +=  $inv->getItemCount($user->id, $action->req_item);
 
-        if ($action->req_item_2 != null)
+        if ($action->req_item_2 != null && !$item->isStackable($action->req_item_2))
             $freeSlots +=  $inv->getItemCount($user->id, $action->req_item_2);
 
         if ($amount > $freeSlots)

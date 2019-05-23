@@ -21,8 +21,18 @@ class SkillAction extends Model
     public function getUserMaxAmount($userId) {
         $inv = InventorySlot::getInstance();
         $user = User::find($userId);
+        $item = Item::find(1);
         $req_count = -1;
         $req_count_2 = -1;
+
+        $freeSlots = $inv->getFreeSlots($user->id);
+
+        if ($this->req_item != null && !$item->isStackable($this->req_item))
+            $freeSlots +=  $inv->getItemCount($user->id, $this->req_item);
+
+        if ($this->req_item_2 != null && !$item->isStackable($this->req_item_2))
+            $freeSlots +=  $inv->getItemCount($user->id, $this->req_item_2);
+
         if ($this->req_item != null) {
             $req_count = $inv->getItemCount($user->id, $this->req_item);
             $req_count = floor($req_count / $this->req_item_amount);
@@ -34,8 +44,11 @@ class SkillAction extends Model
 
         //if 2 item requirements
         if ($req_count != -1 && $req_count_2 != -1) {
-            return min($req_count, $req_count_2);
+            $req_count = min($req_count, $req_count_2);
         }
+
+        if ($req_count > $freeSlots)
+            $req_count = $freeSlots;
 
         //if 1 requirement
         return $req_count;
