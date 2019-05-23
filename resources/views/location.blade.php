@@ -56,7 +56,7 @@
                         <table>
                             @foreach($objects as $o)
                                 <tr>
-                                    <td><img src='{{url($skill->getIconPath($objectskills[$o->id]))}}'/></td>
+                                    <td><img src='{{$o->getIconPath()}}'/></td>
                                     <td>&nbsp;{{$o->name}}</td>
                                     {!! Form::open(['route' => ['object.interact'], 'method' => 'post', 'class' => 'form-inline']) !!}
                                     {!! Form::hidden("id", $o->id) !!}

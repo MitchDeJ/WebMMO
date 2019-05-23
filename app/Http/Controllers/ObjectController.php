@@ -20,6 +20,11 @@ class ObjectController extends Controller
     {
         $user = Auth::user();
         $id = $request['id'];
+        $obj = AreaObject::find($id);
+
+        if (!$obj)
+            return redirect('location');
+
         $item = Item::find(1);
         $skill = Skill::find(1);
         //TODO check if object is in user area
@@ -35,6 +40,12 @@ class ObjectController extends Controller
                 'object' => AreaObject::find($id),
                 'max' => $max
             ));
+        }
+
+        if (ObjectController::opensMarket($id)) {
+            return MarketController::index()->with([
+                'object' => $obj
+            ]);
         }
 
         return redirect('location');
@@ -105,9 +116,16 @@ class ObjectController extends Controller
         }
     }
 
-    public function hasSkillAction($id)
+    public static function hasSkillAction($id)
     {
-        return $this->getSkillAction(1, $id) != null;
+        return ObjectController::getSkillAction(1, $id) != null;
+    }
+
+    public static function opensMarket($id) {
+        switch ($id) {
+            case 3: //Trading Post
+                return true;
+        }
     }
 
 }

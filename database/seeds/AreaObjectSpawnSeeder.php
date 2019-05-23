@@ -10,6 +10,8 @@ class AreaObjectSpawnSeeder extends Seeder
         $this->spawn(1, 1);
         //fletching table in area 1
         $this->spawn(2, 1);
+        //trading post in area 1
+        $this->spawn(3, 1);
     }
 
     public function spawn($objId, $areaId) {

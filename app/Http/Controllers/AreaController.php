@@ -27,6 +27,7 @@ class AreaController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $skill = Skill::find(1);
 
         if (MobController::inMobFight($user->id))
             return redirect('mobfight');
@@ -40,22 +41,20 @@ class AreaController extends Controller
         $mobspawns = MobSpawn::where('area_id', $loc->id)->get();
         $mobs = array();
 
-        foreach($mobspawns as $spawn) {
+        foreach ($mobspawns as $spawn) {
             array_push($mobs, Mob::find($spawn->mob_id));
         }
 
         $objectspawns = AreaObjectSpawn::where('area_id', $loc->id)->get();
         $objects = array();
-        $objectskills = array();
 
-        foreach($objectspawns as $spawn) {
+        foreach ($objectspawns as $spawn) {
             $obj = AreaObject::find($spawn->object_id);
             array_push($objects, $obj);
-            $objectskills[$obj->id] = ObjectController::getSkillAction($user->id, $obj->id)->skill_id;
         }
 
 
-        foreach($spots as $spot) {
+        foreach ($spots as $spot) {
             $reqs[$spot->id] = SpotRequirement::where('spot_id', $spot->id)->get();
         }
 
@@ -75,7 +74,6 @@ class AreaController extends Controller
             'reqs' => $reqs,
             'mobs' => $mobs,
             'objects' => $objects,
-            'objectskills' => $objectskills,
             'players' => $players,
             'cd' => $cd
         ));
