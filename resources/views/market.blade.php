@@ -29,7 +29,7 @@
                                     <tr>
                                         <td><b>Item</b></td>
                                         <td><b>Sold</b></td>
-                                        <td><b>Price</b></td>
+                                        <td><b>Price (ea)</b></td>
                                         <td><b>Coffer</b></td>
                                         <td><b>Action</b></td>
                                     </tr>
@@ -109,7 +109,7 @@
                                     <tr>
                                         <td><b>Item</b></td>
                                         <td><b>Amount</b></td>
-                                        <td><b>Price</b></td>
+                                        <td><b>Price (ea)</b></td>
                                         <td width="30%"><b>Seller</b></td>
                                         <td><b>Action</b></td>
                                     </tr>
