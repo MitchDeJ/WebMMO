@@ -57,4 +57,12 @@ Route::post('/completeaction', ["uses" => "SkillActionController@completeAction"
 Route::post('/buyshopitem', ["uses" => "ShopController@buyItem", "as"=>"shop.buy"]);
 Route::post('/sellshopitem', ["uses" => "ShopController@sellItem", "as"=>"shop.sell"]);
 Route::get('/shop/{shopId}', 'ShopController@shopIndex');
+//market
+Route::get('/market', 'MarketController@index');
+Route::get('/newlisting', 'MarketController@newListingIndex');
+Route::post("/searchmarket", "MarketController@search");
+Route::post("/buylisting", "MarketController@buyListing");
+Route::post("/collectlisting", "MarketController@collectListing");
+Route::post("/cancellisting", "MarketController@cancelListing");
+Route::post("/submitlisting", "MarketController@submitListing");
 

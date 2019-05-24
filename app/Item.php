@@ -120,6 +120,18 @@ class Item extends Model
         return false;
     }
 
+    public function isMarketable($id) {
+        switch($id) {
+            case null:
+                return false;
+            case 17:
+                return false;
+
+            default:
+                return true;
+        }
+    }
+
     public function getSelfEquipSlot() {
         return $this->getEquipSlot($this->id);
     }

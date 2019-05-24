@@ -43,9 +43,7 @@ class ObjectController extends Controller
         }
 
         if (ObjectController::opensMarket($id)) {
-            return MarketController::index()->with([
-                'object' => $obj
-            ]);
+            return redirect('market');
         }
 
         return redirect('location');

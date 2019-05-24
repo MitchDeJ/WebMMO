@@ -34,4 +34,6 @@ class Constants extends Model
 
     public static $COOLDOWN_SKILLING = 1;
 
+    public static $MAX_LISTINGS = 4;
+
 }

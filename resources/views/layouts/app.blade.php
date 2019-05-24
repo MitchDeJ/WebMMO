@@ -98,6 +98,7 @@
                      <li><a href="{{ url('/location') }}" @if(Route::currentRouteName() === 'location') class="active"@endif><i class="lnr lnr-location"></i> <span>Location</span></a></li>
                      <li><a href="{{ url('/map') }}" @if(Route::currentRouteName() === 'map') class="active"@endif><i class="fa fa-globe"></i> <span>World map</span></a></li>
                      <li><a href="{{ url('/inventory') }}" @if(Route::currentRouteName() === 'inventory') class="active"@endif><i class="fa fa-shopping-bag"></i> <span>Inventory</span></a></li>
+                     <li><a href="{{ url('/market') }}" @if(Route::currentRouteName() === 'market') class="active"@endif><i class="fa fa-dollar"></i> <span>Marketplace</span></a></li>
                      <li>
                          <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                          <div id="subPages" class="collapse">
