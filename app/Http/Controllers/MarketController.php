@@ -145,6 +145,11 @@ class MarketController extends Controller
     public function cancelListing(Request $request)
     {
         $user = Auth::user();
+
+        $loc = Area::find($user->area_id);
+        if (!$loc->hasMarketObject())
+            return redirect('market')->with('fail', 'You need to move to an area that contains a trading post to do that.');
+
         $id = $request['id'];
         $listing = MarketListing::find($id);
         $item = Item::find(1);
