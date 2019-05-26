@@ -45,6 +45,15 @@ class SkillSpotController extends Controller
             ]);
         }
 
+        //add cooldown
+        Cooldown::create(
+            [
+                'user_id' => Auth::user()->id,
+                'type' => Constants::$COOLDOWN_SKILLING,
+                'end' => (time() + $spot->cooldown)
+            ]
+        );
+
         //check skill requirements
         $reqs = SpotRequirement::where('spot_id', $spot->id)->get();
         foreach ($reqs as $req) {
@@ -81,14 +90,6 @@ class SkillSpotController extends Controller
         $inv = InventorySlot::getInstance();
         $inv->addItem($user->id, $item->id, $amount);
 
-        //add cooldown
-        Cooldown::create(
-            [
-                'user_id' => Auth::user()->id,
-                'type' => Constants::$COOLDOWN_SKILLING,
-                'end' => (time() + $spot->cooldown)
-            ]
-        );
 
         $skill = Skill::find($spot->skill_id);
 

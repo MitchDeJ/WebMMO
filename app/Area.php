@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\ObjectController;
 use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
@@ -24,6 +25,30 @@ class Area extends Model
 
         if (count($amt) > 0)
             return true;
+
+        return false;
+    }
+
+    public function hasObject($objId) {
+        $amt = AreaObjectSpawn::where('area_id', $this->id)
+            ->where('object_id', $objId)->get();
+
+        if (count($amt) > 0)
+            return true;
+
+        return false;
+    }
+
+    public function hasMarketObject() {
+        $amt = AreaObjectSpawn::where('area_id', $this->id)->get();
+
+        if (count($amt) == 0)
+            return false;
+
+        foreach($amt as $obj) {
+             if (ObjectController::opensMarket($obj->object_id))
+                 return true;
+        }
 
         return false;
     }

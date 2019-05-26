@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\Constants;
 use App\Func;
 use App\MarketListing;
@@ -32,6 +33,11 @@ class MarketController extends Controller
     public function newListingIndex()
     {
         $user = Auth::user();
+
+        $loc = Area::find($user->area_id);
+        if (!$loc->hasMarketObject())
+            return redirect('market')->with('fail', 'You need to move to an area that contains a trading post to do that.');
+
         $inv = InventorySlot::getInstance();
         $slots = $inv->getInventory($user->id);
         $item = Item::find(1);
@@ -103,6 +109,11 @@ class MarketController extends Controller
     public function collectListing(Request $request)
     {
         $user = Auth::user();
+
+        $loc = Area::find($user->area_id);
+        if (!$loc->hasMarketObject())
+            return redirect('market')->with('fail', 'You need to move to an area that contains a trading post to do that.');
+
         $id = $request['id'];
         $listing = MarketListing::find($id);
 

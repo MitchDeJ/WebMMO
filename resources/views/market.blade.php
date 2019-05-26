@@ -9,7 +9,8 @@
             <!-- OVERVIEW -->
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Marketplace &nbsp<a href="{{url('newlisting')}}" class="btn btn-sm btn-success" style="color: white;">New
+                    <h3 class="panel-title">Marketplace &nbsp<a href="{{url('newlisting')}}"
+                                                                class="btn btn-sm btn-success" style="color: white;">New
                             listing</a></h3>
                 </div>
                 <div class="panel-body">
@@ -30,45 +31,52 @@
                                     </tr>
                                     </thead>
                                     @foreach($userlistings as $l)
-                                        <tr>
-                                            <td>
-                                                <img class="item" title="{{$item->getName($l->item_id)}}"
-                                                     src="{{url($item->getIconPath($l->item_id))}}" width="26px" height="26px"/>
-                                            </td>
-                                            <td>{{$l->amount_sold}}/{{$l->amount}}</td>
-                                            <td><img style="width:16px;height:16px;"
-                                                     src="{{url($item->getIconPath(17))}}"/> {{($l->price)}}gp
-                                            </td>
-                                            @if ($l->amount_sold - $l->amount_collected > 0)
+                                        @if($l->amount_sold == $l->amount)
+                                            <tr style="background-color:rgba(50,205,50, 0.3);">
+                                        @elseif($l->amount_collected < $l->amount_sold)
+                                            <tr style="background-color:rgba(255,165,0, 0.3);">
+                                        @else
+                                            <tr>
+                                                @endif
+                                                <td>
+                                                    <img class="item" title="{{$item->getName($l->item_id)}}"
+                                                         src="{{url($item->getIconPath($l->item_id))}}" width="26px"
+                                                         height="26px"/>
+                                                </td>
+                                                <td>{{$l->amount_sold}}/{{$l->amount}}</td>
                                                 <td><img style="width:16px;height:16px;"
-                                                         src="{{url($item->getIconPath(17))}}"/> {{$l->price * ($l->amount_sold - $l->amount_collected)}}
-                                                    gp
+                                                         src="{{url($item->getIconPath(17))}}"/> {{($l->price)}}gp
                                                 </td>
-                                                <td>
-                                                    <form method="POST" action="{{url('/collectlisting')}}"
-                                                          id="collect_market"
-                                                          class="form-inline">
-                                                        {{csrf_field()}}
-                                                        <input type="hidden" name="id" value="{{$l->id}}"/>
-                                                        <button class="btn btn-default">Collect</button>
-                                                    </form>
-                                                </td>
-                                            @else
-                                                <td>
-                                                    Empty
-                                                </td>
-                                                <td>
-                                                    <form method="POST" action="{{url('/cancellisting')}}"
-                                                          id="cancel_listing"
-                                                          class="form-inline">
-                                                        {{csrf_field()}}
-                                                        <input type="hidden" name="id" value="{{$l->id}}"/>
-                                                        <button class="btn btn-sm btn-danger">Cancel</button>
-                                                    </form>
-                                                </td>
-                                            @endif
-                                        </tr>
-                                    @endforeach
+                                                @if ($l->amount_sold - $l->amount_collected > 0)
+                                                    <td><img style="width:16px;height:16px;"
+                                                             src="{{url($item->getIconPath(17))}}"/> {{$l->price * ($l->amount_sold - $l->amount_collected)}}
+                                                        gp
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="{{url('/collectlisting')}}"
+                                                              id="collect_market"
+                                                              class="form-inline">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="id" value="{{$l->id}}"/>
+                                                            <button class="btn btn-default">Collect</button>
+                                                        </form>
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        Empty
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="{{url('/cancellisting')}}"
+                                                              id="cancel_listing"
+                                                              class="form-inline">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="id" value="{{$l->id}}"/>
+                                                            <button class="btn btn-sm btn-danger">Cancel</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
+                                            </tr>
+                                            @endforeach
                                 </table>
                             </div>
                         @else
@@ -90,7 +98,8 @@
                                 </select>
                                 <input name="query" type="text" class="form-control form-inline" autocomplete="off"/>
                                 <button class="btn btn-default">Search</button>
-                            </form><br>
+                            </form>
+                            <br>
                         </div>
                         <div class="col-md-12">
                             @if(!(isset($query) && isset($option)))
@@ -115,7 +124,8 @@
                                         <tr>
                                             <td>
                                                 <img class="item" title="{{$item->getName($l->item_id)}}"
-                                                     src="{{url($item->getIconPath($l->item_id))}}" width="26px" height="26px"/>
+                                                     src="{{url($item->getIconPath($l->item_id))}}" width="26px"
+                                                     height="26px"/>
                                             </td>
                                             <td>{{$l->amount - $l->amount_sold}}</td>
                                             <td><img style="width:16px;height:16px;"
@@ -128,7 +138,8 @@
                                                 <form method="POST" action="{{url('/buylisting')}}" id="buy_market"
                                                       class="form-inline">
                                                     {{csrf_field()}}
-                                                    <input type="number" name="amount" class="form-control form-inline" min="1"
+                                                    <input type="number" name="amount" class="form-control form-inline"
+                                                           min="1"
                                                            value="1"
                                                            max="{{$l->amount - $l->amount_sold}}"/>
                                                     <input type="hidden" name="id" value="{{$l->id}}"/>

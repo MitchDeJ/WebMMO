@@ -44,7 +44,9 @@
              <div id="navbar-menu">
                  <ul class="nav navbar-nav navbar-right">
                      <li class="dropdown">
+                         @if(Auth::user() != null)
                          <img style="width:16px;height:16px;" src='{{url("/img/items/coins.png")}}'/> <b>{{Auth::user()->getGp()}}gp</b>
+                         @endif
                          <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                              <i class="lnr lnr-alarm"></i>
                              <span class="badge bg-danger">5</span>
