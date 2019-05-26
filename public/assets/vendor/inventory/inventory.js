@@ -1,6 +1,10 @@
 var origin;
 var dest;
 var lastDest;
+
+console.log(placeholders);
+var ph = JSON.parse(placeholders);
+
 $(document).ready(function () {
 
     var item = $(".item");
@@ -110,7 +114,7 @@ $(document).ready(function () {
                 $(".option").remove();
                 for (var i = 0; i < response['options'].length; i++) {
                     var tag = response['options'][i][0];
-                    $(".options").append("<p class='option'><button>" + tag + "</button></p>");
+                    $(".options").append("<p class='option'><button class='btn btn-default'>" + tag + "</button></p>");
                 }
                 var option = $('.option');
                 option.click(function () {
@@ -159,7 +163,7 @@ $(document).ready(function () {
     function addClientSidedEquip(response) {
         var slotElement = $('#e' + response['slot']);
 
-        if (slotElement.find(".equip_item").length > 0)
+        if (slotElement.find(".equip_item").length > 0 || slotElement.find(".equip_placeholder").length > 0)
             slotElement.empty();
 
         slotElement.append('<div class="equip_item" title="' + response['equipName'] + '"><img src=' + response['equipIcon'] + '/></div>');
@@ -186,6 +190,7 @@ $(document).ready(function () {
                 console.log(response);
                 if (response['status'] == true) {
                     $('#e' + clicked).empty();
+                    setPlaceholder($('#e' + clicked), clicked);
                     addClientSidedItem(response);
                 }
             },
@@ -250,6 +255,10 @@ $(document).ready(function () {
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
         });
+    }
+
+    function setPlaceholder(element, num) {
+        element.append('<img class="equip_placeholder" src='+redirect+ph[num]+'/>');
     }
 
     function send(text) {

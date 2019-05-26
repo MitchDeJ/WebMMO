@@ -45,6 +45,12 @@ class User extends Authenticatable
         return true;
     }
 
+    public function getGP() {
+        $inv = InventorySlot::getInstance();
+        $gp = $inv->getItemCount($this->id, 17);
+        return $gp;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

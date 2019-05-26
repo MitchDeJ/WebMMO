@@ -15,10 +15,6 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <img style="width:16px;height:16px;" src="{{url($items->getIconPath(17))}}"/> <b>{{$gp}}
-                                gp</b>
-                        </div>
-                        <div class="col-md-12">
                             <h3>Buy</h3>
                             <table border="1">
                                 <tr>

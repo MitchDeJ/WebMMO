@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset('assets/vendor/chartist/css/chartist-custom.css') }}">
         <!-- MAIN CSS -->
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
         <!-- GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
         <!-- ICONS -->
@@ -43,6 +44,7 @@
              <div id="navbar-menu">
                  <ul class="nav navbar-nav navbar-right">
                      <li class="dropdown">
+                         <img style="width:16px;height:16px;" src='{{url("/img/items/coins.png")}}'/> <b>{{Auth::user()->getGp()}}gp</b>
                          <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                              <i class="lnr lnr-alarm"></i>
                              <span class="badge bg-danger">5</span>

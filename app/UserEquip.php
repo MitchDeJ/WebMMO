@@ -36,4 +36,22 @@ class UserEquip extends Model
 
         $this->save();
     }
+
+
+    public function getSlotPlaceholder() {
+        switch($this->equip_slot) {
+            case 0:
+                return "/img/icons/placeholder_helm.png";
+            case 1:
+                return "/img/icons/placeholder_body.png";
+            case 2:
+                return "/img/icons/placeholder_legs.png";
+            case 3:
+                return "/img/icons/placeholder_weapon.png";
+            case 4:
+                return "/img/icons/placeholder_shield.png";
+            case 5:
+                return "/img/icons/placeholder_amulet.png";
+        }
+    }
 }

@@ -1,7 +1,7 @@
 <script src="{{ asset('assets/vendor/inventory/inventory.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('assets/vendor/inventory/inventory_style.css') }}">
 <div class="col-md-2">
-    <table>
+    <table class="inv-table">
         @for($i=1; $i<=28; $i+=4)
             <tr>
                 <td>
@@ -36,7 +36,6 @@
                         @endif
                         <span class="slot_pos"></span>
                     </div>
-                </td>
                 </td>
 
                 <td>

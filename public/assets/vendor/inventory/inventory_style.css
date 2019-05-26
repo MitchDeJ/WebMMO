@@ -8,17 +8,30 @@
 	 position: relative;
 	 width: 40px;
 	 height: 40px;
-	 border: 1px solid black;
 	 float: left;
- }
+}
+
+.inv_slot:hover {
+	background-color: darkgrey;
+	opacity: 0.075;
+}
 
 .equip_slot {
 	z-index: 22;
 	position: relative;
 	width: 40px;
 	height: 40px;
-	border: 1px solid black;
 	float: left;
+}
+
+.inv-table {
+	border: 5px solid lightgrey;
+	background-color: #f9f9f9;
+}
+
+.equip-table {
+	border: 5px solid lightgrey;
+	background-color: #f9f9f9;
 }
 
 .shop_slot {
@@ -63,10 +76,17 @@
 
 .item {
 	position: relative;
-	z-index: 25;
+	z-index: 999;
 	margin: 4px;
 	width: 32px;
 	height: 32px;
+
+}
+
+.equip_placeholder {
+	position: relative;
+	margin: 4px;
+	opacity:0.35;
 }
 
 .equip_item {

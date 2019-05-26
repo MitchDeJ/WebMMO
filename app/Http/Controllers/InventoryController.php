@@ -21,13 +21,16 @@ class InventoryController extends Controller
         $slots = $inv->getInventory(Auth::user()->id);
         $items = Item::findOrFail(1);
         $equips = array();
+        $eqplaceholders = array();
         foreach(UserEquip::where('user_id', Auth::user()->id)->get() as $e) {
             $equips[$e->equip_slot] = $e->item_id;
+            $eqplaceholders[$e->equip_slot] = $e->getSlotPlaceholder();
         }
         return view('inventory', array(
            'slots' => $slots,
             'items' => $items,
-            'equips' => $equips
+            'equips' => $equips,
+            'eqplaceholders' => $eqplaceholders
         ));
     }
 

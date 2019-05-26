@@ -12,24 +12,25 @@
             <!-- OVERVIEW -->
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Marketplace > New Listing</h3>
+                    <h3 class="panel-title">New listing &nbsp<a href="{{url('market')}}" class="btn btn-sm btn-primary" style="color: white;">Back to overview</a></h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <form method="POST" action="{{url('/submitlisting')}}" id="submit_listing" class="form-inline">
-                                <input type="number" name="amount" id="amount"  min="1" placeholder="Amount"/>
-                                <select name="itemselect" id="itemselect">
+                                <label>Item</label><br>
+                                <input class="form-control" type="number" name="amount" id="amount"  min="1" placeholder="Amount"/>
+                                <select class="form-control" name="itemselect" id="itemselect">
                                     @foreach($sellables as $s)
                                         <option value="{{$s['itemId']}}">{{$s['itemName']}}</option>
                                     @endforeach
-                                </select>
-                                <br>
-                                <input type="number" name="price" id="price"  min="1" placeholder="Price (ea)"/>
-                                <input type="text" name="total" id="total"  min="1" placeholder="Total price" disabled/>
-                                {{csrf_field()}}
-                                <br>
-                                <button class="btn btn-default">Create</button>
+                                </select><br><br>
+                                <label>Price</label><br>
+                                <input class="form-control" type="number" name="price" id="price"  min="1" placeholder="Price (ea)"/>
+                                <input class="form-control" type="text" name="total" id="total"  min="1" placeholder="Total price" disabled/>
+                                @csrf
+                                <br><br>
+                                <button class="btn btn-success">Create</button>
                             </form>
                         </div>
                     </div>
