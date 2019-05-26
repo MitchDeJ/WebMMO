@@ -5,6 +5,7 @@
         var redirect = '{!! url('') !!}';
         var token = '{!! csrf_field() !!}';
     </script>
+    <script src="{{ asset('assets/vendor/tooltips.js') }}"></script>
     <div class="main-content">
         <div class="container-fluid">
             <!-- OVERVIEW -->
@@ -20,15 +21,15 @@
                         <div class="col-md-12">
                             <b>To complete this action you need:</b><br>
                             @if($action->tool_item != null)
-                                - <img src="{{url($item->getIconPath($action->tool_item))}}"/>
+                                - <img title="{{$item->getName($action->tool_item)}}" class="item" src="{{url($item->getIconPath($action->tool_item))}}"/>
                             @endif
                             @if($action->req_item != null)
                                 - {{$action->req_item_amount}}x
-                                <img src="{{url($item->getIconPath($action->req_item))}}"/>
+                                <img title="{{$item->getName($action->req_item)}}" class="item" src="{{url($item->getIconPath($action->req_item))}}"/>
                             @endif
                             @if($action->req_item_2 != null)
                                 - {{$action->req_item_2_amount}}x
-                                <img src="{{url($item->getIconPath($action->req_item_2))}}"/>
+                                <img title="{{$item->getName($action->req_item_2)}}" class="item" src="{{url($item->getIconPath($action->req_item_2))}}"/>
                             @endif
                             <p><br><b>Action details</b></p>
                             <p>Time per action: <b>{{$action->delay}}s</b></p>
@@ -38,7 +39,7 @@
                             <p><br><b>Upon success you will receive:</b></p>
                             @if($action->product_item != null)
                                 <p>- {{$action->product_item_amount}}x
-                                    <img src="{{url($item->getIconPath($action->product_item))}}"/></p>
+                                    <img src="{{url($item->getIconPath($action->product_item))}}" class="item" title="{{$item->getName($action->product_item)}}"/></p>
                             @endif
                             - {{$action->xp_amount}} {{$skill->getName($action->skill_id)}} XP
                             <br><br>
