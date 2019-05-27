@@ -118,7 +118,6 @@ class ApplyMobKill implements ShouldQueue
                 ->delay(now()->addSeconds($timeToKill)->addSeconds($mob->respawn)->subMillis(Constants::$JOB_PROCESS_DELAY));
         } else { //not enough hp or food
             //stop the fight.
-            //TODO zelf de fight 'completen' en verwijderen met een knop ipv auto delete
             $fight->running = false;
             $fight->user_hp = 0;
             $fight->save();

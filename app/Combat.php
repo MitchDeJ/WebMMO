@@ -303,7 +303,7 @@ class Combat extends Model
         return $accuracy;
     }
 
-    public static function getMobAccuracy($userId, $mobId) {
+    public static function getMobAccuracy($mobId, $userId) {
         $mob_att = Combat::getMobAttackRoll($mobId);
         $user_def = Combat::getUserDefenceRoll($userId, self::getMobAttackStyle($mobId));
         $accuracy = 0;
