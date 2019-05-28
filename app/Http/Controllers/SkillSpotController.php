@@ -84,7 +84,7 @@ class SkillSpotController extends Controller
         $amount = rand($spot->amount_min, $spot->amount_max);
 
         //give exp
-        $userSkill->addXp($amount * $spot->xp_amount);
+        $levelUp = $userSkill->addXp($amount * $spot->xp_amount);
 
         //give item
         $inv = InventorySlot::getInstance();
@@ -93,12 +93,25 @@ class SkillSpotController extends Controller
 
         $skill = Skill::find($spot->skill_id);
 
+        if ($levelUp == true)
         return response()->json([
             'status' => true,
             'statustext' => 'You have successfully gathered <b>'.$amount.'x '.$item->name.'</b> and gained <b>'
                 .($amount * $spot->xp_amount).' '.$skill->name.' xp.</b>',
-            'cooldown' => $spot->cooldown
+            'cooldown' => $spot->cooldown,
+            'levelUp' => $levelUp,
+            'skillName' => $skill->name,
+            'skillIcon' => url($skill->getIconPath($skill->id)),
+            'skillLevel' => $userSkill->getLevel()
         ]);
+        else
+            return response()->json([
+                'status' => true,
+                'statustext' => 'You have successfully gathered <b>'.$amount.'x '.$item->name.'</b> and gained <b>'
+                    .($amount * $spot->xp_amount).' '.$skill->name.' xp.</b>',
+                'cooldown' => $spot->cooldown,
+                'levelUp' => $levelUp,
+            ]);
     }
 
     function checkTool($userId, $skillId) {

@@ -25,7 +25,9 @@ class UserSkill extends Model
 
         if ($endlevel > $startlevel) {
             $this->levelUp($this->user_id, $this->skill_id, $endlevel);
+            return true;
         }
+        return false;
     }
 
     public function getLevel() {

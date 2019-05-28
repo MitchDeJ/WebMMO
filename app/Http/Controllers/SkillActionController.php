@@ -148,12 +148,20 @@ class SkillActionController extends Controller
         //add product
         $inv->addItem($user->id, $action->product_item, $userAction->success_amount * $action->product_item_amount);
         //give xp
-        $skill = UserSkill::where('user_id', $user->id)
+        $uskill = UserSkill::where('user_id', $user->id)
             ->where('skill_id', $action->skill_id)->get()->first();
-        $skill->addXp($userAction->success_amount * $action->xp_amount);
+        $levelUp = $uskill->addXp($userAction->success_amount * $action->xp_amount);
         //clean up
         $userAction->delete();
         $action->delete();
-        return redirect('location');
+        $skill = Skill::find($action->skill_id);
+        if ($levelUp == false)
+            return redirect('location');
+        else
+            return redirect('location')
+                ->with('levelUp', true)
+                ->with('skillIcon', url($skill->getIconPath($skill->id)))
+                ->with('skillName', $skill->name)
+                ->with('skillLevel', $uskill->getLevel());
     }
 }

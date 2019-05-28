@@ -122,10 +122,12 @@
      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
      <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
      <script>$.widget.bridge("tlp", $.ui.tooltip);</script>
+     <script src="{{ asset('assets/vendor/levelup.js') }}"></script>
      <!-- MAIN -->
      <div class="main">
              @include('layouts.appmessage')
          <!-- MAIN CONTENT -->
+                 @include('layouts.levelup')
             @yield('content')
      </div>
  </div>
