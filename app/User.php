@@ -103,4 +103,34 @@ class User extends Authenticatable
     public function getDialogue() {
         return UserDialogue::where('user_id', $this->id)->get()->first()->dialogue_id;
     }
+
+    public function getXp($skill) {
+        $skill = UserSkill::where('user_id', $this->id)
+            ->where('skill_id', $skill)->get()->first();
+        return $skill->getXp();
+    }
+
+    public function getLevel($skill) {
+        $skill = UserSkill::where('user_id', $this->id)
+            ->where('skill_id', $skill)->get()->first();
+        return $skill->getLevel();
+    }
+
+    public function getTotalXp() {
+        $skills = UserSkill::where('user_id', $this->id)->get();
+        $total = 0;
+        foreach($skills as $s) {
+            $total += $s->getXp();
+        }
+        return $total;
+    }
+
+    public function getTotalLevel() {
+        $skills = UserSkill::where('user_id', $this->id)->get();
+        $total = 0;
+        foreach($skills as $s) {
+            $total += $s->getLevel();
+        }
+        return $total;
+    }
 }

@@ -104,10 +104,13 @@
                      <li><a href="{{ url('/inventory') }}" @if(Route::currentRouteName() === 'inventory') class="active"@endif><i class="fa fa-shopping-bag"></i> <span>Inventory</span></a></li>
                      <li><a href="{{ url('/market') }}" @if(Route::currentRouteName() === 'market') class="active"@endif><i class="fa fa-dollar"></i> <span>Marketplace</span></a></li>
                      <li>
-                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-list"></i> <span>Highscores</span></a>
                          <div id="subPages" class="collapse">
                              <ul class="nav">
-                                 <li><a href="{{ url('/profile') }}" class="">Profile</a></li>
+                                 <li><a href="{{ url('/highscores') }}" class="">Overall</a></li>
+                                 @foreach(\App\Skill::all() as $s)
+                                     <li><a href="{{ url('/highscores/'.$s->name) }}" class="">{{$s->name}}</a></li>
+                                     @endforeach
                              </ul>
                          </div>
                      </li>

@@ -66,4 +66,7 @@ Route::post("/buylisting", "MarketController@buyListing");
 Route::post("/collectlisting", "MarketController@collectListing");
 Route::post("/cancellisting", "MarketController@cancelListing");
 Route::post("/submitlisting", "MarketController@submitListing");
+//highscores
+Route::get('/highscores', 'HighscoresController@index');
+Route::get('/highscores/{skillname}', 'HighscoresController@skillIndex');
 

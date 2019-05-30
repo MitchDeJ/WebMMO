@@ -20,7 +20,7 @@
                         </div>
                         @if(count($userlistings) > 0)
                             <div class="col-md-12">
-                                <table class="table table-responsive table-hover">
+                                <table class="table table-responsive table-hover table-striped">
                                     <thead>
                                     <tr>
                                         <th><b>Item</b></th>
@@ -110,7 +110,7 @@
                         </div>
                         @if(count($listings) > 0)
                             <div class="col-md-12">
-                                <table class="table table-responsive table-hover">
+                                <table class="table table-responsive table-hover table-striped">
                                     <thead>
                                     <tr>
                                         <th><b>Item</b></th>

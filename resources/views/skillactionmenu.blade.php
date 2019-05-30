@@ -19,7 +19,7 @@
                         <div class="col-md-12">
                             <h4>Choose action</h4>
                             <div class="col-md-12">
-                                <table class="table table-responsive table-hover">
+                                <table class="table table-responsive table-hover table-striped">
                                     <thead>
                                     <tr>
                                         <th>Tool</th>
@@ -38,6 +38,8 @@
                                                 @if($a->tool_item != null)
                                                     <img title="{{$item->getName($a->tool_item)}}" class="item"
                                                          src="{{url($item->getIconPath($a->tool_item))}}"/>
+                                                    @else
+                                                    <i>None</i>
                                                 @endif
                                             </td>
                                             <td>
