@@ -45,14 +45,6 @@ class SkillSpotController extends Controller
             ]);
         }
 
-        //add cooldown
-        Cooldown::create(
-            [
-                'user_id' => Auth::user()->id,
-                'type' => Constants::$COOLDOWN_SKILLING,
-                'end' => (time() + $spot->cooldown)
-            ]
-        );
 
         //check skill requirements
         $reqs = SpotRequirement::where('spot_id', $spot->id)->get();
@@ -73,6 +65,15 @@ class SkillSpotController extends Controller
                 'statustext' => 'You do not have the correct tool with you to do that.'
             ]);
         }
+
+        //add cooldown
+        Cooldown::create(
+            [
+                'user_id' => Auth::user()->id,
+                'type' => Constants::$COOLDOWN_SKILLING,
+                'end' => (time() + $spot->cooldown)
+            ]
+        );
 
         $userSkill = UserSkill::where('user_id', $user->id)
             ->where('skill_id', $spot->skill_id)->get()->first();
