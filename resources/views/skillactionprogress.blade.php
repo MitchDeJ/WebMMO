@@ -15,9 +15,7 @@
             <div class="panel panel-headline">
                 <div class="panel-heading">
                     <h3 class="panel-title"><img
-                                src="{{url($skill->getIconPath($action->skill_id))}}"/> {{$skill->getName($action->skill_id)}} &nbsp;<a
-                                href="{{url('location')}}" class="btn btn-sm btn-primary" style="color: white;">Back to
-                            location</a></h3>
+                                src="{{url($skill->getIconPath($action->skill_id))}}"/> {{$skill->getName($action->skill_id)}}</h3>
                     </h3>
                 </div>
                 <div class="panel-body">

@@ -31,6 +31,16 @@ class ObjectController extends Controller
 
         if ($this->hasSkillAction($id)) {
             $action = $this->getSkillAction($user->id, $id);
+
+            if (count($action) > 1) {//show skill action menu
+                return view('skillactionmenu')->with(array(
+                    'object' => AreaObject::find($id),
+                    'item' => $item,
+                    'skill' => $skill,
+                    'actions' => $action
+                ));
+            }
+
             $action->user_id = $user->id;
             $max = $action->getUserMaxAmount($user->id);
             return view('skillaction')->with(array(
@@ -98,14 +108,9 @@ class ObjectController extends Controller
                     'product_item_amount' => 1
                 ));
 
-                $actions = array($stringBows, $logsIntoUnstrungBow);
+                $actions = array($logsIntoUnstrungBow, $stringBows);
 
-                foreach ($actions as $a) {
-                    if ($inv->hasItem($userId, $a->tool_item) && $inv->hasItem($userId, $a->req_item))
-                        return $a;
-                }
-
-                return $logsIntoUnstrungBow;
+                return $actions;
 
 
             default:

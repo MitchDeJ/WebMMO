@@ -49,6 +49,9 @@
                             {!! Form::hidden("id", $object->id) !!}
                             {!! Form::input('number', 'amount', $max, ['class' => 'form-control',
                              'min' => 1, 'max' => $max, 'step' => 1]) !!}
+                            @if(isset($i))
+                            <input type="hidden" name="i" value={{$i}} />
+                            @endif
                             <button type="submit" class="btn btn-default">Start</button>
                             {!! Form::close() !!}
                         </div>

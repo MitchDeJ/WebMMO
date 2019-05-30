@@ -53,6 +53,7 @@ Route::post('/objectinteract', ["uses" => "ObjectController@interact", "as"=>"ob
 Route::get('/skillaction', 'SkillActionController@index')->name('skillaction');
 Route::post('/action', ["uses" => "SkillActionController@startAction", "as"=>"start.action"]);
 Route::post('/completeaction', ["uses" => "SkillActionController@completeAction", "as"=>"completeaction"]);
+Route::post('/selectaction', ["uses" => "SkillActionController@selectAction", "as"=>"selectaction"]);
 //shops
 Route::post('/buyshopitem', ["uses" => "ShopController@buyItem", "as"=>"shop.buy"]);
 Route::post('/sellshopitem', ["uses" => "ShopController@sellItem", "as"=>"shop.sell"]);

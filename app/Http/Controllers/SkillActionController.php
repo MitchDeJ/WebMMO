@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AreaObject;
 use App\Func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,12 @@ class SkillActionController extends Controller
         //TODO check if object is in user area
 
         $action = ObjectController::getSkillAction($user->id, $id);
+
+        if (count($action) > 1) {
+            $action = $action[$request['i']];
+            if (!$action)
+                return redirect('location');
+        }
 
         $inv = InventorySlot::getInstance();
 
@@ -163,5 +170,27 @@ class SkillActionController extends Controller
                 ->with('skillIcon', url($skill->getIconPath($skill->id)))
                 ->with('skillName', $skill->name)
                 ->with('skillLevel', $uskill->getLevel());
+    }
+
+    public function selectAction(Request $request) {
+        $user = Auth::user();
+        $item = Item::find(1);
+        $skill = Skill::find(1);
+        $obj = AreaObject::find($request['obj']);
+
+        if (!$obj)
+            return redirect('location')->with('fail', 'Invalid object.');
+
+        $action = ObjectController::getSkillAction($user->id, $obj->id)[$request['i']];
+        $action->user_id = $user->id;
+        $max = $action->getUserMaxAmount($user->id);
+        return view('skillaction')->with(array(
+            'action' => $action,
+            'item' => $item,
+            'skill' => $skill,
+            'object' => $obj,
+            'max' => $max,
+            'i' => $request['i']
+        ));
     }
 }
