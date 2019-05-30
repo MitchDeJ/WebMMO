@@ -36,4 +36,6 @@ class Constants extends Model
 
     public static $MAX_LISTINGS = 4;
 
+    public static $PLAYERS_PER_PAGE = 10;
+
 }

@@ -107,9 +107,9 @@
                          <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-list"></i> <span>Highscores</span></a>
                          <div id="subPages" class="collapse">
                              <ul class="nav">
-                                 <li><a href="{{ url('/highscores') }}" class="">Overall</a></li>
+                                 <li><a href="{{ url('/highscores/') }}" class="">Overall</a></li>
                                  @foreach(\App\Skill::all() as $s)
-                                     <li><a href="{{ url('/highscores/'.$s->name) }}" class="">{{$s->name}}</a></li>
+                                     <li><a href="{{ url('/highscores/'.$s->name.'/1') }}" class="">{{$s->name}}</a></li>
                                      @endforeach
                              </ul>
                          </div>
