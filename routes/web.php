@@ -26,6 +26,10 @@ Route::get('/mobfight', 'MobController@fightPageIndex')->name('mobfight');
 //profile
 Route::get('/profile', 'ProfileController@index');
 Route::get('/profile/{name}', 'ProfileController@indexByName');
+//edit profile
+Route::get('/editprofile', 'ProfileController@editIndex');
+Route::post('editprofile', 'ProfileController@updateAvatar');
+Route::post('/updatedesc', 'ProfileController@updateDescription')->name("updateDesc");
 //inventory
 Route::post('/swapslot', "ItemController@swapSlot");
 Route::post('/getiteminfo', 'ItemController@getInfo');

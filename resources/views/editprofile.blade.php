@@ -11,17 +11,27 @@
                         <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     </div>
                     @if($user->id == Auth::user()->id)
-                    <p class="panel-subtitle"><a href="{{url("/editprofile")}}">Edit profile</a></p>
-                        @endif
+                        <p class="panel-subtitle"><a href="{{url("/profile")}}">Back to profile</a></p>
+                    @endif
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-2">
                             <img src="{{ url('user_img/' . $user->avatar)}}" width="150px" height="150px" alt="Avatar">
+                            <form enctype="multipart/form-data" action="" method="POST">
+                                <input type="file" required name="avatar" accept="image/*">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-info btn-sm">Save</button>
+                            </form>
                         </div>
                         <div class="col-md-4">
                             <h4>{{$user->name}}</h4>
-                            <p>{{$user->description}}</p>
+                            <form method="POST" name="updateavatar" action="{{route("updateDesc")}}">
+                                <label for="desc"></label>
+                                <input name="desc" id="desc" type="text" class="form-control" value="{{$user->description}}" placeholder="Enter a description.">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-sm btn-info">Save</button>
+                            </form>
                         </div>
                         <div class="col-md-3">
                             <h4>{{\App\Area::find($user->area_id)->name}}</h4>
