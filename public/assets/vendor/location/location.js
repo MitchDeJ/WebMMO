@@ -49,7 +49,7 @@ $(document).ready(function () {
     }
 
     function enableAttackButtons() {
-        attackButtons.html('Use');
+        attackButtons.html('Attack');
         attackButtons.removeAttr('disabled')
         attackButtons.attr('style', 'color:#23527c')
     }
