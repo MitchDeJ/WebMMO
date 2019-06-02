@@ -28,7 +28,7 @@ class Constants extends Model
     public static $ATTACK_STYLE_RANGED = 2;
     public static $ATTACK_STYLE_MAGIC = 3;
 
-    public static $XP_PER_DAMAGE = 5;
+    public static $XP_PER_DAMAGE = 4;
 
     public static $JOB_PROCESS_DELAY = 2000;
 

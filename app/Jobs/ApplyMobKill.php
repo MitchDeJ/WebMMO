@@ -95,9 +95,12 @@ class ApplyMobKill implements ShouldQueue
 
         //give experience
         $styleSkill = Combat::getSkillForStyle(Combat::getUserAttackStyle($user->id));
+        $hpSkill = UserSkill::where('user_id', $this->userId)
+            ->where('skill_id', Constants::$HP)->get()->first();
         $skill = UserSkill::where('user_id', $this->userId)
             ->where('skill_id', $styleSkill)->get()->first();
         $skill->addXp(Constants::$XP_PER_DAMAGE * $mob->hitpoints);
+        $hpSkill->addXp((Constants::$XP_PER_DAMAGE / 4) * $mob->hitpoints);
 
         //increment kills
         $fight->increment('kills', 1);
