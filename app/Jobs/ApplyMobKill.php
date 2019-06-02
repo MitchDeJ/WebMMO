@@ -142,14 +142,26 @@ class ApplyMobKill implements ShouldQueue
         }
 
         //queue another mobkill after gettimetokill
-        if ($fight->user_hp >= $nextdamage && $fight->user_hp > 0 && ($ammo->amount >= $ammoToUse)) {
+        if ($fight->user_hp >= $nextdamage && $fight->user_hp > 0) {
+
+            if (Combat::getUserAttackStyle($user->id) == Constants::$ATTACK_STYLE_RANGED) {
+                if ($user - $ammo->amount < $ammoToUse) { //check ranged ammo
+                    $this->endFight($fight);
+                }
+            }
+
             ApplyMobKill::dispatch($this->userId, $this->mobId)
                 ->delay(now()->addSeconds($timeToKill)->addSeconds($mob->respawn)->subMillis(Constants::$JOB_PROCESS_DELAY));
+
         } else { //not enough hp or food or ammo
-            //stop the fight.
-            $fight->running = false;
-            $fight->user_hp = 0;
-            $fight->save();
+            $this->endFight($fight);
         }
+    }
+
+    public function endFight($fight) {
+        //stop the fight.
+        $fight->running = false;
+        $fight->user_hp = 0;
+        $fight->save();
     }
 }
