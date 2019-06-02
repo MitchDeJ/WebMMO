@@ -30,6 +30,9 @@ Route::get('/profile/{name}', 'ProfileController@indexByName');
 Route::get('/editprofile', 'ProfileController@editIndex');
 Route::post('editprofile', 'ProfileController@updateAvatar');
 Route::post('/updatedesc', 'ProfileController@updateDescription')->name("updateDesc");
+//combat settings
+Route::get('/settings', 'ProfileController@settings');
+Route::post('/combatfocus', "ProfileController@setCombatFocus")->name('setCombatFocus');;
 //inventory
 Route::post('/swapslot', "ItemController@swapSlot");
 Route::post('/getiteminfo', 'ItemController@getInfo');

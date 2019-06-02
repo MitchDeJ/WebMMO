@@ -3,6 +3,7 @@
     <script>
         var redirect = '{{ url('')}}'
         var cd = '{{$cd}}';
+        var combatcd = '{{$combatcd}}';
     </script>
     <script src="{{ asset('assets/vendor/location/location.js') }}"></script>
 
@@ -119,7 +120,7 @@
                                         {!! Form::open(['route' => ['attack.mob'], 'method' => 'post', 'class' => 'form-inline']) !!}
                                         {!! Form::hidden("id", $mob->id) !!}
                                         <td>
-                                            <button type="submit" class="btn-link">Attack</button>
+                                            <button type="submit" class="btn-link attackmob">Attack</button>
                                         </td>
                                         {!! Form::close() !!}
                                     </tr>

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Combat;
+use App\CombatFocus;
 use App\Http\Controllers\MobController;
 use App\InventorySlot;
 use App\Item;
@@ -67,12 +68,12 @@ class ApplyMobKill implements ShouldQueue
         $fight->save();
         $nextdamage = floor(Combat::getDamageTakenPerKill($this->userId, $this->mobId) + $fight->damage_stack);
 
-       // remove player health in fight instance
+        // remove player health in fight instance
         $fight->decrement('user_hp', $damage);
 
         //check if we managed to get the first kill
-        if($fight->kills == 0) {
-            while($fight->user_hp <= 0
+        if ($fight->kills == 0) {
+            while ($fight->user_hp <= 0
                 && $inv->getNextFoodItem($user->id) != null) {
                 $slot = $inv->getNextFoodItem($user->id); // get the item slot
                 $item = Item::find($slot->item_id); // get the food item
@@ -97,16 +98,28 @@ class ApplyMobKill implements ShouldQueue
         $styleSkill = Combat::getSkillForStyle(Combat::getUserAttackStyle($user->id));
         $hpSkill = UserSkill::where('user_id', $this->userId)
             ->where('skill_id', Constants::$HP)->get()->first();
+        $defSkill = UserSkill::where('user_id', $this->userId)
+            ->where('skill_id', Constants::$DEFENCE)->get()->first();
         $skill = UserSkill::where('user_id', $this->userId)
             ->where('skill_id', $styleSkill)->get()->first();
-        $skill->addXp(Constants::$XP_PER_DAMAGE * $mob->hitpoints);
+
+        if ($user->getCombatFocus() == Constants::$FOCUS_PRIMARY) {
+            $skill->addXp(Constants::$XP_PER_DAMAGE * $mob->hitpoints);
+        } else if ($user->getCombatFocus() == Constants::$FOCUS_SHARED) {
+            $skill->addXp((Constants::$XP_PER_DAMAGE / 2) * $mob->hitpoints);
+            $defSkill->addXp((Constants::$XP_PER_DAMAGE / 2) * $mob->hitpoints);
+        } else if ($user->getCombatFocus() == Constants::$FOCUS_DEFENCE) {
+            $defSkill->addXp(Constants::$XP_PER_DAMAGE * $mob->hitpoints);
+        }
+
+        //hp xp
         $hpSkill->addXp((Constants::$XP_PER_DAMAGE / 4) * $mob->hitpoints);
 
         //increment kills
         $fight->increment('kills', 1);
 
         //consume food if necessary
-        while($fight->user_hp <=  $nextdamage
+        while ($fight->user_hp <= $nextdamage
             && $inv->getNextFoodItem($user->id) != null) {
             $slot = $inv->getNextFoodItem($user->id); // get the item slot
             $item = Item::find($slot->item_id); // get the food item
@@ -115,7 +128,7 @@ class ApplyMobKill implements ShouldQueue
         }
 
         //queue another mobkill after gettimetokill
-        if ($fight->user_hp >=  $nextdamage && $fight->user_hp > 0) {
+        if ($fight->user_hp >= $nextdamage && $fight->user_hp > 0) {
             $timeToKill = Combat::getTimeToKill($this->userId, $this->mobId);
             ApplyMobKill::dispatch($this->userId, $this->mobId)
                 ->delay(now()->addSeconds($timeToKill)->addSeconds($mob->respawn)->subMillis(Constants::$JOB_PROCESS_DELAY));

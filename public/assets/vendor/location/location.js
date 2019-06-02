@@ -12,10 +12,16 @@ $(document).ready(function () {
     var clickedId;
     var clickedButton;
     var useButtons = $('.usespot');
+    var attackButtons = $('.attackmob');
 
     if (cd > 0) { //if theres already a cooldown, disable the buttons
         disableButtons();
         setTimer(cd);
+    }
+
+    if (combatcd > 0) { //if theres a combat cooldown, disable buttons
+        disableAttackButtons();
+        setCombatTimer(combatcd);
     }
 
     useButtons.click(function () {
@@ -36,6 +42,18 @@ $(document).ready(function () {
         useButtons.attr('style', 'color:#23527c')
     }
 
+    function disableAttackButtons() {
+        attackButtons.html('()');
+        attackButtons.attr('disabled', true);
+        attackButtons.attr('style', 'color:#676a6d')
+    }
+
+    function enableAttackButtons() {
+        attackButtons.html('Use');
+        attackButtons.removeAttr('disabled')
+        attackButtons.attr('style', 'color:#23527c')
+    }
+
     function setTimer(time) {
         useButtons.html('(' + time + 's)');
         time--;
@@ -50,6 +68,24 @@ $(document).ready(function () {
                 return;
             }
             useButtons.html('(' + time + 's)');
+            time--;
+        }, 1000);
+    }
+
+    function setCombatTimer(time) {
+        attackButtons.html('(' + time + 's)');
+        time--;
+        updateCombatTimer(time)
+    }
+
+    function updateCombatTimer(time) {
+        var i = setInterval(function () {
+            if (time <= 0) {
+                enableAttackButtons();
+                clearInterval(i);
+                return;
+            }
+            attackButtons.html('(' + time + 's)');
             time--;
         }, 1000);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants;
+use App\Cooldown;
 use App\Item;
 use App\Jobs\ApplyMobKill;
 use App\Mob;
@@ -56,6 +57,9 @@ class MobController extends Controller
         $user = Auth::user();
         $mobId = $request['id'];
         $mob = Mob::find($mobId);
+        if (Cooldown::check(Auth::user()->id, Constants::$COOLDOWN_COMBAT) != false) {
+            return redirect('location')->with('fail', 'You are still resting and can not initiate combat right now.');
+        }
 
         //if that mob is not in your area
         if (count(MobSpawn::where('area_id', $user->area_id)
@@ -140,6 +144,14 @@ class MobController extends Controller
 
         $fight = $fight->first();
         $fight->delete();
+        //create a combat cooldown
+        Cooldown::create(
+            [
+                'user_id' => Auth::user()->id,
+                'type' => Constants::$COOLDOWN_COMBAT,
+                'end' => (time() + 60) //60 seconds of cooldown
+            ]
+        );
         return redirect('location');
     }
 

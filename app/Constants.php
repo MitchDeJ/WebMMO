@@ -28,11 +28,16 @@ class Constants extends Model
     public static $ATTACK_STYLE_RANGED = 2;
     public static $ATTACK_STYLE_MAGIC = 3;
 
+    public static $FOCUS_PRIMARY = 1;
+    public static $FOCUS_SHARED = 2;
+    public static $FOCUS_DEFENCE = 3;
+
     public static $XP_PER_DAMAGE = 4;
 
     public static $JOB_PROCESS_DELAY = 2000;
 
     public static $COOLDOWN_SKILLING = 1;
+    public static $COOLDOWN_COMBAT = 2;
 
     public static $MAX_LISTINGS = 4;
 

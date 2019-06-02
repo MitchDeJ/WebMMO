@@ -62,6 +62,10 @@ class AreaController extends Controller
         if ($cd == false)
             $cd = 0;
 
+        $combatcd = Cooldown::check($user->id, Constants::$COOLDOWN_COMBAT);
+        if ($combatcd == false)
+            $combatcd = 0;
+
         $players = User::where('area_id', $loc->id)
             ->where('id', '!=', $user->id)->get();
 
@@ -75,7 +79,8 @@ class AreaController extends Controller
             'mobs' => $mobs,
             'objects' => $objects,
             'players' => $players,
-            'cd' => $cd
+            'cd' => $cd,
+            'combatcd' => $combatcd
         ));
     }
 }

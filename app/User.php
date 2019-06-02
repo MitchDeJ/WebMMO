@@ -15,7 +15,8 @@ class User extends Authenticatable
     public $timestamps = false; //add this when we dont need the timestamps in our database
     private $processingEquip = false; //prevent unequip duping
 
-    public function addFlag($flag) {
+    public function addFlag($flag)
+    {
         if ($this->hasFlag($flag))
             return;
 
@@ -25,7 +26,8 @@ class User extends Authenticatable
         ]);
     }
 
-    public function removeFlag($flag) {
+    public function removeFlag($flag)
+    {
         $flag = UserFlag::where('user_id', $this->id)
             ->where('flag', $flag)->get()->first();
 
@@ -35,7 +37,8 @@ class User extends Authenticatable
         $flag->delete();
     }
 
-    public function hasFlag($flag) {
+    public function hasFlag($flag)
+    {
         $flag = UserFlag::where('user_id', $this->id)
             ->where('flag', $flag)->get()->first();
 
@@ -45,7 +48,8 @@ class User extends Authenticatable
         return true;
     }
 
-    public function getGP() {
+    public function getGP()
+    {
         $inv = InventorySlot::getInstance();
         $gp = $inv->getItemCount($this->id, 17);
         return $gp;
@@ -78,11 +82,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function location() {
+    public function location()
+    {
         return $this->hasOne('App\Area', 'id', 'area_id');
     }
 
-    public function setDialogue($dId) {
+    public function setDialogue($dId)
+    {
         $dialogue = Dialogue::find($dId);
 
         $current = UserDialogue::where('user_id', $this->id)->get();
@@ -100,37 +106,63 @@ class User extends Authenticatable
         }
     }
 
-    public function getDialogue() {
+    public function getDialogue()
+    {
         return UserDialogue::where('user_id', $this->id)->get()->first()->dialogue_id;
     }
 
-    public function getXp($skill) {
+    public function getXp($skill)
+    {
         $skill = UserSkill::where('user_id', $this->id)
             ->where('skill_id', $skill)->get()->first();
         return $skill->getXp();
     }
 
-    public function getLevel($skill) {
+    public function getLevel($skill)
+    {
         $skill = UserSkill::where('user_id', $this->id)
             ->where('skill_id', $skill)->get()->first();
         return $skill->getLevel();
     }
 
-    public function getTotalXp() {
+    public function getTotalXp()
+    {
         $skills = UserSkill::where('user_id', $this->id)->get();
         $total = 0;
-        foreach($skills as $s) {
+        foreach ($skills as $s) {
             $total += $s->getXp();
         }
         return $total;
     }
 
-    public function getTotalLevel() {
+    public function getTotalLevel()
+    {
         $skills = UserSkill::where('user_id', $this->id)->get();
         $total = 0;
-        foreach($skills as $s) {
+        foreach ($skills as $s) {
             $total += $s->getLevel();
         }
         return $total;
+    }
+
+    public function setCombatFocus($f)
+    {
+        $focus = CombatFocus::where('user_id', $this->id)->get();
+
+        if (count($focus) == 0) {
+            CombatFocus::create([
+                'user_id' => $this->id,
+                'focus_type' => $f
+            ]);
+        } else {
+            $focus = $focus->first();
+            $focus->focus_type = $f;
+            $focus->save();
+        }
+    }
+
+    public function getCombatFocus() {
+        $focus = CombatFocus::where('user_id', $this->id)->get()->first();
+        return $focus->focus_type;
     }
 }

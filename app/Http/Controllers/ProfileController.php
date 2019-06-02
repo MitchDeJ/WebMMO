@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CombatFocus;
+use App\Constants;
 use App\News;
 use App\Skill;
 use App\UserSkill;
@@ -124,5 +126,27 @@ class ProfileController extends Controller
         $user->description = $request['desc'];
         $user->save();
         return redirect('editprofile')->with('success', 'Updated description.');
+    }
+
+    public function settings() {
+        $user = Auth::user();
+        $focus = CombatFocus::where('user_id', $user->id)->get()->first();
+        return view('settings', array(
+            'user' => $user,
+            'focus' => $focus->focus_type
+        ));
+    }
+
+    public function setCombatFocus(Request $request) {
+        $user = Auth::user();
+        $f = $request['focus'];
+
+        if ($f != Constants::$FOCUS_PRIMARY &&
+            $f != Constants::$FOCUS_SHARED &&
+            $f != Constants::$FOCUS_DEFENCE)
+            return redirect('settings')->with('fail', 'Invalid combat focus.');
+
+        $user->setCombatFocus($f);
+        return redirect('settings')->with('success', 'Combat focus updated.');
     }
 }
