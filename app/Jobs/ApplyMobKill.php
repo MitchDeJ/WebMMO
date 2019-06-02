@@ -71,6 +71,20 @@ class ApplyMobKill implements ShouldQueue
         // remove player health in fight instance
         $fight->decrement('user_hp', $damage);
 
+        $timeToKill = Combat::getTimeToKill($this->userId, $this->mobId);
+
+        //use ranged ammo
+        $ammoToUse = ceil($timeToKill / Combat::getUserAttackSpeed($this->userId));
+        $ammo = $inv->getRangedAmmo($this->userId);
+        if (Combat::getUserAttackStyle($user->id) == Constants::$ATTACK_STYLE_RANGED) {
+            if ($ammoToUse >= $ammo->amount) {// if we have the same amount or less as required
+                $ammo->clear();
+            } else { //otherwise, just decrement from amount
+                $ammo->decrement('amount', $ammoToUse);
+            }
+
+        }
+
         //check if we managed to get the first kill
         if ($fight->kills == 0) {
             while ($fight->user_hp <= 0
@@ -128,11 +142,10 @@ class ApplyMobKill implements ShouldQueue
         }
 
         //queue another mobkill after gettimetokill
-        if ($fight->user_hp >= $nextdamage && $fight->user_hp > 0) {
-            $timeToKill = Combat::getTimeToKill($this->userId, $this->mobId);
+        if ($fight->user_hp >= $nextdamage && $fight->user_hp > 0 && ($ammo->amount >= $ammoToUse)) {
             ApplyMobKill::dispatch($this->userId, $this->mobId)
                 ->delay(now()->addSeconds($timeToKill)->addSeconds($mob->respawn)->subMillis(Constants::$JOB_PROCESS_DELAY));
-        } else { //not enough hp or food
+        } else { //not enough hp or food or ammo
             //stop the fight.
             $fight->running = false;
             $fight->user_hp = 0;

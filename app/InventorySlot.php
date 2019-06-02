@@ -202,6 +202,18 @@ class InventorySlot extends Model
         return null;
     }
 
+    public function getRangedAmmo($userId) {
+        for ($i = 1; $i <= $this->INV_SIZE; $i += 1) {
+            $slot = InventorySlot::where('user_id', $userId)
+                ->where('slot', $i)->get()->first();
+            if ($slot->item_id != null) {
+                if (Item::find($slot->item_id)->isRangedAmmo($slot->item_id))
+                    return $slot;
+            }
+        }
+        return null;
+    }
+
     public function clear() {
         $this->item_id = null;
         $this->amount = 0;

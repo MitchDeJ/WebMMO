@@ -51,6 +51,8 @@ class ItemSeeder extends Seeder
                 return array('Bow', 'A nice bow made out of wood.', 'bow', false);
             case 17:
                 return array('Coins', 'Money!', 'coins', true);
+            case 18:
+                return array('Arrow', 'Ammunition used by bows.', 'arrow', true);
 
 
             default:

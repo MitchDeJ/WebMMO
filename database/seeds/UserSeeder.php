@@ -53,9 +53,7 @@ class UserSeeder extends Seeder
 
         DB::table('combat_focus')->insert([
             'user_id' => '1',
-            'slot' => $i,
-            'item_id' => null,
-            'amount' => 0
+            'focus_type' => Constants::$FOCUS_PRIMARY
         ]);
         // give tools
         $inv = InventorySlot::getInstance();

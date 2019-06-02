@@ -120,6 +120,15 @@ class Item extends Model
         return false;
     }
 
+    public function isRangedAmmo($id) {
+        switch($id) {
+            case 18:
+                return true;
+        }
+        return false;
+    }
+
+
     public function isMarketable($id) {
         switch($id) {
             case null:

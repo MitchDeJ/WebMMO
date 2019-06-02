@@ -15,14 +15,15 @@ class User extends Authenticatable
     public $timestamps = false; //add this when we dont need the timestamps in our database
     private $processingEquip = false; //prevent unequip duping
 
-    public function addFlag($flag)
+    public function addFlag($flag, $value)
     {
         if ($this->hasFlag($flag))
             return;
 
         UserFlag::create([
             'user_id' => $this->id,
-            'flag' => $flag
+            'flag' => $flag,
+            'value' => $value
         ]);
     }
 
@@ -46,6 +47,16 @@ class User extends Authenticatable
             return false;
 
         return true;
+    }
+
+    public function getFlag($flag) {
+        $flag = UserFlag::where('user_id', $this->id)
+            ->where('flag', $flag)->get()->first();
+
+        if (!$flag)
+            return false;
+
+        return $flag->value;
     }
 
     public function getGP()
