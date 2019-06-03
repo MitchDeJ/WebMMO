@@ -145,7 +145,7 @@ class ApplyMobKill implements ShouldQueue
         if ($fight->user_hp >= $nextdamage && $fight->user_hp > 0) {
 
             if (Combat::getUserAttackStyle($user->id) == Constants::$ATTACK_STYLE_RANGED) {
-                if ($user - $ammo->amount < $ammoToUse) { //check ranged ammo
+                if ($ammo->amount < $ammoToUse) { //check ranged ammo
                     $this->endFight($fight);
                 }
             }
