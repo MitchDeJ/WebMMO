@@ -77,6 +77,7 @@ class Item extends Model
             //weapons
             case 8: // standard sword
             case 16: //standard bow
+            case 19: //dark bow
                 return Constants::$EQUIP_WEAPON;
             //shields
             case 9: //standard shield
@@ -95,6 +96,7 @@ class Item extends Model
             case 8://standard sword
                 return Constants::$ATTACK_STYLE_MELEE;
             case 16: // standard bow
+            case 19: // dark bow
                 return Constants::$ATTACK_STYLE_RANGED;
 
             default:

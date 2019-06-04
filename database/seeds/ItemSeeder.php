@@ -53,6 +53,8 @@ class ItemSeeder extends Seeder
                 return array('Coins', 'Money!', 'coins', true);
             case 18:
                 return array('Arrow', 'Ammunition used by bows.', 'arrow', true);
+            case 19:
+                return array('Dark bow', 'A bow from a dark dimension.', 'dark_bow', false);
 
 
             default:

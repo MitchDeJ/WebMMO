@@ -112,6 +112,7 @@ $(document).ready(function () {
                 var info = $(".item-info");
                 //show item options
                 $(".option").remove();
+                $(".item-req").remove();
                 for (var i = 0; i < response['options'].length; i++) {
                     var tag = response['options'][i][0];
                     $(".options").append("<p class='option'><button class='btn btn-default'>" + tag + "</button></p>");
@@ -125,6 +126,13 @@ $(document).ready(function () {
                 infos.append("<img class='item-info' src='" + response['infos'][0] + "'/>");
                 infos.append("<p class='item-info'><b>" + response['infos'][1] + response['amount'] + "</b></p>");
                 infos.append("<p class='item-info'>" + response['infos'][2] + "</p>");
+
+                //show item requirements
+                if (response['reqs'].length != 0) {
+                    for (var r = 0; r < response['reqs'].length; r++) {
+                        infos.append("<p class='item-req'>" + response['reqs'][r] + "</p>");
+                    }
+                }
 
                 //show item stats
                 if (response['stats'].length != 0) {
@@ -155,7 +163,7 @@ $(document).ready(function () {
         if (slotElement.find(".item").length > 0)
             return;
 
-        slotElement.append('<div class="item item ui-draggable ui-draggable-handle" title=' + "" + response['itemName'] + '> <img src=' + "" + response['itemIcon'] + '/> </div>');
+        slotElement.append('<div class="item item ui-draggable ui-draggable-handle" title="' + response['itemName'] + '"><img src=' + response['itemIcon'] + '/> </div>');
         setupTooltips();
         setupItems();
     }
@@ -222,6 +230,10 @@ $(document).ready(function () {
                     $('#' + clicked).empty();
                     addClientSidedEquip(response);
                     clearOptionsInfo();
+                }
+
+                if (response['status'] == "noreqs") {
+                    $(".item-req").css('color', 'red');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail

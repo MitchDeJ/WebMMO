@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\EquipReq;
 use App\InventorySlot;
 use App\Item;
 use App\ItemStats;
 use App\UserEquip;
+use App\Skill;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -20,6 +22,7 @@ class ItemController extends Controller
         $infos = array();
         $options = array();
         $stats = array();
+        $reqText = array();
 
         $item = $inv->getItemOfSlot($user->id, $slot);
 
@@ -30,12 +33,26 @@ class ItemController extends Controller
 
         //equip item
         if ($equipslot != -1) {
+
             $equip = array('Equip', url('useitem/'.$slot));
             array_push($options, $equip);
+
             //add item stats to response
             $itemstats = ItemStats::where('item_id', $item->id)->get()->first();
             array_push($stats, $itemstats->melee, $itemstats->melee_defence, $itemstats->ranged,
                 $itemstats->ranged_defence, $itemstats->magic, $itemstats->magic_defence);
+
+            //add reqs to response
+            $reqs = EquipReq::where('item_id', $item->id)->get();
+            if ($reqs) {
+                $i=0;
+                foreach($reqs as $req) {
+                    $skillName = Skill::find($req->skill_id)->name;
+                    $reqText[$i] = ''.$req->level.' '.$skillName;
+                    $i++;
+                }
+            }
+
         } else {
             $use = array ('Use', url('useitem/'.$slot));
             array_push($options, $use);
@@ -58,7 +75,7 @@ class ItemController extends Controller
                 ->where('slot', $slot)->get()->first()->amount.')';
 
         return response()->json(['options'=> $options, 'infos' => $infos,
-            'stats' => $stats, 'amount' => $amount, 'heal'=>$heal]);
+            'stats' => $stats, 'amount' => $amount, 'heal'=>$heal, 'reqs'=>$reqText]);
     }
 
 

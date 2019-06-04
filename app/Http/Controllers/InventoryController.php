@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EquipReq;
 use App\InventorySlot;
 use App\Item;
 use App\UserEquip;
@@ -99,7 +100,13 @@ class InventoryController extends Controller
                 ->where('slot', $slot)->get()->first();
             $item = Item::findOrFail($invslot->item_id);
 
-            //
+            //check requirements
+            if (!EquipReq::check($user->id, $item->id)) {
+                return response()->json([
+                    'status' => 'noreqs'
+                ]);
+            }
+
             $swapItem = $ue->item_id;
 
             if ($swapItem != null) {

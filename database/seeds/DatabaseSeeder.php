@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
         'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips',
         'item_stats', 'mobs', 'mob_spawns', 'mob_fights', 'loot_tables', 'loot_table_drops',
         'map_points', 'dialogues', 'dialogue_messages', 'area_objects', 'area_object_spawns',
-        'shops', 'shop_items', 'news'];
+        'shops', 'shop_items', 'news', 'equip_reqs'];
 
     /**
      * Seed the application's database.
@@ -45,5 +45,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AreaObjectSeeder::class);
         $this->call(AreaObjectSpawnSeeder::class);
         $this->call(ShopSeeder::class);
+        $this->call(EquipReqSeeder::class);
     }
 }
