@@ -97,6 +97,7 @@ $(document).ready(function () {
     function clearOptionsInfo() {
         var info = $(".item-info");
         $(".option").remove();
+        $(".item-req").remove();
         info.remove();
     }
 
@@ -130,7 +131,7 @@ $(document).ready(function () {
                 //show item requirements
                 if (response['reqs'].length != 0) {
                     for (var r = 0; r < response['reqs'].length; r++) {
-                        infos.append("<p class='item-req'>" + response['reqs'][r] + "</p>");
+                        infos.append(response['reqs'][r]);
                     }
                 }
 
@@ -230,10 +231,6 @@ $(document).ready(function () {
                     $('#' + clicked).empty();
                     addClientSidedEquip(response);
                     clearOptionsInfo();
-                }
-
-                if (response['status'] == "noreqs") {
-                    $(".item-req").css('color', 'red');
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail

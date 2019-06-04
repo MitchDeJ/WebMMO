@@ -47,8 +47,15 @@ class ItemController extends Controller
             if ($reqs) {
                 $i=0;
                 foreach($reqs as $req) {
+                    $hasReq = EquipReq::check($user->id, $req->item_id);
+
+                    if ($hasReq)
+                        $color = 'green';
+                    else
+                        $color = 'red';
+
                     $skillName = Skill::find($req->skill_id)->name;
-                    $reqText[$i] = ''.$req->level.' '.$skillName;
+                    $reqText[$i] = '<p class="item-req" style="color:'.$color.'">'.$req->level.' '.$skillName.'</p>';
                     $i++;
                 }
             }
