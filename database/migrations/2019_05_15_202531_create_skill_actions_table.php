@@ -27,6 +27,7 @@ class CreateSkillActionsTable extends Migration
             $table->integer('req_item_2_amount')->nullable()->default(null);
             $table->integer('product_item')->unsigned()->nullable()->default(null);
             $table->integer('product_item_amount');
+            $table->integer('req_level')->default(1);
 
             $table->foreign('user_id')
                 ->references('id')

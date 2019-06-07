@@ -68,6 +68,15 @@ class SkillActionController extends Controller
                 return redirect('location');
         }
 
+
+        //check action skill req
+        $uskill = UserSkill::where('user_id', $user->id)
+            ->where('skill_id', $action->skill_id)->get()->first();
+        if ($uskill->getLevel() < $action->req_level) {
+            return redirect('location')->with('fail', 'You need a '.Skill::find($uskill->skill_id)->name.
+                ' level of '.$action->req_level.' to do that.');
+        }
+
         $inv = InventorySlot::getInstance();
 
         $max = $action->getUserMaxAmount($user->id);

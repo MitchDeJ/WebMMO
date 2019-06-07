@@ -15,7 +15,7 @@ class SkillAction extends Model
      */
     protected $fillable = [
         'user_id', 'skill_id', 'xp_amount', 'success_chance', 'delay', 'tool_item', 'req_item', 'req_item_amount',
-        'req_item_2', 'req_item_2_amount', 'product_item', 'product_item_amount'
+        'req_item_2', 'req_item_2_amount', 'product_item', 'product_item_amount', 'req_level'
     ];
 
     public function getUserMaxAmount($userId) {
