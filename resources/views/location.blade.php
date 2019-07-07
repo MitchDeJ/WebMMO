@@ -140,7 +140,8 @@
                                 @foreach($players as $p)
                                     <tr>
                                         <td><img src='{{url('/img/icons/view.png')}}'/></td>
-                                        <td>{{$p->name}}</td>
+                                        <td><b style="color:{{Titles::getTitles()[$p->title][2]}}">
+                                                {{Titles::getTitles()[$p->title][0]}}</b> {{$p->name}}</td>
                                         <form action="{{url('/profile/'.$p->name)}}">
                                             <td>
                                                 <button class="btn-link">View profile</button>

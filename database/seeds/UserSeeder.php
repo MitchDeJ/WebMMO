@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'description' => 'kanker binkie',
             'area_id' => 1,
+            'title' => 0,
             'account_created_at' => now(),
             'password' => bcrypt("admin"),
             'remember_token' => Str::random(10),

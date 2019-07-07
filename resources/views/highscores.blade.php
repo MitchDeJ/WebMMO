@@ -29,7 +29,8 @@
                                 @foreach($users as $u)
                                     <tr>
                                         <td>#{{$i}}</td>
-                                        <td><a
+                                        <td><b style="color:{{Titles::getTitles()[$u->title][2]}}">
+                                                {{Titles::getTitles()[$u->title][0]}}</b> <a
                                                     href="{{url('/profile/'.$u->name)}}">{{$u->name}}</a></td>
                                         @if(isset($skill))
                                             <td>{{$u->getLevel($skill->id)}}</td>

@@ -11,8 +11,8 @@
                         <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
                     </div>
                     @if($user->id == Auth::user()->id)
-                    <p class="panel-subtitle"><a href="{{url("/editprofile")}}">Edit profile</a></p>
-                        @endif
+                        <p class="panel-subtitle"><a href="{{url("/editprofile")}}">Edit profile</a> - <a href="{{url("/titles")}}">Title selection</a>
+                    @endif
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -20,7 +20,8 @@
                             <img src="{{ url('user_img/' . $user->avatar)}}" width="150px" height="150px" alt="Avatar">
                         </div>
                         <div class="col-md-4">
-                            <h4>{{$user->name}}</h4>
+                            <h4><b style="color:{{Titles::getTitles()[$user->title][2]}}">
+                                    {{Titles::getTitles()[$user->title][0]}}</b> {{$user->name}}</h4>
                             <p>{{$user->description}}</p>
                         </div>
                         <div class="col-md-3">

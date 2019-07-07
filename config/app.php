@@ -230,6 +230,7 @@ return [
 		'Image' => Intervention\Image\Facades\Image::class,
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'Titles' => App\Http\Controllers\TitleController::class
     ],
 
 ];

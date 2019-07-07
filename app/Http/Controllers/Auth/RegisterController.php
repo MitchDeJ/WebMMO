@@ -75,6 +75,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'email_verified_at' => now(),
             'description' => 'user description',
+            'title' => 0,
             'area_id' => 1,
             'account_created_at' => now(),
             'remember_token' => 'remembertoken', //TODO
