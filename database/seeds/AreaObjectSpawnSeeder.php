@@ -14,6 +14,12 @@ class AreaObjectSpawnSeeder extends Seeder
         $this->spawn(3, 1);
         //Bank chest in area 1
         $this->spawn(4, 1);
+        //furnace in area 1
+        $this->spawn(5, 1);
+        //anvil in area 1
+        $this->spawn(6, 1);
+        //coinfliptable in area 1
+        $this->spawn(7, 1);
     }
 
     public function spawn($objId, $areaId) {

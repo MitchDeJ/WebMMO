@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
         'user_skills', 'npcs', 'spotrequirements', 'inventory_slots', 'user_equips',
         'item_stats', 'mobs', 'mob_spawns', 'mob_fights', 'loot_tables', 'loot_table_drops',
         'map_points', 'dialogues', 'dialogue_messages', 'area_objects', 'area_object_spawns',
-        'shops', 'shop_items', 'news', 'equip_reqs'];
+        'shops', 'shop_items', 'news', 'equip_reqs', 'bank_slots'];
 
     /**
      * Seed the application's database.

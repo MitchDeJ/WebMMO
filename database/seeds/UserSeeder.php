@@ -74,6 +74,9 @@ class UserSeeder extends Seeder
         $inv->addItem(1, 1, 1);
         $inv->addItem(1, 2, 1);
         $inv->addItem(1, 13, 1);
+        $inv->addItem(1, 20, 1);
+        $inv->addItem(1, 24, 1);
+        $inv->addItem(1, 25, 1);
 
 
     }

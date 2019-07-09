@@ -20,7 +20,9 @@ class SpotRequirementSeeder extends Seeder
             case 2:
                 return array(2, Constants::$FISHING, 1);
             case 3:
-                return array(3, Constants::$WOODCUTTING, 60);
+                return array(3, Constants::$MINING, 1);
+            case 4:
+                return array(4, Constants::$MINING, 1);
 
 
             default:

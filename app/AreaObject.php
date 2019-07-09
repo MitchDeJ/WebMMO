@@ -31,5 +31,8 @@ class AreaObject extends Model
 
         if (ObjectController::opensBank($this->id))
             return url('/img/icons/chest.png');
+
+        if (ObjectController::opensCoinflip($this->id))
+            return url('/img/items/coins.png');
     }
 }

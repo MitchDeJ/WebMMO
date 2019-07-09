@@ -14,11 +14,10 @@
                         <div class="col-md-12">
                             <table class="table table-responsive table-striped table-hover">
                                 <thead>
-                                <tr>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Action</th>
-                                </tr>
+                                </thead>
                                 @foreach($titles as $t)
                                     @if($loop->index == 0)
                                         <tr>
@@ -54,7 +53,6 @@
                                         </tr>
                                     @endif
                                 @endforeach
-                                </thead>
                             </table>
                         </div>
                     </div>

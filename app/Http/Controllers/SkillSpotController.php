@@ -119,6 +119,7 @@ class SkillSpotController extends Controller
 
         $AXE_IDS = array(1);
         $ROD_IDS = array(2);
+        $PICK_IDS = array(20);
 
         $inv = InventorySlot::getInstance();
         $slots = $inv->getInventory($userId);
@@ -129,6 +130,8 @@ class SkillSpotController extends Controller
             $toCheck = $AXE_IDS;
         if ($skillId == Constants::$FISHING)
             $toCheck = $ROD_IDS;
+        if ($skillId == Constants::$MINING)
+            $toCheck = $PICK_IDS;
 
         foreach($slots as $slot) {
             if (in_array($slot->item_id, $toCheck)) {

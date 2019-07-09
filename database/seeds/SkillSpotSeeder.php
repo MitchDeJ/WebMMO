@@ -21,11 +21,13 @@ class SkillSpotSeeder extends Seeder
     public function skillSpotDefinition($skillSpotId) {
         switch ($skillSpotId) {
             case 1:
-                return array('Generic Forest', 1, Constants::$WOODCUTTING, 2, 4, 1, 10, 2);
+                return array('Common tree', 1, Constants::$WOODCUTTING, 5, 4, 1, 5, 20);
             case 2:
-                return array('Generic Sea', 1, Constants::$FISHING, 3, 3, 1, 10, 5);
+                return array('Common fishing spot', 1, Constants::$FISHING, 5, 3, 1, 5, 20);
             case 3:
-                return array('Ultra Rare Tree', 1, Constants::$WOODCUTTING, 25, 4, 1, 5, 30);
+                return array('Copper rock', 1, Constants::$MINING, 5, 21, 1, 5, 20);
+            case 4:
+                return array('Tin rock', 1, Constants::$MINING, 5, 22, 1, 5, 20);
 
             default:
                 return -1;

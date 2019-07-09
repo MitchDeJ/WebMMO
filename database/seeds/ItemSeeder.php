@@ -55,6 +55,18 @@ class ItemSeeder extends Seeder
                 return array('Arrow', 'Ammunition used by bows.', 'arrow', true);
             case 19:
                 return array('Dark bow', 'A bow from a dark dimension.', 'dark_bow', false);
+            case 20:
+                return array('Pickaxe', 'Used for mining.', 'pickaxe', false);
+            case 21:
+                return array('Copper ore', 'I should refine this.', 'copper_ore', true);
+            case 22:
+                return array('Tin ore', 'I should refine this.', 'tin_ore', true);
+            case 23:
+                return array('Bronze bar', 'A bar of bronze.', 'bronze_bar', true);
+            case 24:
+                return array('Blacksmith gloves', 'Protect your hands from heat.', 'smith_gloves', false);
+            case 25:
+                return array('Hammer', 'Used to hit stuff.', 'hammer', false);
 
 
             default:

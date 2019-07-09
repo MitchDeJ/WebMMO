@@ -84,4 +84,8 @@ Route::get('/highscores/', 'HighscoresController@redirect');
 Route::get('/highscores/{pageNum}', 'HighscoresController@index');
 Route::get('/highscores/{skillname}/{pageNum}', 'HighscoresController@skillIndex');
 Route::post('/highscores', ["uses" => "HighscoresController@getPage", "as"=>"highscores.getPage"]);
-
+//coinflips
+Route::get('/coinflip', 'GamesController@coinflipIndex');
+Route::post("/newcoinflip", "GamesController@newCoinflip");
+Route::post("/removecoinflip", "GamesController@removeCoinflip");
+Route::post("/playcoinflip", "GamesController@playCoinflip");

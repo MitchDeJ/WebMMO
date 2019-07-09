@@ -20,9 +20,11 @@ class Constants extends Model
     public static $HP = 4;
     public static $DEFENCE = 5;
     public static $WOODCUTTING = 6;
-    public static $FISHING = 7;
-    public static $COOKING = 8;
-    public static $CRAFTING = 9;
+    public static $FLETCHING = 7;
+    public static $FISHING = 8;
+    public static $COOKING = 9;
+    public static $MINING = 10;
+    public static $SMITHING = 11;
 
     public static $ATTACK_STYLE_MELEE = 1;
     public static $ATTACK_STYLE_RANGED = 2;
