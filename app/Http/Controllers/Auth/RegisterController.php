@@ -8,6 +8,7 @@ use App\Skill;
 use App\Constants;
 use App\UserSkill;
 use App\InventorySlot;
+use App\BankSlot;
 use App\UserEquip;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -77,7 +78,7 @@ class RegisterController extends Controller
             'description' => 'user description',
             'title' => 0,
             'area_id' => 1,
-            'account_created_at' => now(),
+            'account_created_at' =>  date("d-m-Y"),
             'remember_token' => 'remembertoken', //TODO
         ]);
 
@@ -91,6 +92,16 @@ class RegisterController extends Controller
         }
         for ($i = 1; $i <= 28; $i += 1) {
             InventorySlot::create([
+                'user_id' => $user->id,
+                'slot' => $i,
+                'item_id' => null,
+                'amount' => 0
+            ]);
+        }
+
+        //bank
+        for($i=1; $i<=70; $i+=1) {
+            BankSlot::create([
                 'user_id' => $user->id,
                 'slot' => $i,
                 'item_id' => null,

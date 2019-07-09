@@ -16,6 +16,19 @@
 	opacity: 0.075;
 }
 
+.bank_slot {
+	z-index: 22;
+	position: relative;
+	width: 40px;
+	height: 40px;
+	float: left;
+}
+
+.bank_slot:hover {
+	background-color: darkgrey;
+	opacity: 0.075;
+}
+
 .equip_slot {
 	z-index: 22;
 	position: relative;

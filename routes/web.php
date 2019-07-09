@@ -43,6 +43,8 @@ Route::post('/getiteminfo', 'ItemController@getInfo');
 Route::post('/unequip', 'InventoryController@unequipItem');
 Route::post('/useitem', 'InventoryController@useItem');
 Route::post('/destroyitem', 'InventoryController@destroyItem');
+//bank
+Route::get('/bank', 'BankController@index');
 //skilling
 Route::post("/useskillspot",["uses" => "SkillSpotController@useSpot", "as"=>"skillspot.use"]);
 //mobs/fighting

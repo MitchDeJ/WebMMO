@@ -56,6 +56,10 @@ class ObjectController extends Controller
             return redirect('market');
         }
 
+        if (ObjectController::opensBank($id)) {
+            return redirect('bank');
+        }
+
         return redirect('location');
     }
 
@@ -127,6 +131,13 @@ class ObjectController extends Controller
     public static function opensMarket($id) {
         switch ($id) {
             case 3: //Trading Post
+                return true;
+        }
+    }
+
+    public static function opensBank($id) {
+        switch ($id) {
+            case 4: //Bank chest
                 return true;
         }
     }

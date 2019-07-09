@@ -8,7 +8,8 @@ class AreaObjectSeeder extends Seeder
     {
         $this->addObject(1, 'Cooking range');
         $this->addObject(2, 'Fletching table');
-        $this->addObject(3, 'Trading Post');
+        $this->addObject(3, 'Trading post');
+        $this->addObject(4, 'Bank chest');
     }
 
     public function addObject($objectId, $name) {

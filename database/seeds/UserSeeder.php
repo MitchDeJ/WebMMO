@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Skill;
 use App\Constants;
 use App\InventorySlot;
+use App\BankSlot;
 
 class UserSeeder extends Seeder
 {
@@ -35,6 +36,7 @@ class UserSeeder extends Seeder
                 'xp_amount' => 0,
             ]);
         }
+        //invy
         for($i=1; $i<=28; $i+=1) {
             DB::table('inventory_slots')->insert([
                 'user_id' => '1',
@@ -43,6 +45,17 @@ class UserSeeder extends Seeder
                 'amount' => 0
             ]);
         }
+
+        //bank
+        for($i=1; $i<=70; $i+=1) {
+            DB::table('bank_slots')->insert([
+                'user_id' => '1',
+                'slot' => $i,
+                'item_id' => null,
+                'amount' => 0
+            ]);
+        }
+
 
         for($i=0; $i < Constants::$EQUIPS_TOTAL; $i+=1) {
             DB::table('user_equips')->insert([

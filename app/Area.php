@@ -52,4 +52,18 @@ class Area extends Model
 
         return false;
     }
+
+    public function hasBankObject() {
+        $amt = AreaObjectSpawn::where('area_id', $this->id)->get();
+
+        if (count($amt) == 0)
+            return false;
+
+        foreach($amt as $obj) {
+            if (ObjectController::opensBank($obj->object_id))
+                return true;
+        }
+
+        return false;
+    }
 }

@@ -7,6 +7,7 @@ use App\InventorySlot;
 use App\Item;
 use App\ItemStats;
 use App\UserEquip;
+use App\BankSlot;
 use App\Skill;
 use Illuminate\Http\Request;
 use Auth;
@@ -91,10 +92,24 @@ class ItemController extends Controller
         $og = $request['og'];
         $new = $request['new'];
         $user = Auth::user();
-        $ogslot = InventorySlot::where('user_id', $user->id)
-            ->where('slot', $og)->get()->first();
-        $newslot = InventorySlot::where('user_id', $user->id)
-            ->where('slot', $new)->get()->first();
+        $bank = BankSlot::getInstance();
+
+        if (strpos($og, 'b') === 0) { //if the og is a bank slot
+            $og = substr($og, 1);
+            $ogslot = BankSlot::where('user_id', $user->id)
+                ->where('slot', $og)->get()->first();
+        } else {
+            $ogslot = InventorySlot::where('user_id', $user->id)
+                ->where('slot', $og)->get()->first();
+        }
+        if (strpos($new, 'b') === 0) { //if the new is a bank slot
+            $new = substr($new, 1);
+            $newslot = BankSlot::where('user_id', $user->id)
+                ->where('slot', $new)->get()->first();
+        } else {
+            $newslot = InventorySlot::where('user_id', $user->id)
+                ->where('slot', $new)->get()->first();
+        }
 
         $ogitem = Item::find($ogslot->item_id);
         $ogamount = $ogslot->amount;
@@ -105,8 +120,9 @@ class ItemController extends Controller
             $ogslot->item_id = null;
             $ogslot->amount = 0;
         } else {
-            $ogslot->item_id = $newitem->id;
-            $ogslot->amount = $newamount;
+
+                $ogslot->item_id = $newitem->id;
+                $ogslot->amount = $newamount;
         }
 
         if ($ogitem == null) {

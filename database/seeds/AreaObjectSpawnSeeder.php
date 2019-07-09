@@ -12,6 +12,8 @@ class AreaObjectSpawnSeeder extends Seeder
         $this->spawn(2, 1);
         //trading post in area 1
         $this->spawn(3, 1);
+        //Bank chest in area 1
+        $this->spawn(4, 1);
     }
 
     public function spawn($objId, $areaId) {

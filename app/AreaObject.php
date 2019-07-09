@@ -28,5 +28,8 @@ class AreaObject extends Model
 
         if (ObjectController::opensMarket($this->id))
             return url('/img/icons/Trade.png');
+
+        if (ObjectController::opensBank($this->id))
+            return url('/img/icons/chest.png');
     }
 }

@@ -28,7 +28,7 @@
                             <h4>{{\App\Area::find($user->area_id)->name}}</h4>
                         </div>
                         <div class="col-md-3">
-                            <h4>{{$user->name}}</h4>
+                            <h4>Started: {{$user->account_created_at}}</h4>
                         </div>
                     </div>
                 </div>
