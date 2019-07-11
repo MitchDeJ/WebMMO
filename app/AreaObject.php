@@ -21,7 +21,7 @@ class AreaObject extends Model
     public function getIconPath() {
         $skill = Skill::find(1);
         $action = ObjectController::getSkillAction(1, $this->id);
-        if (count($action) > 1)
+        if (is_countable($action))
             $action = $action[0];
         if (ObjectController::hasSkillAction($this->id))
             return url($skill->getIconPath($action->skill_id));
