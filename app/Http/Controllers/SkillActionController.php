@@ -42,7 +42,7 @@ class SkillActionController extends Controller
     public static function inSkillAction($userId)
     {
         $action = UserSkillAction::where('user_id', $userId)->get();
-        if (is_countable($action))
+        if (count($action) > 0)
             return true;
 
         return false;
