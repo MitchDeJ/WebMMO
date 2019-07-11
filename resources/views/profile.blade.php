@@ -6,10 +6,6 @@
             <!-- OVERVIEW -->
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <div class="right">
-
-                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-                    </div>
                     @if($user->id == Auth::user()->id)
                         <p class="panel-subtitle"><a href="{{url("/editprofile")}}">Edit profile</a> - <a href="{{url("/titles")}}">Title selection</a>
                     @endif
@@ -38,13 +34,10 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Recent activity</h3>
-                            <div class="right">
-                                <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="panel-body">
                             <ul class="list-unstyled activity-list">
+                                @if (count($news) != 0)
                                 @foreach($news as $n)
                                     <li>
                                         <img src="{{url('user_img/' . $user->avatar)}}" alt="Avatar"
@@ -55,6 +48,9 @@
                                             </span></p>
                                     </li>
                                 @endforeach
+                                @else
+                                    <p>No activity to show yet.</p>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -64,10 +60,6 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Skill stats</h3>
-                            <div class="right">
-                                <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i>
-                                </button>
-                            </div>
                         </div>
 
                         <div class="panel-body">

@@ -42,7 +42,7 @@ class SkillActionController extends Controller
     public static function inSkillAction($userId)
     {
         $action = UserSkillAction::where('user_id', $userId)->get();
-        if (count($action) > 0)
+        if (is_countable($action))
             return true;
 
         return false;
@@ -62,7 +62,7 @@ class SkillActionController extends Controller
 
         $action = ObjectController::getSkillAction($user->id, $id);
 
-        if (count($action) > 1) {
+        if (is_countable($action)) {
             $action = $action[$request['i']];
             if (!$action)
                 return redirect('location');
