@@ -32,7 +32,7 @@ class ObjectController extends Controller
         if ($this->hasSkillAction($id)) {
             $action = $this->getSkillAction($user->id, $id);
 
-            if (count($action) > 1) {//show skill action menu
+            if (is_countable($action)) {//show skill action menu
                 return view('skillactionmenu')->with(array(
                     'object' => AreaObject::find($id),
                     'item' => $item,

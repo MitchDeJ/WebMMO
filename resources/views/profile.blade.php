@@ -61,7 +61,6 @@
                 </div>
 
                 <div class="col-md-6">
-                    <!-- RECENT PURCHASES -->
                     <div class="panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Skill stats</h3>
@@ -85,12 +84,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="panel-footer">
-                                <div class="row">
-                                </div>
-                            </div>
                         </div>
-                        <!-- END RECENT PURCHASES -->
                     </div>
                 </div>
             </div>
