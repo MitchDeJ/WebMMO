@@ -6,15 +6,17 @@
 var map = L.map('map', {
     attributionControl:false,
     crs: L.CRS.Simple,
-    minZoom: 2
+    minZoom: 2.5
 });
 
 //decode the JSON
 points = JSON.parse(points);
 
 //setup the bounds and map image
-var bounds = [[0,0], [100, 100]];
-var image = L.imageOverlay(redirect + '/img/maps/example.png', bounds).addTo(map);
+var bounds = [[0,0], [200, 200]];
+var image = L.imageOverlay(redirect + '/img/maps/webmmo.png', bounds).addTo(map);
+map.maxBoundsViscosity = 1.0;
+map.setMaxBounds(bounds);
 
 
 map.fitBounds(bounds);
@@ -22,11 +24,11 @@ map.fitBounds(bounds);
 //defining different icons
 var Icon = L.Icon.extend({
     options: {
-        iconSize:     [44, 60],
+        iconSize:     [40, 54],
         shadowSize:   [50, 64],
         iconAnchor:   [18, 60],
         shadowAnchor: [18, 40],
-        popupAnchor:  [-4, -50]
+        popupAnchor:  [0, -58]
     }
 });
 
@@ -45,8 +47,10 @@ points.forEach(function(point) {
         "<button type='submit'>Travel</button>" +
         "</form>";
 
-    if (point['id'] == current)
+    if (point['id'] == current) {
         html = "<br>You are currently here.";
+        map.panTo(L.latLng([ point['y'], point['x'] ]));
+    }
 
     var newPoint = L.latLng([ point['y'], point['x'] ]);
     L.marker(newPoint, {icon: icon}).addTo(map).bindPopup(

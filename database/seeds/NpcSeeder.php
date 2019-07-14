@@ -11,12 +11,19 @@ class NpcSeeder extends Seeder
     /*
      * NPC definitions
      */
-    public function npcDefinition($npcId) {
+    public function npcDefinition($npcId)
+    {
         switch ($npcId) {
             case 1:
                 return array('Bob', 1);
             case 2:
-                return array('Arran', 1);
+                return array('Mining instructor', 4);
+            case 3:
+                return array('Colin Wood', 2);
+            case 4:
+                return array('Mysterious Merchant', 5);
+            case 5:
+                return array('Fisherman', 3);
 
 
             default:
@@ -24,9 +31,10 @@ class NpcSeeder extends Seeder
         }
     }
 
-    public function getNpcCount() {
+    public function getNpcCount()
+    {
         $count = 0;
-        for ($i = 1; $this->npcDefinition($i) != -1; $i+=1) {
+        for ($i = 1; $this->npcDefinition($i) != -1; $i += 1) {
             $count = $i;
         }
         return $count;

@@ -6,20 +6,21 @@ class AreaObjectSpawnSeeder extends Seeder
 {
     public function run()
     {
-        //cooking range in area 1
-        $this->spawn(1, 1);
-        //fletching table in area 1
-        $this->spawn(2, 1);
-        //trading post in area 1
-        $this->spawn(3, 1);
-        //Bank chest in area 1
-        $this->spawn(4, 1);
-        //furnace in area 1
-        $this->spawn(5, 1);
-        //anvil in area 1
-        $this->spawn(6, 1);
-        //coinfliptable in area 1
-        $this->spawn(7, 1);
+
+        //village (1)
+        $this->spawn(1, 1); //cooking range
+        $this->spawn(4, 1); //Bank chest
+        $this->spawn(3, 1); //trading post
+
+        //lumberyard (2)
+        $this->spawn(2, 2); //fletching table
+
+        //Mining camp (4)
+        $this->spawn(5, 4); //furnace
+        $this->spawn(6, 4); //anvil
+
+        //Mysterious tent (5)
+        $this->spawn(7, 5); //coinflip table
     }
 
     public function spawn($objId, $areaId) {

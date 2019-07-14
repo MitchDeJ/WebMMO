@@ -38,7 +38,7 @@
                                     <tr>
                                         <td>{{\App\User::find($c->user_id)->name}}</td>
                                         <td><img style="width:16px;height:16px;"
-                                                 src="{{url($items->getIconPath(17))}}"/> {{$c->bet}}</td>
+                                                 src="{{url($items->getIconPath(17))}}"/> {{$c->bet}}gp</td>
                                         <td>
                                             <form method="POST" action="{{url('/removecoinflip')}}"
                                                   class="form-inline">
@@ -69,7 +69,7 @@
                                         <tr>
                                             <td>{{\App\User::find($c->user_id)->name}}</td>
                                             <td><img style="width:16px;height:16px;"
-                                                     src="{{url($items->getIconPath(17))}}"/> {{$c->bet}}</td>
+                                                     src="{{url($items->getIconPath(17))}}"/> {{$c->bet}}gp</td>
                                             <td>
                                                 <form method="POST" action="{{url('/playcoinflip')}}"
                                                       class="form-inline">

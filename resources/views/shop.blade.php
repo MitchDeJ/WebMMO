@@ -10,7 +10,9 @@
             <!-- OVERVIEW -->
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{$shop->name}}</h3>
+                    <h3 class="panel-title">{{$shop->name}} &nbsp;<a href="{{url('location')}}"
+                                                               class="btn btn-sm btn-info"
+                                                               style="color: white;">Back to location</a></h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">

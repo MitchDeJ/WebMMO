@@ -11,8 +11,11 @@ class MapPointSeeder extends Seeder
      */
     public function run()
     {
-        $this->point(1, 45, 10);
-        $this->point(2, 18, 80);
+        $this->point(1, 50, 8);
+        $this->point(2, 57, 140);
+        $this->point(3, 155, 16);
+        $this->point(4, 170, 165);
+        $this->point(5, 175, 57);
     }
 
     public function point($areaId, $x, $y) {

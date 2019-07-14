@@ -11,8 +11,12 @@ class LootTableSeeder extends Seeder
      */
     public function run()
     {
-        //make loot table 1 dropped by mob 1 (giant rat)
+        //make loot table 1 dropped by mob 1 (guard)
         $this->setLootTable(1, 1);
+
+        $this->setLootTable(2, 2);
+
+        $this->setLootTable(3, 3);
     }
 
     public function setLootTable($id, $mobId) {

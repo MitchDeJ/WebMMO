@@ -11,8 +11,12 @@ class MobSpawnSeeder extends Seeder
      */
     public function run()
     {
-        //giant rat in area 1
+        //guard in village
         $this->spawn(1, 1);
+        //rock golem in mining camp
+        $this->spawn(2, 4);
+        //dark beast near merchant
+        $this->spawn(3, 5);
     }
 
     public function spawn($mobId, $areaId) {

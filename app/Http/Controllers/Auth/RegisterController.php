@@ -78,17 +78,24 @@ class RegisterController extends Controller
             'description' => 'user description',
             'title' => 0,
             'area_id' => 1,
-            'account_created_at' =>  date("d-m-Y"),
+            'account_created_at' => date("d-m-Y"),
             'remember_token' => 'remembertoken', //TODO
         ]);
 
         $skills = Skill::all();
         foreach ($skills as $skill) {
-            UserSkill::create([
-                'user_id' => $user->id,
-                'skill_id' => $skill->id,
-                'xp_amount' => 0,
-            ]);
+            if ($skill->id == 4) //give HP xp for level 10
+                UserSkill::create([
+                    'user_id' => $user->id,
+                    'skill_id' => $skill->id,
+                    'xp_amount' => 1250,
+                ]);
+            else
+                UserSkill::create([
+                    'user_id' => $user->id,
+                    'skill_id' => $skill->id,
+                    'xp_amount' => 0,
+                ]);
         }
         for ($i = 1; $i <= 28; $i += 1) {
             InventorySlot::create([
@@ -100,7 +107,7 @@ class RegisterController extends Controller
         }
 
         //bank
-        for($i=1; $i<=70; $i+=1) {
+        for ($i = 1; $i <= 70; $i += 1) {
             BankSlot::create([
                 'user_id' => $user->id,
                 'slot' => $i,
@@ -121,6 +128,10 @@ class RegisterController extends Controller
             'user_id' => $user->id,
             'focus_type' => 1
         ]);
+
+        //give starter kit
+        $inv = InventorySlot::getInstance();
+        $inv->addItem($user->id, 17, 2500);
 
         return $user;
     }
