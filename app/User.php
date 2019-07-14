@@ -66,6 +66,10 @@ class User extends Authenticatable
         return $gp;
     }
 
+    public function giveStarterKit() {
+
+    }
+
     /**
      * The attributes that are mass assignable.
      *

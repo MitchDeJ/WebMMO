@@ -22,8 +22,11 @@ class MobSeeder extends Seeder
     public function mobDefinition($npcId) {
         switch ($npcId) {
             case 1:
-                return array('Giant Rat', 1, 1, 1, 1, 5, 2, Constants::$ATTACK_STYLE_MELEE, 5);
-
+                return array('Village guard', 1, 1, 1, 1, 5, 2, Constants::$ATTACK_STYLE_MELEE, 5);
+            case 2:
+                return array('Rock golem', 5, 1, 1, 5, 15, 3, Constants::$ATTACK_STYLE_MELEE, 10);
+            case 3:
+                return array('Dark beast', 10, 1, 1, 10, 25, 3, Constants::$ATTACK_STYLE_MELEE, 10);
 
             default:
                 return -1;

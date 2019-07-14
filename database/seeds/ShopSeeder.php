@@ -11,13 +11,24 @@ class ShopSeeder extends Seeder
 
     public function run()
     {
-        //test shop
-        $this->shop(1, "Bob's Test Shop", array(
-            array(5, 10, 750, 150),
-            array(6, 10, 1000, 250),
-            array(7, 10, 1000, 250),
-            array(8, 10, 2000, 500),
-            array(12, 0, 200, 100)
+        //merchant
+        $this->shop(1, "Mysterious Merchant's Wares", array(
+            array(2, 10, 100, 10), //rod
+            array(13, 10, 100, 10),//knife
+            array(25, 10, 100, 10),//hammer
+            array(24, 10, 100, 10),//blacksmith gloves
+            array(15, 10, 500, 50),//bowstring
+            array(18, 10, 10, 1),//arrows
+        ));
+
+        //Adventurer store
+        $this->shop(2, "Adventurer's Store", array(
+            array(8, 10, 3000, 300), //sword
+            array(9, 10, 3000, 300), //shield
+            array(10, 10, 10000, 1000),//amulet
+            array(16, 10, 7500, 750),//bow
+            array(12, 10, 750, 75),//fish
+            array(23, 10, 1500, 150),//bronze bar
         ));
     }
 

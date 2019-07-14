@@ -14,9 +14,15 @@ class AreaSeeder extends Seeder
     public function areaDefinition($areaId) {
         switch ($areaId) {
             case 1:
-                return array('Example Area', 'This is an example area.');
+                return array('Village', 'A small village.');
             case 2:
-                return array('Another Example Area', 'This is another example area.');
+                return array('Lumberyard', 'There are many trees around here.');
+            case 3:
+                return array('Fishing docks', 'People fish here.');
+            case 4:
+                return array('Mining camp', 'There are many rocks around here.');
+            case 5:
+                return array("Mysterious tent", "I wonder what's inside.");
 
             default:
                 return -1;

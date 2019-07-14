@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Auth;
 
 class NpcController extends Controller
 {
-    public function interact(Request $request) {
+    public function interact(Request $request)
+    {
         $user = Auth::user();
         $area = Area::find($user->area_id);
         $npcId = $request['id'];
@@ -32,11 +33,11 @@ class NpcController extends Controller
         $npc = Npc::find($npcId);
 
         //starting dialogue
-        if ($this->getDialogue($npcId) != -1) {
-            $dId = $this->getDialogue($npcId);
+        if ($this->getDialogue($npcId, $user->id) != -1) {
+            $dId = $this->getDialogue($npcId, $user->id);
             $msgs = DialogueMessage::where('dialogue_id', $dId)->get();
             $dialogue = array();
-            foreach($msgs as $msg) {
+            foreach ($msgs as $msg) {
                 $toAdd = array();
                 $toAdd['actor'] = $msg->actor;
                 $toAdd['text'] = $msg->text;
@@ -55,11 +56,12 @@ class NpcController extends Controller
         if ($this->getShop($npcId) != -1) {
             $shopId = $this->getShop($npcId);
             $shop = Shop::find($shopId);
-            return redirect('shop/'.$shopId);
+            return redirect('shop/' . $shopId);
         }
     }
 
-    public function endDialogue(Request $request) {
+    public function endDialogue(Request $request)
+    {
         $user = Auth::user();
         $inv = InventorySlot::getInstance();
         $d = $user->getDialogue();
@@ -68,10 +70,14 @@ class NpcController extends Controller
             return response('OK', 200)
                 ->header('Content-Type', 'text/plain');
 
-        switch($d) {
+        switch ($d) {
 
-            case 1://default dialogue gives an apple.;
-                $inv->addItem($user->id, 11, 1);
+            case 1://mining instructor gives a pickaxe
+                $inv->addItem($user->id, 20, 1);
+                break;
+
+            case 3://wc instructor gives an axe
+                $inv->addItem($user->id, 1, 1);
                 break;
         }
 
@@ -81,8 +87,9 @@ class NpcController extends Controller
             ->header('Content-Type', 'text/plain');
     }
 
-    public static function getOption($npcId) {
-        if (NpcController::getDialogue($npcId) != -1)
+    public static function getOption($npcId)
+    {
+        if (NpcController::getDialogue($npcId, 1) != -1)
             return "Talk";
 
         if (NpcController::getShop($npcId) != -1)
@@ -92,20 +99,41 @@ class NpcController extends Controller
     }
 
 
-    public static function getDialogue($npcId) {
-        switch($npcId) {
-            case 2://arran
-                return 1;//example dialogue
+    public static function getDialogue($npcId, $userId)
+    {
+        $inv = InventorySlot::getInstance();
+
+        switch ($npcId) {
+
+            case 2://Mining instructor
+                if (!$inv->hasItem($userId, 20, 1))
+                    return 1;//give pickaxe
+                else
+                    return 2; //only inform
+            break;
+
+            case 3://Woodcutting instructor
+                if (!$inv->hasItem($userId, 1, 1))
+                    return 3;//give axe
+                else
+                    return 4; //only inform
+                break;
+
+            case 5://fisherman
+                return 5;
 
             default:
                 return -1;
         }
     }
 
-    public static function getShop($npcId) {
-        switch($npcId) {
+    public static function getShop($npcId)
+    {
+        switch ($npcId) {
             case 1://bob
-                return 1;//example shop
+                return 2;//adventurers shop
+            case 4:
+                return 1; //merchant wares
 
             default:
                 return -1;
