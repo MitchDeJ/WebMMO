@@ -30,11 +30,8 @@
                                               class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
-            <div class="navbar-btn">
-                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
-            </div>
             <form class="navbar-form navbar-left">
-                Placeholder left
+                Placeholder NAV
             </form>
             <div id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right">
@@ -102,39 +99,6 @@
         </div>
     </nav>
     <!-- END NAVBAR -->
-    <!-- LEFT SIDEBAR -->
-    <div id="sidebar-nav" class="sidebar">
-        <div class="sidebar-scroll">
-            <nav>
-                <ul class="nav">
-                    <li><a href="{{ url('/home') }}" @if(Route::currentRouteName() === 'home') class="active"@endif><i
-                                    class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                    <li><a href="{{ url('/location') }}"
-                           @if(Route::currentRouteName() === 'location') class="active"@endif><i
-                                    class="lnr lnr-location"></i> <span>Location</span></a></li>
-                    <li><a href="{{ url('/map') }}" @if(Route::currentRouteName() === 'map') class="active"@endif><i
-                                    class="fa fa-globe"></i> <span>World map</span></a></li>
-                    <li><a href="{{ url('/inventory') }}"
-                           @if(Route::currentRouteName() === 'inventory') class="active"@endif><i
-                                    class="fa fa-shopping-bag"></i> <span>Inventory</span></a></li>
-                    <li><a href="{{ url('/market') }}" @if(Route::currentRouteName() === 'market') class="active"@endif><i
-                                    class="fa fa-dollar"></i> <span>Marketplace</span></a></li>
-                    <li>
-                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="fa fa-list"></i> <span>Highscores</span></a>
-                        <div id="subPages" class="collapse">
-                            <ul class="nav">
-                                <li><a href="{{ url('/highscores/') }}" class="">Overall</a></li>
-                                @foreach(\App\Skill::all() as $s)
-                                    <li><a href="{{ url('/highscores/'.$s->name.'/1') }}" class="">{{$s->name}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <!-- END LEFT SIDEBAR -->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -143,12 +107,10 @@
     <script>$.widget.bridge("tlp", $.ui.tooltip);</script>
     <script src="{{ asset('assets/vendor/levelup.js') }}"></script>
     <!-- MAIN -->
-    <div class="main">
     @include('layouts.appmessage')
     <!-- MAIN CONTENT -->
         @include('layouts.levelup')
         @yield('content')
-    </div>
 </div>
 <!-- Javascript -->
 <script src="{{ asset('assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
