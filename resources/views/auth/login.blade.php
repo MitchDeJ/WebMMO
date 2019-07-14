@@ -42,7 +42,7 @@
                     Forgot your password?
                 </a>
             </div>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Login</button>
+            <button class="button btn-lg btn-primary btn-block btn-signin" type="submit">Login</button>
         </form>
         <p class="text-center">Don't have an account yet? Create one <a href="{{ route('password.request') }}">here</a>.
         </p>
