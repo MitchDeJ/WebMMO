@@ -1,3 +1,8 @@
+* {
+    font-family: 'Raleway', sans-serif;
+    color: white;
+}
+
 .panel .panel-heading {
     padding-bottom: 0;
 }
@@ -101,4 +106,57 @@
 
 #passwordLabel {
     margin-top: 20px;
+}
+
+.navbar {
+    background-color: #26282b;
+}
+
+.brand {
+    background-color: #26282b !important;
+}
+
+#sidebar-nav {
+    background-color: #26282b !important;
+}
+
+.panel {
+    background-color: #2c2e30;
+    border: solid 1px #26282b;
+}
+
+html,
+.main,
+.main-content{
+    background-color: #2f3133 !important;
+}
+
+.sidebar .nav > li > a:focus, .sidebar .nav > li > a.active {
+    background-color: #2f3542;
+    border-left-color: #57606f;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #26282b;
+}
+
+.dropdown-menu {
+    background-color: #26282b;
+    border: none;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #2C2E30 !important;
+}
+
+select {
+    background-color: #2f3133 !important;
+    border: none !important;
+    color: white !important;
+}
+
+input {
+    background-color: #2f3133 !important;
+    border: none !important;
+    color: white !important;
 }
