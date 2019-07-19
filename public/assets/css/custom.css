@@ -3,6 +3,14 @@
     color: white;
 }
 
+a {
+    color: #57606f;
+}
+
+a:hover {
+    color: white;
+}
+
 .panel .panel-heading {
     padding-bottom: 0;
 }
@@ -41,7 +49,7 @@
  * Card component
  */
 .card {
-    background-color: white;
+    background-color: #2c2e30;
     /* just in case there no content*/
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
@@ -72,7 +80,7 @@
 }
 
 .button.btn-signin {
-    background-color: #c0392b;
+    background-color: #57606f;
     padding: 25px;
     font-weight: 700;
     font-size: 14px;
@@ -91,7 +99,7 @@
 .button.btn-signin:hover,
 .button.btn-signin:active,
 .button.btn-signin:focus {
-    background-color: #e74c3c;
+    background-color: #2f3542;
 }
 
 #loginTitle {
@@ -127,7 +135,8 @@
 
 html,
 .main,
-.main-content{
+.main-content,
+#wrapper {
     background-color: #2f3133 !important;
 }
 
